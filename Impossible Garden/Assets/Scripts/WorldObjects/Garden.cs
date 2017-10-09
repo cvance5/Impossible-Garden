@@ -4,18 +4,34 @@ using UnityEngine;
 
 public class Garden : MonoBehaviour
 {
-    Plot[,] GardenPlots;
+    public Plot[,] GardenPlots { get; private set; }
 
-    public void Initialize()
+    public void Initialize(Plot[,] plots)
     {
+        GardenPlots = plots;
 
+        foreach(Plot plot in plots)
+        {
+            plot.Initialize();
+        }
     }
 
-    private void OnDestroy()
+    public Plot GetPlot(Vector3 location)
     {
-        foreach(Plot plot in GardenPlots)
+        return GetPlot(Mathf.RoundToInt(location.x), Mathf.RoundToInt(location.z));
+    }
+    public Plot GetPlot(int column, int row)
+    {
+        Plot selectedPlot = null;
+
+        if(column < GardenPlots.GetLength(0) && column >= 0)
         {
-            Destroy(plot.gameObject);
+            if(row < GardenPlots.GetLength(1) && row >= 0)
+            {
+                selectedPlot = GardenPlots[column, row];
+            }
         }
+
+        return selectedPlot;
     }
 }

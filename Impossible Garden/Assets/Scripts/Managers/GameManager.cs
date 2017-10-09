@@ -15,6 +15,7 @@ public class GameManager : Singleton<GameManager> {
     }
     private void Start()
     {
+        TurnManager.Reset();
         GardenManager.Instance.GenerateGarden(10,10);
     }
 }
