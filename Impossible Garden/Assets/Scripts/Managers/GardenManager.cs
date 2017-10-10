@@ -42,7 +42,7 @@ public class GardenManager : Singleton<GardenManager>
     }
     public void GrowAllPlants()
     {
-        foreach(PlantManager activePlant in _activePlants)
+        foreach (PlantManager activePlant in _activePlants)
         {
             if(activePlant != null)
             {

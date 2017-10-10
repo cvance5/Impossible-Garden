@@ -13,10 +13,26 @@ public static class TurnManager
     {
         TurnNumber = 0;
     }
+
     public static void AdvanceTurn()
     {
-        DOTween.CompleteAll(true);
-        GardenManager.Instance.GrowAllPlants();
-        Log.Info("Turn Number: " + TurnNumber);
+        if(DOTween.TotalPlayingTweens() > 0)
+        {
+            ClearTweenQueue();
+        }
+        else
+        {
+
+            GardenManager.Instance.GrowAllPlants();
+            Log.Info("Turn Number: " + TurnNumber);
+        }
+    }
+    
+    private static void ClearTweenQueue()
+    {
+        while(DOTween.TotalPlayingTweens() > 0)
+        {
+            DOTween.CompleteAll(true);
+        }
     }
 }

@@ -54,7 +54,7 @@ public class PlantManager : MonoBehaviour
             Destroy(this);
         };
 
-                    GardenManager.Instance.RemovePlant(this);
+        GardenManager.Instance.RemovePlant(this);
         _plantVisualizer.transform.DOScale(Vector3.zero, 1f).OnComplete(() => onPlantRemoved());
     }
     private void OnDestroy()

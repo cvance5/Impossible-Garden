@@ -25,10 +25,15 @@ public abstract class Plant
         InitializePropogationCondition();
     }
 
-    protected abstract void InitializePropogationCondition();
-    protected abstract void InitializeStageDuration();
-    public void Grow()
+    protected void InitializePropogationCondition()
     {
+        ShouldPropogate = CheckPropogation;
+    }
+    protected abstract void InitializeStageDuration();
+    protected abstract bool CheckPropogation(Plot plot);
+
+    public void Grow()
+    {        
         GrowthTimer++;
 
         if(GrowthTimer > StageDuration[GrowthStage])
@@ -47,6 +52,15 @@ public abstract class Plant
         }
         else
         {
+            ApplyGrowthEffects();
+        }
+    }
+    public void Wilt()
+    {
+        if (GrowthStage < StageDuration.Count - 1)
+        {
+            GrowthStage = StageDuration.Count - 1;
+            ChangeGrowthStage();
             ApplyGrowthEffects();
         }
     }

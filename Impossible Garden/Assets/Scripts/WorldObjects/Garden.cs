@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,6 +32,14 @@ public class Garden : MonoBehaviour
                 selectedPlot = GardenPlots[column, row];
             }
         }
+
+        return selectedPlot;
+    }
+    public Plot GetPlot(Func<Plot[,], Plot> condition)
+    {
+        Plot selectedPlot = null;
+
+        selectedPlot = condition(GardenPlots);
 
         return selectedPlot;
     }

@@ -3,12 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grass : Plant
+public class ShimmerGrass : Plant
 {
     protected override void InitializeStageDuration()
     {
-        GrowthStage = 0;
-        GrowthTimer = 0;
         StageDuration = new Dictionary<int, int>()
         {
             {0, 3},
@@ -16,15 +14,12 @@ public class Grass : Plant
             {2, 1 }
         };
     }
-    protected override void InitializePropogationCondition()
-    {
-        ShouldPropogate = CheckPropogation;
-    }
-    private bool CheckPropogation(Plot target)
+
+    protected override bool CheckPropogation(Plot target)
     {
         bool shouldPropogate = false;
 
-        if(target.CurrentPlant == null)
+        if(target.CurrentPlantManager == null)
         {
             if(Manager.MyPlot.IsNeighbor(target))
             {
@@ -34,6 +29,7 @@ public class Grass : Plant
 
         return shouldPropogate;
     }
+
     protected override void ApplyGrowthEffects()
     {
         switch(GrowthStage)

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 136319729693755270}
   - component: {fileID: 23245508653904972}
   m_Layer: 0
-  m_Name: Grass
+  m_Name: ShimmerGrass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
