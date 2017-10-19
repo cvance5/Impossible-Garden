@@ -24,7 +24,6 @@ public static class TurnManager
         {
 
             GardenManager.Instance.GrowAllPlants();
-            Log.Info("Turn Number: " + TurnNumber);
         }
     }
     

@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\Utilities\Debug\FreeCamera.cs" />
     <Compile Include="Assets\Scripts\Utilities\Debug\Log.cs" />
     <Compile Include="Assets\Scripts\Utilities\ScritableObjectUtility.cs" />
+    <Compile Include="Assets\Scripts\Utilities\Settings.cs" />
     <Compile Include="Assets\Scripts\Utilities\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utilities\SmartEvent.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Garden.cs" />

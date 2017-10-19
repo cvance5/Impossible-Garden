@@ -5,16 +5,6 @@ using UnityEngine;
 
 public class ShimmerGrass : Plant
 {
-    protected override void InitializeStageDuration()
-    {
-        StageDuration = new Dictionary<int, int>()
-        {
-            {0, 3},
-            {1, 5},
-            {2, 1 }
-        };
-    }
-
     protected override bool CheckPropogation(Plot target)
     {
         bool shouldPropogate = false;
@@ -51,6 +41,6 @@ public class ShimmerGrass : Plant
 
     protected override void ChangeGrowthStage()
     {
-        Log.Info(this + " has grown to a new stage!");
+
     }
 }

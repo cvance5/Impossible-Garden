@@ -12,7 +12,7 @@ public abstract class Plant
 
     public int GrowthStage;
     public int GrowthTimer;
-    public Dictionary<int, int> StageDuration;
+    public List<int> StageDuration;
 
     public PlantManager Manager;
 
@@ -29,7 +29,10 @@ public abstract class Plant
     {
         ShouldPropogate = CheckPropogation;
     }
-    protected abstract void InitializeStageDuration();
+    protected void InitializeStageDuration()
+    {
+        StageDuration = GameManager.Instance.Settings.DurationMap[GetType()];
+    }
     protected abstract bool CheckPropogation(Plot plot);
 
     public void Grow()

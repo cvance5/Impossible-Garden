@@ -11,16 +11,6 @@ public class Clover : Plant
     private Clover source;
     private List<Clover> derivatives;
 
-    protected override void InitializeStageDuration()
-    {
-        StageDuration = new Dictionary<int, int>()
-        {
-            {0, 3},
-            {1, 12},
-            {2, 1 }
-        };
-    }
-
     protected override bool CheckPropogation(Plot plot)
     {        
         bool shouldPropogate = false;
