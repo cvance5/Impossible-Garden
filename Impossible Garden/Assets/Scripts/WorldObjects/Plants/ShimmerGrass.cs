@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ShimmerGrass : Plant
 {
@@ -20,12 +17,17 @@ public class ShimmerGrass : Plant
         return shouldPropogate;
     }
 
+    protected override void RandomizePlantAppearance()
+    {
+        Manager.transform.Rotate(0, Random.Range(0, 270), 0);
+    }
+
     protected override void ApplyGrowthEffects()
     {
         switch(GrowthStage)
         {
             case 0:
-                Manager.SmoothlyScalePlant(new Vector3(.25f, GrowthTimer / (float)StageDuration[GrowthStage], .25f));
+                Manager.SmoothlyScalePlant(new Vector3(1, GrowthTimer / (float)StageDuration[GrowthStage], 1));
                 break;
             case 1:
                 Manager.Propogate();

@@ -23,6 +23,7 @@ public abstract class Plant
 
         InitializeStageDuration();
         InitializePropogationCondition();
+        RandomizePlantAppearance();
     }
 
     protected void InitializePropogationCondition()
@@ -33,6 +34,8 @@ public abstract class Plant
     {
         StageDuration = GameManager.Instance.Settings.DurationMap[GetType()];
     }
+
+    protected virtual void RandomizePlantAppearance() { }
     protected abstract bool CheckPropogation(Plot plot);
 
     public void Grow()
