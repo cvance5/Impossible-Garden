@@ -10,6 +10,8 @@ public abstract class Plant
     public delegate bool PropogationCondition(Plot target);
     public PropogationCondition ShouldPropogate;
 
+    public Dictionary<string, GameObject> PartsMap;
+
     public int GrowthStage;
     public int GrowthTimer;
     public List<int> StageDuration;
@@ -21,11 +23,12 @@ public abstract class Plant
         GrowthStage = 0;
         GrowthTimer = 0;
 
+        InitializePlantPartsMap();
         InitializeStageDuration();
         InitializePropogationCondition();
-        RandomizePlantAppearance();
     }
 
+    protected abstract void InitializePlantPartsMap();
     protected void InitializePropogationCondition()
     {
         ShouldPropogate = CheckPropogation;
@@ -35,7 +38,7 @@ public abstract class Plant
         StageDuration = GameManager.Instance.Settings.DurationMap[GetType()];
     }
 
-    protected virtual void RandomizePlantAppearance() { }
+    public virtual void PreparePlantAppearance() { }
     protected abstract bool CheckPropogation(Plot plot);
 
     public void Grow()

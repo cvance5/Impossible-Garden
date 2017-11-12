@@ -60,8 +60,6 @@ public class GardenManager : Singleton<GardenManager>
     public PlantManager FillPlot(Plant source, Plot caller)
     {
         GameObject plantObject = Instantiate(_defaultPlantObject, caller.transform);
-        //Offset object position above plot
-        plantObject.transform.position += Vector3.up / 2;
 
         PlantManager plantManager = plantObject.GetComponent<PlantManager>();
         plantManager.Initialize(source, caller);

@@ -23,6 +23,11 @@ public class Clover : Plant
         return shouldPropogate;
     }
 
+    protected override void InitializePlantPartsMap()
+    {
+        throw new NotImplementedException();
+    }
+
     protected override void ApplyGrowthEffects()
     {
         switch(GrowthStage)
