@@ -90,11 +90,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Gameplay\DifficultySettings.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Objective.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Objectives\TotalGrowthObjective.cs" />
     <Compile Include="Assets\Scripts\Gameplay\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GardenManager.cs" />
     <Compile Include="Assets\Scripts\Managers\LoadManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\ObjectiveManager.cs" />
     <Compile Include="Assets\Scripts\Managers\PlantManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TurnManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\Debug\FreeCamera.cs" />
     <Compile Include="Assets\Scripts\Utilities\Debug\Log.cs" />
@@ -103,6 +108,8 @@
     <Compile Include="Assets\Scripts\Utilities\Settings.cs" />
     <Compile Include="Assets\Scripts\Utilities\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utilities\SmartEvent.cs" />
+    <Compile Include="Assets\Scripts\UX\Player.cs" />
+    <Compile Include="Assets\Scripts\UX\User.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Garden.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\Clover.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\Plant.cs" />

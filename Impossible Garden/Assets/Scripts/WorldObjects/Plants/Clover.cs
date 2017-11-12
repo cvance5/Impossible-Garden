@@ -25,7 +25,10 @@ public class Clover : Plant
 
     protected override void InitializePlantPartsMap()
     {
-        throw new NotImplementedException();
+        PartsMap = new Dictionary<string, GameObject>()
+        {
+            {"Clover", null }
+        };
     }
 
     protected override void ApplyGrowthEffects()

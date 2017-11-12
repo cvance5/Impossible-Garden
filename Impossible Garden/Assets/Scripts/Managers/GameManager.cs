@@ -6,7 +6,7 @@ public class GameManager : Singleton<GameManager> {
 
     public static SmartEvent OnGameLoaded = new SmartEvent();
 
-    public GameSettings Settings = null;
+    public GameSettings Settings;
 
     private void Awake()
     {
@@ -23,6 +23,28 @@ public class GameManager : Singleton<GameManager> {
     private void Start()
     {
         TurnManager.Reset();
+        PlayerManager.Initialize();
+        ObjectiveManager.Initialize();
+
         GardenManager.Instance.GenerateGarden(10,10);
+
+        List<User> users = new List<User>();
+
+        for(uint i = 0; i < Settings.NumberPlayers; i++)
+        {
+            users.Add(new User("Player " + i, i));
+        }
+
+        ObjectiveManager.PrepareObjectivesForPlayers(PlayerManager.AssignPlayers(users));
+
+        foreach(Player player in PlayerManager.Players)
+        {
+            Log.Info(player.UserData.Username + " has been assigned " + player.GameObjective.Title);
+        }
+    }
+
+    public void EndGame()
+    {
+
     }
 }
