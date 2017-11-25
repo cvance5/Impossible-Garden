@@ -8,11 +8,11 @@ public abstract class Objective : ScriptableObject
     public string Description;
 
     [Header("Plants Per Difficulty")]
-    public List<Type> EasyPlants;
-    public List<Type> MediumPlants;
-    public List<Type> HardPlants;
+    public List<PlantTypes> EasyPlants;
+    public List<PlantTypes> MediumPlants;
+    public List<PlantTypes> HardPlants;
 
-    private Dictionary<DifficultySettings, List<Type>> plantsPerDifficulty;
+    protected Dictionary<DifficultySettings, List<Type>> plantsPerDifficulty;
 
     public bool IsComplete { get; private set; }
 
@@ -23,12 +23,47 @@ public abstract class Objective : ScriptableObject
 
     void OnValidate()
     {
-        plantsPerDifficulty = new Dictionary<DifficultySettings, List<Plant>>()
+        plantsPerDifficulty = new Dictionary<DifficultySettings, List<Type>>();
+
+        foreach(DifficultySettings difficulty in Enum.GetValues(typeof(DifficultySettings)))
         {
-            {DifficultySettings.Easy, EasyPlants },
-            {DifficultySettings.Medium, MediumPlants },
-            {DifficultySettings.Hard, HardPlants }
-        };
+            plantsPerDifficulty.Add(difficulty, new List<Type>());
+
+            List<PlantTypes> source = null;
+            switch(difficulty)
+            {
+                case DifficultySettings.Easy:
+                    source = EasyPlants;
+                    break;
+                case DifficultySettings.Medium:
+                    source = MediumPlants;
+                    break;
+                case DifficultySettings.Hard:
+                    source = HardPlants;
+                    break;
+            }
+
+            foreach(PlantTypes plantType in source)
+            {
+                Type type;
+
+                switch(plantType)
+                {
+                    case PlantTypes.Shimmergrass:
+                        type = typeof(Shimmergrass);
+                        break;
+                    case PlantTypes.Clover:
+                        type = typeof(Clover);
+                        break;
+                    default:
+                        Log.Error("Unidentified type!");
+                        type = null;
+                        break;
+                }
+
+                plantsPerDifficulty[difficulty].Add(type);
+            }
+        }
     }
     
     public void CompletionUpdate()

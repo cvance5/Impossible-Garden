@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class ObjectiveManager
+public class ObjectiveManager : Singleton<ObjectiveManager>
 {
-    private static List<Objective> _assignedObjectives;
+    public List<Objective> Objectives;
 
-    public static void Initialize()
+    private List<Objective> _assignedObjectives;
+
+    public void Initialize()
     {
         TurnManager.EndTurn += CheckObjectiveCompletion;
     }
 
-    public static void PrepareObjectivesForPlayers(List<Player> players)
+    public void PrepareObjectivesForPlayers(List<Player> players)
     {
         _assignedObjectives = new List<Objective>();
-        Objective[] availableObjectives = GameManager.Instance.Settings.Objectives.ToArray();
+        Objective[] availableObjectives = Objectives.ToArray();
 
         foreach(Player player in players)
         {
@@ -34,7 +36,7 @@ public static class ObjectiveManager
         }
     }
 
-    private static Objective ValidateObjective(Objective possibleObjective)
+    private Objective ValidateObjective(Objective possibleObjective)
     {
         if(!possibleObjective.HasDifficulty(GameManager.Instance.Settings.Difficulty))
         {
@@ -43,7 +45,7 @@ public static class ObjectiveManager
         return possibleObjective;
     }
 
-    private static void CheckObjectiveCompletion(int turnNumber)
+    private void CheckObjectiveCompletion(int turnNumber)
     {
         bool hasWon = true;
 

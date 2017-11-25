@@ -24,8 +24,8 @@ public class GameManager : Singleton<GameManager> {
     {
         TurnManager.Reset();
         PlayerManager.Initialize();
-        ObjectiveManager.Initialize();
 
+        ObjectiveManager.Instance.Initialize();
         GardenManager.Instance.GenerateGarden(10,10);
 
         List<User> users = new List<User>();
@@ -35,13 +35,15 @@ public class GameManager : Singleton<GameManager> {
             users.Add(new User("Player " + i, i));
         }
 
-        ObjectiveManager.PrepareObjectivesForPlayers(PlayerManager.AssignPlayers(users));
+        ObjectiveManager.Instance.PrepareObjectivesForPlayers(PlayerManager.AssignPlayers(users));
 
         foreach(Player player in PlayerManager.Players)
         {
-            Log.Info(player.UserData.Username + " has been assigned " + player.GameObjective.Title);
+            Log.Info(player.UserData.Username + " has been assigned " + player.GameObjective.Title + ". /n" + player.GameObjective.Description);
+            player.GameObjective.Initialize(Settings.Difficulty, Settings.NumberPlayers);
         }
     }
+
 
     public void EndGame()
     {

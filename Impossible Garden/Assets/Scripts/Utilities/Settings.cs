@@ -14,7 +14,6 @@ public class GameSettings : ScriptableObject
 
     [Header("Game Settings")]
     public DifficultySettings Difficulty;
-    public List<Objective> Objectives;
 
     public Dictionary<Type, List<int>> DurationMap;
 
@@ -32,7 +31,7 @@ public class GameSettings : ScriptableObject
     {
         DurationMap = new Dictionary<Type, List<int>>()
         {
-            {typeof(ShimmerGrass), ShimmerGrassStageDurations },
+            {typeof(Shimmergrass), ShimmerGrassStageDurations },
             {typeof(Clover), CloverStageDurations }
         };
     }

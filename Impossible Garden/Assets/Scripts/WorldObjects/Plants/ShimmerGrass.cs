@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ShimmerGrass : Plant
+public class Shimmergrass : Plant
 {
     protected override bool CheckPropogation(Plot target)
     {

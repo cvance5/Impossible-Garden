@@ -113,7 +113,8 @@
     <Compile Include="Assets\Scripts\WorldObjects\Garden.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\Clover.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\Plant.cs" />
-    <Compile Include="Assets\Scripts\WorldObjects\Plants\ShimmerGrass.cs" />
+    <Compile Include="Assets\Scripts\WorldObjects\Plants\PlantTypes.cs" />
+    <Compile Include="Assets\Scripts\WorldObjects\Plants\Shimmergrass.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plot.cs" />
   </ItemGroup>
   <ItemGroup>

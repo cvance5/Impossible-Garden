@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Awake()
     {
-        SelectedPlant = new ShimmerGrass();
+        SelectedPlant = new Shimmergrass();
     }
 
     void Update()
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
                 {
                     targetPlot.Sow(SelectedPlant);
 
-                    SelectedPlant = new ShimmerGrass();
+                    SelectedPlant = new Shimmergrass();
                 }
             }
             else
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SelectedPlant = new ShimmerGrass();
+            SelectedPlant = new Shimmergrass();
             Log.Info("Selected ShimmerGrass");
         }
 

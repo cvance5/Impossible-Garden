@@ -17,7 +17,7 @@ public static class LoadManager
         {
             Log.Error("Failed to load resource at " + path + resourceName + ".");
         }
-        if(!resource is T)
+        if(!(resource is T))
         {
             Log.Error("Resource is not the expected type at " + path + resourceName + ". Result: " + resource.GetType().ToString() + ".");
         }
