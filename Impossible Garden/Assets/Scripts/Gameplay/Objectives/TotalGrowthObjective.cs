@@ -21,7 +21,7 @@ public class TotalGrowthObjective : Objective
 
     protected override bool Evaluate()
     {
-        Plot[,] plots = GardenManager.Instance.ActiveGarden.GardenPlots;
+        Plot[,] plots = GardenManager.Instance.ActiveGarden.Plots;
 
         int amountOfType = 0;
         bool isComplete = false;

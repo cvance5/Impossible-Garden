@@ -40,7 +40,7 @@ public class PlantManager : MonoBehaviour
 
     public void Propogate()
     {
-        foreach(Plot plot in GardenManager.Instance.ActiveGarden.GardenPlots)
+        foreach(Plot plot in GardenManager.Instance.ActiveGarden.Plots)
         {
             if(MyPlant.ShouldPropogate(plot))
             {
@@ -161,6 +161,7 @@ public class PlantManager : MonoBehaviour
         GardenManager.Instance.RemovePlant(this);
         _plantVisualizer.transform.DOScale(Vector3.zero, 1f).OnComplete(() => onPlantRemoved());
     }
+
     private void OnDestroy()
     {
         Destroy(_plantVisualizer);

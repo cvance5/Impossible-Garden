@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public static class PlayerManager
+public class PlayerManager : Singleton<PlayerManager>
 {
-    public static List<Player> Players { get; private set; }
-    public static int PlayerCount
+    public List<Player> Players { get; private set; }
+    public int PlayerCount
     {
         get
         {
@@ -13,25 +13,52 @@ public static class PlayerManager
         }
     }
 
-    public static void Initialize()
-    {
-        TurnManager.BeginTurn += GivePlayerControl;
-    }
-
-    public static List<Player> AssignPlayers(List<User> users)
+    public List<Player> AssignPlayers(List<User> users)
     {
         Players = new List<Player>();
 
-        foreach(User user in users)
+        for (int userNumber = 0; userNumber < users.Count; userNumber++) 
         {
-            Players.Add(new Player(user));
+            User user = users[userNumber];
+
+            GameObject player = new GameObject(user.Username);
+            player.transform.SetParent(transform);
+
+            Vector2 startDirection = _playerLocations[Mathf.RoundToInt(((float)_playerLocations.Length / users.Count) * userNumber)];
+            Vector2 edge = GardenManager.Instance.ActiveGarden.FindEdge(startDirection);
+
+            PlayerController controller = player.AddComponent<PlayerController>();
+            
+            Players.Add(new Player(user, controller));
         }
 
         return Players;
     }
 
-    private static void GivePlayerControl(int turnNumber)
+    public void SetTurnController(int turn)
     {
+        Player turnPlayer = Players[turn % PlayerCount];
 
+        SetControl(turnPlayer);
     }
+
+    public void SetControl(params Player[] controllers)
+    {
+        foreach(Player player in Players)
+        {
+            player.SetControl(controllers.Contains(player));     
+        }
+    }
+
+    private readonly Vector2[] _playerLocations =
+    {
+        new Vector2(1, 1),
+        new Vector2(1, 0),
+        new Vector2(1, -1),
+        new Vector2(0, -1),        
+        new Vector2(-1, -1),
+        new Vector2(-1, 0),
+        new Vector2(-1, 1),
+        new Vector2(0, 1)
+    };
 }

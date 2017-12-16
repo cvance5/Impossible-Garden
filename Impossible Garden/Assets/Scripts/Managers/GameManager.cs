@@ -19,11 +19,13 @@ public class GameManager : Singleton<GameManager> {
         }
 
         OnGameLoaded.Raise();
+
+        TurnManager.EndTurn += OnTurnEnd;
+        TurnManager.BeginTurn += OnTurnBegin;
     }
     private void Start()
     {
-        TurnManager.Reset();
-        PlayerManager.Initialize();
+        TurnManager.Instance.Reset();
 
         ObjectiveManager.Instance.Initialize();
         GardenManager.Instance.GenerateGarden(10,10);
@@ -35,15 +37,26 @@ public class GameManager : Singleton<GameManager> {
             users.Add(new User("Player " + i, i));
         }
 
-        ObjectiveManager.Instance.PrepareObjectivesForPlayers(PlayerManager.AssignPlayers(users));
+        ObjectiveManager.Instance.PrepareObjectivesForPlayers(PlayerManager.Instance.AssignPlayers(users));
 
-        foreach(Player player in PlayerManager.Players)
+        foreach(Player player in PlayerManager.Instance.Players)
         {
             Log.Info(player.UserData.Username + " has been assigned " + player.GameObjective.Title + ". /n" + player.GameObjective.Description);
             player.GameObjective.Initialize(Settings.Difficulty, Settings.NumberPlayers);
         }
+
+        PlayerManager.Instance.SetTurnController(0);
     }
 
+    private void OnTurnEnd(int turn)
+    {
+        PlayerManager.Instance.SetControl();
+    }
+
+    private void OnTurnBegin(int turn)
+    {
+        PlayerManager.Instance.SetTurnController(turn);
+    }
 
     public void EndGame()
     {

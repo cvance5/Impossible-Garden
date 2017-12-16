@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public Plant SelectedPlant { get; private set; }
+    public bool HasControl = false;
 
     private void Awake()
     {
@@ -13,42 +14,32 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(HasControl)
         {
-            GameObject clickTarget = GetClickTarget();
-            if(clickTarget != null)
+            if (Input.GetMouseButtonDown(0))
             {
-                Plot targetPlot = clickTarget.GetComponent<Plot>();
-
-                if (targetPlot != null)
+                GameObject clickTarget = GetClickTarget();
+                if (clickTarget != null)
                 {
-                    targetPlot.Sow(SelectedPlant);
+                    Plot targetPlot = clickTarget.GetComponent<Plot>();
 
-                    SelectedPlant = new Shimmergrass();
+                    if (targetPlot != null)
+                    {
+                        targetPlot.Sow(SelectedPlant);
+
+                        SelectedPlant = new Shimmergrass();
+                    }
+                }
+                else
+                {
+                    Log.Warning("Clicked nothing!");
                 }
             }
-            else
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                Log.Info("Clicked nothing!");
+                StartCoroutine(TurnManager.Instance.AdvanceTurn());
             }
-        }
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            TurnManager.AdvanceTurn();
-        }
-
-
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SelectedPlant = new Shimmergrass();
-            Log.Info("Selected ShimmerGrass");
-        }
-
-        if(Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SelectedPlant = new Clover();
-            Log.Info("Selected Clover");
-        }
+        }       
     }
     
     private GameObject GetClickTarget()

@@ -5,10 +5,18 @@ using UnityEngine;
 public class Player
 {
     public User UserData { get; private set; }
+    public PlayerController Controller { get; private set; }
     public Objective GameObjective { get; private set; }
+
+    public Player(User user, PlayerController controller)
+    {
+        UserData = user;
+        Controller = controller;
+    }
+
     public void SetObjective(Objective objective)
     {
-        if(GameObjective == null)
+        if (GameObjective == null)
         {
             GameObjective = objective;
         }
@@ -18,9 +26,9 @@ public class Player
         }
     }
 
-    public Player(User user)
+    public void SetControl(bool hasControl)
     {
-        UserData = user;
+        Controller.HasControl = hasControl;
     }
 
 }

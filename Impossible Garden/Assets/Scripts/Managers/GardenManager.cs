@@ -40,23 +40,27 @@ public class GardenManager : Singleton<GardenManager>
 
         ActiveGarden.Initialize(plots);
     }
-    public void GrowAllPlants()
+
+    public IEnumerator GrowAllPlants()
     {
+        UpdateActivePlants();
+
         foreach (PlantManager activePlant in _activePlants)
         {
-            if(activePlant != null)
+            if (activePlant != null)
             {
                 activePlant.GrowPlant();
             }
             else
             {
-                _activePlants.Remove(activePlant);
+                RemovePlant(activePlant);
                 Log.Info("Plant unexpectedly missing!");
             }
-        }
 
-        UpdateActivePlants();
+            yield return new WaitForSeconds(.01f);
+        }
     }
+
     public PlantManager FillPlot(Plant source, Plot caller)
     {
         GameObject plantObject = Instantiate(_defaultPlantObject, caller.transform);
@@ -67,6 +71,7 @@ public class GardenManager : Singleton<GardenManager>
 
         return plantManager;
     }
+
     public void RemovePlant(PlantManager caller)
     {
         if(_activePlants.Contains(caller))
