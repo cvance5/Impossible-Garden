@@ -233,7 +233,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Gameplay\DifficultySettings.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Objective.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\Objectives\TotalGrowthObjective.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Objectives\WalkingPathObjective.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Objectives\WildGrowthObjective.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\PlantObjective.cs" />
     <Compile Include="Assets\Scripts\Gameplay\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GardenManager.cs" />

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TotalGrowthObjective : Objective
+public class WildGrowthObjective : PlantObjective
 {
     public Type PlantType;
 

@@ -41,7 +41,7 @@ public class GameManager : Singleton<GameManager> {
 
         foreach(Player player in PlayerManager.Instance.Players)
         {
-            Log.Info(player.UserData.Username + " has been assigned " + player.GameObjective.Title + ". /n" + player.GameObjective.Description);
+            Log.Info(player.UserData.Username + " has been assigned " + player.GameObjective.Title + ". \n" + player.GameObjective.Description);
             player.GameObjective.Initialize(Settings.Difficulty, Settings.NumberPlayers);
         }
 

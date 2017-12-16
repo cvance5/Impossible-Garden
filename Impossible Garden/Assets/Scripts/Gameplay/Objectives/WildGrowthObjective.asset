@@ -9,12 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3cb65284a8a1c524c83ede9a6f7b3856, type: 3}
-  m_Name: TotalGrowthObjective
+  m_Name: New WildGrowthObjective
   m_EditorClassIdentifier: 
-  Title: Wild Growth
-  Description: Cover a lot of squares to win!
-  EasyPlants: 00000000
-  MediumPlants: 01000000
+  Title: 
+  Description: 
+  EasyPlants: 
+  MediumPlants: 
   HardPlants: 
-  NumberToWin: 12
-  PerPlayerModifier: 2
+  NumberToWin: 0
+  PerPlayerModifier: 0

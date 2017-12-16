@@ -61,6 +61,7 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
         if(hasWon)
         {
             GameManager.Instance.EndGame();
+            Log.Info("You win!");
         }
     }
 }

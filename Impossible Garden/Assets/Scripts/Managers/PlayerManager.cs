@@ -27,6 +27,8 @@ public class PlayerManager : Singleton<PlayerManager>
             Vector2 startDirection = _playerLocations[Mathf.RoundToInt(((float)_playerLocations.Length / users.Count) * userNumber)];
             Vector2 edge = GardenManager.Instance.ActiveGarden.FindEdge(startDirection);
 
+            player.transform.position = new Vector3(edge.x, 5, edge.y);
+
             PlayerController controller = player.AddComponent<PlayerController>();
             
             Players.Add(new Player(user, controller));
@@ -38,15 +40,16 @@ public class PlayerManager : Singleton<PlayerManager>
     public void SetTurnController(int turn)
     {
         Player turnPlayer = Players[turn % PlayerCount];
-
         SetControl(turnPlayer);
+        Camera.main.transform.position = turnPlayer.Controller.transform.position;
+        Camera.main.transform.LookAt(GardenManager.Instance.ActiveGarden.Centerpoint);
     }
 
-    public void SetControl(params Player[] controllers)
+    public void SetControl(params Player[] activeControllers)
     {
         foreach(Player player in Players)
         {
-            player.SetControl(controllers.Contains(player));     
+            player.SetControl(activeControllers.Contains(player));     
         }
     }
 

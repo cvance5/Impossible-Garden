@@ -8,9 +8,14 @@ public class CustomMenu
         ScriptableObjectUtility.CreateAsset<GameSettings>();
     }
 
-    [MenuItem("Assets/Create/Objectives/Total Growth Objective")]
+    [MenuItem("Assets/Create/Objectives/Wild Growth Objective")]
     public static void CreateTotalGrowthObjective()
     {
-        ScriptableObjectUtility.CreateAsset<TotalGrowthObjective>();
+        ScriptableObjectUtility.CreateAsset<WildGrowthObjective>();
+    }
+    [MenuItem("Assets/Create/Objectives/Walking Path Objective")]
+    public static void CreateWalkingPathObjective()
+    {
+        ScriptableObjectUtility.CreateAsset<WalkingPathObjective>();
     }
 }
