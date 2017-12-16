@@ -9,12 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3cb65284a8a1c524c83ede9a6f7b3856, type: 3}
-  m_Name: New WildGrowthObjective
+  m_Name: WildGrowthObjective
   m_EditorClassIdentifier: 
-  Title: 
-  Description: 
-  EasyPlants: 
-  MediumPlants: 
+  Title: Wild Growth
+  Description: The king wants a verdant, rolling blanket!
+  EasyPlants: 00000000
+  MediumPlants: 01000000
   HardPlants: 
-  NumberToWin: 0
-  PerPlayerModifier: 0
+  NumberToWin: 11
+  PerPlayerModifier: 1

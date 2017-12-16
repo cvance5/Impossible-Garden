@@ -53,6 +53,7 @@ public class WalkingPathObjective : Objective
                 while(uncheckedPlots.Count >  0)
                 {
                     Plot nextPlot = uncheckedPlots[0];
+                    uncheckedPlots.Remove(nextPlot);
 
                     if (nextPlot.CurrentPlantManager != null)
                     {
@@ -65,7 +66,6 @@ public class WalkingPathObjective : Objective
                     else
                     {
                         countedPlots.Add(nextPlot);
-                        uncheckedPlots.Remove(nextPlot);
                         foreach(Plot neighbor in nextPlot.Neighbors.Values)
                         {
                             if(neighbor != null)

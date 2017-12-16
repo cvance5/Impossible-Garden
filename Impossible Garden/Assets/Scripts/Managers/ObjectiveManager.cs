@@ -38,9 +38,12 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
 
     private Objective ValidateObjective(Objective possibleObjective)
     {
-        if(!possibleObjective.HasDifficulty(GameManager.Instance.Settings.Difficulty))
+        if(possibleObjective != null)
         {
-            possibleObjective = null;
+            if (!possibleObjective.HasDifficulty(GameManager.Instance.Settings.Difficulty))
+            {
+                possibleObjective = null;
+            }
         }
         return possibleObjective;
     }

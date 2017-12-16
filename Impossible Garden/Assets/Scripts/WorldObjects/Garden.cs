@@ -14,7 +14,7 @@ public class Garden : MonoBehaviour
     {
         get
         {
-            return Plots[_columns, _rows].transform.position;
+            return Plots[_columns / 2, _rows / 2].transform.position;
         }
     }
 
