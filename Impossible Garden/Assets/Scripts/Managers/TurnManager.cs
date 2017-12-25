@@ -8,9 +8,14 @@ public class TurnManager : Singleton<TurnManager>
 
     public int TurnNumber;
 
-    public void Reset()
+    public void Initialize()
     {
         TurnNumber = 0;
+    }
+
+    public void CompleteTurn()
+    {
+        StartCoroutine(AdvanceTurn());
     }
 
     public IEnumerator AdvanceTurn()

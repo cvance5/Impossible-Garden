@@ -10,6 +10,13 @@ public class WildGrowthObjective : PlantObjective
     public int NumberToWin;
     public int PerPlayerModifier;
 
+    public override PlantTypes[] GetRequiredPlants()
+    {
+        PlantTypes requiredPlant = PlantTypes.Shimmergrass;
+        requiredPlant = requiredPlant.ToEnum(PlantType);
+        return new PlantTypes[] { requiredPlant };
+    }
+
     public override void Initialize(DifficultySettings difficulty, int numberPlayers)
     {
         List<Type> possiblePlantTypes = plantsPerDifficulty[difficulty];

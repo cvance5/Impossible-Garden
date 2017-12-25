@@ -17,7 +17,7 @@ public class WalkingPathObjective : Objective
 
     private void OnValidate()
     {
-        int numValues = Enum.GetValues(typeof(DifficultySettings)).Length;
+        int numValues = Enum<DifficultySettings>.Count;
 
         if (SquaresPerDifficulty.Length < numValues)
         {

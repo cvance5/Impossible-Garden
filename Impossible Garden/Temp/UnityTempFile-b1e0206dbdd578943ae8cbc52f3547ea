@@ -171,22 +171,30 @@ Assets/Scripts/Managers/LoadManager.cs
 Assets/Scripts/Managers/ObjectiveManager.cs
 Assets/Scripts/Managers/PlantManager.cs
 Assets/Scripts/Managers/PlayerManager.cs
+Assets/Scripts/Managers/SeedManager.cs
 Assets/Scripts/Managers/TurnManager.cs
+Assets/Scripts/Managers/UIManager.cs
+Assets/Scripts/Metagame/Player.cs
+Assets/Scripts/Metagame/User.cs
 Assets/Scripts/Utilities/Debug/FreeCamera.cs
 Assets/Scripts/Utilities/Debug/Log.cs
-Assets/Scripts/Utilities/ExtensionMethods.cs
+Assets/Scripts/Utilities/EnumExtensions.cs
+Assets/Scripts/Utilities/EnumT.cs
+Assets/Scripts/Utilities/ListExtensions.cs
 Assets/Scripts/Utilities/ScritableObjectUtility.cs
 Assets/Scripts/Utilities/Settings.cs
 Assets/Scripts/Utilities/Singleton.cs
 Assets/Scripts/Utilities/SmartEvent.cs
-Assets/Scripts/UX/Player.cs
-Assets/Scripts/UX/User.cs
+Assets/Scripts/Utilities/UnityExtensionMethods.cs
 Assets/Scripts/WorldObjects/Garden.cs
 Assets/Scripts/WorldObjects/Plants/Clover.cs
 Assets/Scripts/WorldObjects/Plants/Plant.cs
 Assets/Scripts/WorldObjects/Plants/PlantTypes.cs
 Assets/Scripts/WorldObjects/Plants/ShimmerGrass.cs
 Assets/Scripts/WorldObjects/Plot.cs
+Assets/Scripts/WorldObjects/Seeds/Seed.cs
+Assets/Scripts/WorldObjects/Seeds/SeedFactory.cs
+Assets/Scripts/WorldObjects/Seeds/SeedFeeder.cs
 -r:"C:\Program Files (x86)\Unity\Unity 2017.2.1f1\Editor\Data\Mono\lib\mono\unity\System.Runtime.Serialization.dll"
 -r:"C:\Program Files (x86)\Unity\Unity 2017.2.1f1\Editor\Data\Mono\lib\mono\unity\System.Xml.Linq.dll"
 -r:"C:\Program Files (x86)\Unity\Unity 2017.2.1f1\Editor\Data\Mono\lib\mono\unity\UnityScript.dll"

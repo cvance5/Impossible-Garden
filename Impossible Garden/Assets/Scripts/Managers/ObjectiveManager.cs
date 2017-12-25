@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectiveManager : Singleton<ObjectiveManager>
@@ -34,6 +33,25 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
 
             availableObjectives[index] = null;
         }
+    }
+
+    public List<PlantTypes> GetRequiredPlants()
+    {
+        List<PlantTypes> requiredPlants = new List<PlantTypes>();
+        
+        foreach(Objective objective in _assignedObjectives)
+        {
+            if(objective is PlantObjective)
+            {
+                var newRequiredPlants = (objective as PlantObjective).GetRequiredPlants();
+                foreach(PlantTypes newPlant in newRequiredPlants)
+                {
+                    requiredPlants.Add(newPlant);
+                }
+            }
+        }
+
+        return requiredPlants;
     }
 
     private Objective ValidateObjective(Objective possibleObjective)

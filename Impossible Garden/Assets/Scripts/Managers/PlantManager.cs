@@ -16,7 +16,7 @@ public class PlantManager : MonoBehaviour
         MyPlant.Manager = this;
         MyPlant.Initialize();
         _plantType = newPlant.GetType();
-        _plantVisualizer = Instantiate(LoadManager.LoadResource<GameObject>(_plantType.ToString(), LoadManager.LookupDirectoryPath(Directories.Plants)),transform);
+        _plantVisualizer = Instantiate(LoadManager.Load<GameObject>(_plantType.ToString(), LoadManager.LookupPath(Directories.Plants)),transform);
 
         foreach (Transform part in transform.GetAllChildren())
         {

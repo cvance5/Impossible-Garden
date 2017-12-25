@@ -2,9 +2,8 @@
 -target:library
 -nowarn:0169
 -langversion:4
--out:Temp/Assembly-CSharp-Editor.dll
+-out:Temp/Assembly-CSharp.dll
 -unsafe
--r:Library/ScriptAssemblies/Assembly-CSharp.dll
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/Managed/UnityEditor.dll"
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll"
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll"
@@ -51,37 +50,20 @@
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.VideoModule.dll"
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.WindModule.dll"
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll"
--r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll"
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll"
--r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll"
--r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll"
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll"
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll"
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll"
--r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/Timeline/Editor/UnityEditor.Timeline.dll"
--r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll"
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll"
--r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/UIAutomation/Editor/UnityEditor.UIAutomation.dll"
--r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/Editor/UnityEditor.GoogleAudioSpatializer.dll"
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll"
--r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll"
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll"
--r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/Editor/UnityEditor.SpatialTracking.dll"
 -r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll"
--r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll"
--r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/Managed/UnityEditor.Graphs.dll"
--r:"C:/Program Files (x86)/Unity/Unity 2017.2.1f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll"
--r:"C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll"
 -r:Assets/Scripts/Utilities/DOTween/DOTween.dll
 -r:Assets/Scripts/Utilities/DOTween/DOTween43.dll
 -r:Assets/Scripts/Utilities/DOTween/DOTween46.dll
 -r:Assets/Scripts/Utilities/DOTween/DOTween50.dll
--r:Assets/Scripts/Utilities/DOTween/Editor/DOTweenEditor.dll
--r:"C:/Users/Christopher Vance/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@1.0.7/Editor/UnityEditor.Advertisements.dll"
 -r:"C:/Users/Christopher Vance/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll"
--r:"C:/Users/Christopher Vance/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/Editor/UnityEditor.Analytics.dll"
 -r:"C:/Users/Christopher Vance/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll"
--r:"C:/Users/Christopher Vance/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/Editor/UnityEditor.Purchasing.dll"
 -define:UNITY_5_3_OR_NEWER
 -define:UNITY_5_4_OR_NEWER
 -define:UNITY_5_5_OR_NEWER
@@ -177,10 +159,45 @@
 -define:ENABLE_NATIVE_ARRAY_CHECKS
 -define:UNITY_TEAM_LICENSE
 -define:ENABLE_VSTU
-Assets/Scripts/Editor/CustomMenu.cs
--r:"C:\Program Files (x86)\Unity\Unity 2017.2.1f1\Editor\Data\MonoBleedingEdge\lib\mono\2.0-api\System.Runtime.Serialization.dll"
--r:"C:\Program Files (x86)\Unity\Unity 2017.2.1f1\Editor\Data\MonoBleedingEdge\lib\mono\2.0-api\System.Xml.Linq.dll"
--r:"C:\Program Files (x86)\Unity\Unity 2017.2.1f1\Editor\Data\MonoBleedingEdge\lib\mono\2.0-api\UnityScript.dll"
--r:"C:\Program Files (x86)\Unity\Unity 2017.2.1f1\Editor\Data\MonoBleedingEdge\lib\mono\2.0-api\UnityScript.Lang.dll"
--r:"C:\Program Files (x86)\Unity\Unity 2017.2.1f1\Editor\Data\MonoBleedingEdge\lib\mono\2.0-api\Boo.Lang.dll"
--sdk:2.0
+Assets/Scripts/Gameplay/DifficultySettings.cs
+Assets/Scripts/Gameplay/Objective.cs
+Assets/Scripts/Gameplay/Objectives/WalkingPathObjective.cs
+Assets/Scripts/Gameplay/Objectives/WildGrowthObjective.cs
+Assets/Scripts/Gameplay/PlantObjective.cs
+Assets/Scripts/Gameplay/PlayerController.cs
+Assets/Scripts/Managers/GameManager.cs
+Assets/Scripts/Managers/GardenManager.cs
+Assets/Scripts/Managers/LoadManager.cs
+Assets/Scripts/Managers/ObjectiveManager.cs
+Assets/Scripts/Managers/PlantManager.cs
+Assets/Scripts/Managers/PlayerManager.cs
+Assets/Scripts/Managers/SeedManager.cs
+Assets/Scripts/Managers/TurnManager.cs
+Assets/Scripts/Managers/UIManager.cs
+Assets/Scripts/Metagame/Player.cs
+Assets/Scripts/Metagame/User.cs
+Assets/Scripts/Services/SeedFactory.cs
+Assets/Scripts/UI.UX/Seed.cs
+Assets/Scripts/UI.UX/SeedFeeder.cs
+Assets/Scripts/Utilities/Debug/FreeCamera.cs
+Assets/Scripts/Utilities/Debug/Log.cs
+Assets/Scripts/Utilities/EnumExtensions.cs
+Assets/Scripts/Utilities/EnumT.cs
+Assets/Scripts/Utilities/ListExtensions.cs
+Assets/Scripts/Utilities/ScritableObjectUtility.cs
+Assets/Scripts/Utilities/Settings.cs
+Assets/Scripts/Utilities/Singleton.cs
+Assets/Scripts/Utilities/SmartEvent.cs
+Assets/Scripts/Utilities/UnityExtensionMethods.cs
+Assets/Scripts/WorldObjects/Garden.cs
+Assets/Scripts/WorldObjects/Plants/Clover.cs
+Assets/Scripts/WorldObjects/Plants/Plant.cs
+Assets/Scripts/WorldObjects/Plants/PlantTypes.cs
+Assets/Scripts/WorldObjects/Plants/ShimmerGrass.cs
+Assets/Scripts/WorldObjects/Plot.cs
+-r:"C:\Program Files (x86)\Unity\Unity 2017.2.1f1\Editor\Data\Mono\lib\mono\unity\System.Runtime.Serialization.dll"
+-r:"C:\Program Files (x86)\Unity\Unity 2017.2.1f1\Editor\Data\Mono\lib\mono\unity\System.Xml.Linq.dll"
+-r:"C:\Program Files (x86)\Unity\Unity 2017.2.1f1\Editor\Data\Mono\lib\mono\unity\UnityScript.dll"
+-r:"C:\Program Files (x86)\Unity\Unity 2017.2.1f1\Editor\Data\Mono\lib\mono\unity\UnityScript.Lang.dll"
+-r:"C:\Program Files (x86)\Unity\Unity 2017.2.1f1\Editor\Data\Mono\lib\mono\unity\Boo.Lang.dll"
+-sdk:unity

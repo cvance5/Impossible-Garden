@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,26 +35,13 @@ public abstract class PlantObjective : Objective {
 
             foreach (PlantTypes plantType in source)
             {
-                Type type;
-
-                switch (plantType)
-                {
-                    case PlantTypes.Shimmergrass:
-                        type = typeof(Shimmergrass);
-                        break;
-                    case PlantTypes.Clover:
-                        type = typeof(Clover);
-                        break;
-                    default:
-                        Log.Error("Unidentified type!");
-                        type = null;
-                        break;
-                }
-
+                Type type = plantType.ToType();
                 plantsPerDifficulty[difficulty].Add(type);
             }
         }
     }
+
+    public abstract PlantTypes[] GetRequiredPlants();
 
     public override bool HasDifficulty(DifficultySettings difficulty)
     {

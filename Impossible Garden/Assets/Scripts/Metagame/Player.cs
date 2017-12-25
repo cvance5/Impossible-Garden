@@ -1,17 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Player
+﻿public class Player
 {
     public User UserData { get; private set; }
     public PlayerController Controller { get; private set; }
+    public SeedFeeder Feeder { get; private set; }
     public Objective GameObjective { get; private set; }
 
     public Player(User user, PlayerController controller)
     {
         UserData = user;
         Controller = controller;
+        if(Feeder == null)
+        {
+            Feeder = new SeedFeeder();
+            SeedManager.RegisterFeeder(this, Feeder);
+        }
     }
 
     public void SetObjective(Objective objective)

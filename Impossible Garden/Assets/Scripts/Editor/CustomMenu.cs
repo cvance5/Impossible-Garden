@@ -8,6 +8,12 @@ public class CustomMenu
         ScriptableObjectUtility.CreateAsset<GameSettings>();
     }
 
+    [MenuItem("Assets/Create/Seed")]
+    public static void CreateSeed()
+    {
+        ScriptableObjectUtility.CreateAsset<Seed>();
+    }
+
     [MenuItem("Assets/Create/Objectives/Wild Growth Objective")]
     public static void CreateTotalGrowthObjective()
     {

@@ -1,15 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public static class LoadManager
 {
     private static Dictionary<Directories, string> _directoryMap = new Dictionary<Directories, string>()
     {
-        {Directories.Plants, "PlantPrefabs/" }
+        {Directories.Plants, "PlantPrefabs/" },
+        {Directories.Seeds, "Seeds/" }
     };
 
-    public static T LoadResource<T>(string resourceName, string path = "") where T : Object
+    public static T Load<T>(string resourceName, string path = "") where T : Object
     {
         var resource = Resources.Load(path + resourceName);
 
@@ -25,7 +25,7 @@ public static class LoadManager
         return resource as T;
     }
 
-    public static string LookupDirectoryPath(Directories directory)
+    public static string LookupPath(Directories directory)
     {
         string path;
 
@@ -45,5 +45,6 @@ public static class LoadManager
 
 public enum Directories
 {
-    Plants
+    Plants,
+    Seeds
 }

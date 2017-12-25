@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
-
+public class PlayerController : MonoBehaviour
+{
     public Plant SelectedPlant { get; private set; }
     public bool HasControl = false;
 
@@ -26,18 +24,14 @@ public class PlayerController : MonoBehaviour {
                     if (targetPlot != null)
                     {
                         targetPlot.Sow(SelectedPlant);
-
                         SelectedPlant = new Shimmergrass();
+                        TurnManager.Instance.CompleteTurn();
                     }
                 }
                 else
                 {
                     Log.Warning("Clicked nothing!");
                 }
-            }
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                StartCoroutine(TurnManager.Instance.AdvanceTurn());
             }
         }       
     }

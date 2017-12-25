@@ -43,6 +43,7 @@ public class PlayerManager : Singleton<PlayerManager>
         SetControl(turnPlayer);
         Camera.main.transform.position = turnPlayer.Controller.transform.position;
         Camera.main.transform.LookAt(GardenManager.Instance.ActiveGarden.Centerpoint);
+        turnPlayer.Feeder.Feed();
     }
 
     public void SetControl(params Player[] activeControllers)
@@ -54,14 +55,14 @@ public class PlayerManager : Singleton<PlayerManager>
     }
 
     private readonly Vector2[] _playerLocations =
-    {
-        new Vector2(1, 1),
+    {        
         new Vector2(1, 0),
         new Vector2(1, -1),
         new Vector2(0, -1),        
         new Vector2(-1, -1),
         new Vector2(-1, 0),
         new Vector2(-1, 1),
-        new Vector2(0, 1)
+        new Vector2(0, 1),
+        new Vector2(1, 1)
     };
 }

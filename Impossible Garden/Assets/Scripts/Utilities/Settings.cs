@@ -12,6 +12,8 @@ public class GameSettings : ScriptableObject
     public List<int> ShimmerGrassStageDurations;
     public List<int> CloverStageDurations;
 
+    public List<Seed> SeedsAvailable;
+
     [Header("Game Settings")]
     public DifficultySettings Difficulty;
 
@@ -26,7 +28,6 @@ public class GameSettings : ScriptableObject
             NumberPlayers = 1;
         }
     }
-
     private void ConstructDurationMap()
     {
         DurationMap = new Dictionary<Type, List<int>>()
