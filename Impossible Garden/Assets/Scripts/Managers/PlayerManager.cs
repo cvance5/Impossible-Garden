@@ -29,9 +29,15 @@ public class PlayerManager : Singleton<PlayerManager>
 
             player.transform.position = new Vector3(edge.x, 5, edge.y);
 
-            PlayerController controller = player.AddComponent<PlayerController>();
-            
-            Players.Add(new Player(user, controller));
+            if(user.IsLocalUser)
+            {
+                PlayerController controller = player.AddComponent<PlayerController>();
+                Players.Add(new LocalPlayer(user, controller));
+            }
+            else
+            {
+                Players.Add(new Player(user));
+            }
         }
 
         return Players;
@@ -41,9 +47,6 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         Player turnPlayer = Players[turn % PlayerCount];
         SetControl(turnPlayer);
-        Camera.main.transform.position = turnPlayer.Controller.transform.position;
-        Camera.main.transform.LookAt(GardenManager.Instance.ActiveGarden.Centerpoint);
-        turnPlayer.Feeder.Feed();
     }
 
     public void SetControl(params Player[] activeControllers)

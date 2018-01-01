@@ -1,19 +1,13 @@
-﻿public class Player
+﻿using UnityEngine.Networking;
+
+public class Player
 {
     public User UserData { get; private set; }
-    public PlayerController Controller { get; private set; }
-    public SeedFeeder Feeder { get; private set; }
     public Objective GameObjective { get; private set; }
 
-    public Player(User user, PlayerController controller)
+    public Player(User user)
     {
         UserData = user;
-        Controller = controller;
-        if(Feeder == null)
-        {
-            Feeder = new SeedFeeder();
-            SeedManager.RegisterFeeder(this, Feeder);
-        }
     }
 
     public void SetObjective(Objective objective)
@@ -28,9 +22,5 @@
         }
     }
 
-    public void SetControl(bool hasControl)
-    {
-        Controller.HasControl = hasControl;
-    }
-
+    public virtual void SetControl(bool hasControl) { }
 }

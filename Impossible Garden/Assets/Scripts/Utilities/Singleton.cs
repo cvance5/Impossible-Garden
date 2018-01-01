@@ -47,6 +47,8 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
+    public virtual void Initialize() { }
+
     public void OnDestroy()
     {
         applicationIsQuitting = true;

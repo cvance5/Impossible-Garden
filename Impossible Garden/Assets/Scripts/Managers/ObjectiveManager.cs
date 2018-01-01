@@ -7,7 +7,7 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
 
     private List<Objective> _assignedObjectives;
 
-    public void Initialize()
+    public override void Initialize()
     {
         TurnManager.EndTurn += CheckObjectiveCompletion;
     }

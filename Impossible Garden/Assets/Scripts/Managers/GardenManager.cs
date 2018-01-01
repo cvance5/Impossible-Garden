@@ -12,17 +12,17 @@ public class GardenManager : Singleton<GardenManager>
     [SerializeField]
     private GameObject _defaultPlotObject;
 
-    private List<PlantManager> _activePlants;
-    private List<PlantManager> _newPlants;
-    private List<PlantManager> _removedPlants;
+    private List<PlantActor> _activePlants;
+    private List<PlantActor> _newPlants;
+    private List<PlantActor> _removedPlants;
 
     public void GenerateGarden(int plotsWide, int plotsDeep)
     {
         ResetGarden();
 
-        _activePlants = new List<PlantManager>();
-        _newPlants = new List<PlantManager>();
-        _removedPlants = new List<PlantManager>();
+        _activePlants = new List<PlantActor>();
+        _newPlants = new List<PlantActor>();
+        _removedPlants = new List<PlantActor>();
 
         GameObject newGarden = new GameObject("Garden");
         newGarden.transform.SetParent(transform);
@@ -45,7 +45,7 @@ public class GardenManager : Singleton<GardenManager>
     {
         UpdateActivePlants();
 
-        foreach (PlantManager activePlant in _activePlants)
+        foreach (PlantActor activePlant in _activePlants)
         {
             if (activePlant != null)
             {
@@ -61,18 +61,18 @@ public class GardenManager : Singleton<GardenManager>
         }
     }
 
-    public PlantManager FillPlot(Plant source, Plot caller)
+    public PlantActor FillPlot(Plant source, Plot caller)
     {
         GameObject plantObject = Instantiate(_defaultPlantObject, caller.transform);
 
-        PlantManager plantManager = plantObject.GetComponent<PlantManager>();
+        PlantActor plantManager = plantObject.GetComponent<PlantActor>();
         plantManager.Initialize(source, caller);
         _newPlants.Add(plantManager);
 
         return plantManager;
     }
 
-    public void RemovePlant(PlantManager caller)
+    public void RemovePlant(PlantActor caller)
     {
         if(_activePlants.Contains(caller))
         {
@@ -91,7 +91,7 @@ public class GardenManager : Singleton<GardenManager>
     private void UpdateActivePlants()
     {
         _activePlants.AddRange(_newPlants);
-        foreach(PlantManager plant in _removedPlants)
+        foreach(PlantActor plant in _removedPlants)
         {
             _activePlants.Remove(plant);
         }

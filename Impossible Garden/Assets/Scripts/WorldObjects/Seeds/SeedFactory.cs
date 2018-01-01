@@ -4,8 +4,8 @@ public static class SeedFactory
 {
     public static Seed Create(PlantTypes typeOfSeed)
     {
-        Seed seed = LoadManager.Load<Seed>(typeOfSeed.ToString(), LoadManager.LookupPath(Directories.Seeds));
-        seed = Object.Instantiate(seed);
+        Seed seed = LoadManager.Load<Seed>(typeOfSeed.ToString(), LoadManager.Path(Directories.Seeds));
+        seed = Object.Instantiate(seed);        
         return seed;
     }
 

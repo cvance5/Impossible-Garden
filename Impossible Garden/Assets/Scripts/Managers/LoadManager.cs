@@ -25,7 +25,7 @@ public static class LoadManager
         return resource as T;
     }
 
-    public static string LookupPath(Directories directory)
+    public static string Path(Directories directory)
     {
         string path;
 

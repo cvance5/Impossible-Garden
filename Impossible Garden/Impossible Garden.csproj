@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -243,14 +241,19 @@
     <Compile Include="Assets\Scripts\Managers\GardenManager.cs" />
     <Compile Include="Assets\Scripts\Managers\LoadManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ObjectiveManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\PlantManager.cs" />
     <Compile Include="Assets\Scripts\Managers\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Managers\SeedManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TurnManager.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
+    <Compile Include="Assets\Scripts\Metagame\LocalPlayer.cs" />
     <Compile Include="Assets\Scripts\Metagame\Player.cs" />
     <Compile Include="Assets\Scripts\Metagame\User.cs" />
-    <Compile Include="Assets\Scripts\UI.UX\SeedDisplay.cs" />
+    <Compile Include="Assets\Scripts\UI.UX\Actors\SeedActor.cs" />
+    <Compile Include="Assets\Scripts\UI.UX\Overlays\SeedOverlay.cs" />
+    <Compile Include="Assets\Scripts\UI.UX\UIActor.cs" />
+    <Compile Include="Assets\Scripts\UI.UX\UIObject.cs" />
+    <Compile Include="Assets\Scripts\UI.UX\UIOverlay.cs" />
+    <Compile Include="Assets\Scripts\UI.UX\UIPopup.cs" />
     <Compile Include="Assets\Scripts\Utilities\Debug\FreeCamera.cs" />
     <Compile Include="Assets\Scripts\Utilities\Debug\Log.cs" />
     <Compile Include="Assets\Scripts\Utilities\EnumExtensions.cs" />
@@ -262,6 +265,7 @@
     <Compile Include="Assets\Scripts\Utilities\SmartEvent.cs" />
     <Compile Include="Assets\Scripts\Utilities\UnityExtensionMethods.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Garden.cs" />
+    <Compile Include="Assets\Scripts\WorldObjects\PlantActor.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\Clover.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\Plant.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\PlantTypes.cs" />
@@ -278,7 +282,6 @@
     <None Include="Assets\Scripts\Utilities\DOTween\DOTween50.xml" />
     <None Include="Assets\Scripts\Utilities\DOTween\Editor\DOTweenEditor.XML" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Plot : MonoBehaviour
 {
-    public PlantManager CurrentPlantManager { get; private set; }
+    public PlantActor CurrentPlantManager { get; private set; }
 
     public Dictionary<Vector3, Plot> Neighbors;
 

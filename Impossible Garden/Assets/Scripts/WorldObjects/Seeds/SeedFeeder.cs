@@ -3,21 +3,35 @@ using UnityEngine;
 
 public class SeedFeeder
 {
-    public List<Seed> SeedsAvailable { get; private set; }
+    public SmartEvent OnFeed = new SmartEvent();
+
+    public List<Seed> SeedPrototypes { get; private set; }
     public List<Seed> CurrentSeeds { get; private set; }
+
+    public Seed NewestSeed { get; private set; }
 
     public void Initialize(List<Seed> possibleSeeds)
     {
-        SeedsAvailable = possibleSeeds;
+        SeedPrototypes = possibleSeeds;
         CurrentSeeds = new List<Seed>(NUMBER_SEED_SLOTS);        
     }
 
     public void Feed()
     {
-        CurrentSeeds.RemoveAt(0);
-        Seed randomSeed = SeedFactory.Clone(SeedsAvailable.RandomItem());
-        CurrentSeeds.Add(randomSeed);
+        if(CurrentSeeds.Count == NUMBER_SEED_SLOTS)
+        {
+            CurrentSeeds.RemoveAt(0);
+        }
+
+        while (CurrentSeeds.Count != CurrentSeeds.Capacity)
+        {
+            Seed randomSeed = SeedFactory.Clone(SeedPrototypes.RandomItem());
+            CurrentSeeds.Add(randomSeed);
+            NewestSeed = randomSeed;
+
+            OnFeed.Raise();
+        }       
     }
 
-    private const int NUMBER_SEED_SLOTS = 5;
+    public const int NUMBER_SEED_SLOTS = 5;
 }

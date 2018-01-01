@@ -8,7 +8,7 @@ public class TurnManager : Singleton<TurnManager>
 
     public int TurnNumber;
 
-    public void Initialize()
+    public override void Initialize()
     {
         TurnNumber = 0;
     }

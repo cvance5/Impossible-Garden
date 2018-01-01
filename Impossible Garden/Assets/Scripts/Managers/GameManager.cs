@@ -29,6 +29,7 @@ public class GameManager : Singleton<GameManager> {
 
         ObjectiveManager.Instance.Initialize();
         GardenManager.Instance.GenerateGarden(10,10);
+        UIManager.Instance.Initialize();
 
         SeedManager.Initialize();
 
@@ -41,7 +42,10 @@ public class GameManager : Singleton<GameManager> {
         List<User> users = new List<User>();
         for (uint i = 0; i < Settings.NumberPlayers; i++)
         {
-            users.Add(new User("Player " + i, i));
+            User newUser = new User("Player " + i, i);
+            newUser.AssignLocal(true);
+            users.Add(newUser);
+            
         }
         var players = PlayerManager.Instance.AssignPlayers(users);
 
@@ -56,7 +60,7 @@ public class GameManager : Singleton<GameManager> {
     private void BeginGame()
     {
         SeedManager.DistributeSeeds();
-        PlayerManager.Instance.SetTurnController(0);        
+        PlayerManager.Instance.SetTurnController(0);
     }
 
     private void OnTurnEnd(int turn)

@@ -11,6 +11,7 @@ public static class SeedManager
     public static void Initialize()
     {
         Feeders = new Dictionary<Player, SeedFeeder>();
+        _seedCatalog = new Dictionary<PlantTypes, Seed>();
     }
 
     public static void RegisterFeeder(Player owner, SeedFeeder feeder)
@@ -48,7 +49,7 @@ public static class SeedManager
         }
 
         Dictionary<Player, List<Seed>> distributionMap = new Dictionary<Player, List<Seed>>();
-        int seedsPerPlayer = Mathf.CeilToInt(seedTypes.Count * 75f);
+        int seedsPerPlayer = Mathf.CeilToInt(seedTypes.Count * .75f);
 
         foreach(Player player in PlayerManager.Instance.Players)
         {

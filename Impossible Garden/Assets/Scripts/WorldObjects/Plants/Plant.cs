@@ -16,7 +16,7 @@ public abstract class Plant
     public int GrowthTimer;
     public List<int> StageDuration;
 
-    public PlantManager Manager;
+    public PlantActor Manager;
 
     public void Initialize()
     {
