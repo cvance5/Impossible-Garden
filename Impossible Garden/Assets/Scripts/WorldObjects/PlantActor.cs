@@ -13,7 +13,7 @@ public class PlantActor : MonoBehaviour
     public void Initialize(Plant newPlant, Plot plot)
     {
         MyPlant = newPlant;
-        MyPlant.Manager = this;
+        MyPlant.Actor = this;
         MyPlant.Initialize();
         _plantType = newPlant.GetType();
         _plantVisualizer = Instantiate(LoadManager.Load<GameObject>(_plantType.ToString(), LoadManager.Path(Directories.Plants)),transform);

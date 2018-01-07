@@ -41,7 +41,7 @@ public class WalkingPathObjective : Objective
 
         foreach(Plot plot in plots)
         {
-            if(plot.CurrentPlantManager == null)
+            if(plot.CurrentPlantActor == null)
             {
                 uncheckedPlots = new List<Plot>()
                 {
@@ -55,7 +55,7 @@ public class WalkingPathObjective : Objective
                     Plot nextPlot = uncheckedPlots[0];
                     uncheckedPlots.Remove(nextPlot);
 
-                    if (nextPlot.CurrentPlantManager != null)
+                    if (nextPlot.CurrentPlantActor != null)
                     {
                         continue;
                     }

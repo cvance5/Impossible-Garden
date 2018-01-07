@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Plot : MonoBehaviour
 {
-    public PlantActor CurrentPlantManager { get; private set; }
+    public PlantActor CurrentPlantActor { get; private set; }
 
     public Dictionary<Vector3, Plot> Neighbors;
 
@@ -21,13 +21,13 @@ public class Plot : MonoBehaviour
 
     public void Sow(Plant newPlant)
     {
-        if(CurrentPlantManager == null)
+        if(CurrentPlantActor == null)
         {
-            CurrentPlantManager = GardenManager.Instance.FillPlot(newPlant, this);
+            CurrentPlantActor = GardenManager.Instance.FillPlot(newPlant, this);
         }
         else
         {
-            Log.Info("Plot " + this + " is already occupied by plant " + CurrentPlantManager + " and cannot accept plant " + newPlant);
+            Log.Info("Plot " + this + " is already occupied by plant " + CurrentPlantActor + " and cannot accept plant " + newPlant);
         }
     }
 

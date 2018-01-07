@@ -35,11 +35,11 @@ public class WildGrowthObjective : PlantObjective
 
         foreach(Plot plot in plots)
         {
-            if(plot.CurrentPlantManager != null)
+            if(plot.CurrentPlantActor != null)
             {
-                if(plot.CurrentPlantManager.MyPlant != null)
+                if(plot.CurrentPlantActor.MyPlant != null)
                 {
-                    if(plot.CurrentPlantManager.MyPlant.GetType() == PlantType)
+                    if(plot.CurrentPlantActor.MyPlant.GetType() == PlantType)
                     {
                         amountOfType++;
 

@@ -36,7 +36,7 @@ public class Clover : Plant
         switch(GrowthStage)
         {
             case 0:
-                Manager.SmoothlyScalePlant(new Vector3(GrowthTimer / (float)StageDuration[GrowthStage], .333f, GrowthTimer / (float)StageDuration[GrowthStage]));
+                Actor.SmoothlyScalePlant(new Vector3(GrowthTimer / (float)StageDuration[GrowthStage], .333f, GrowthTimer / (float)StageDuration[GrowthStage]));
                 break;
             case 1:
                 if(_growthDirection == null)
@@ -59,7 +59,7 @@ public class Clover : Plant
                 }
                 break;
             case 2:
-                Manager.SmoothlyColorPlant(new Color(.8f, .5f, .3f));
+                Actor.SmoothlyColorPlant(new Color(.8f, .5f, .3f));
                 break;
             default:
                 Log.Error(this + " does not have growth stage " + GrowthStage + " but is trying to grow in that stage.");
@@ -85,14 +85,14 @@ public class Clover : Plant
         _growthDirection = GardenManager.Instance.ActiveGarden.GetPlot(SeekNearestPlant);
         if(_growthDirection != null)
         {
-            if (_growthDirection.CurrentPlantManager != null)
+            if (_growthDirection.CurrentPlantActor != null)
             {
-                _growthDirection.CurrentPlantManager.MyPlant.Wilt();
+                _growthDirection.CurrentPlantActor.MyPlant.Wilt();
                 _growthDirection = null;
             }
             else
             {
-                Manager.Propogate();
+                Actor.Propogate();
                 DelayPropogation();
             }
         }
@@ -101,12 +101,12 @@ public class Clover : Plant
     private Plot SeekNearestPlant(Plot[,] plots)
     {
         int distanceToBest = plots.Length;
-        Vector2 myLocation = Manager.MyPlot.transform.position;
+        Vector2 myLocation = Actor.MyPlot.transform.position;
         Plot closestOccupiedPlot = null;
 
         foreach (Plot plot in plots)
         {
-            if (plot.CurrentPlantManager != null && plot.CurrentPlantManager.MyPlant.GetType() != typeof(Clover))
+            if (plot.CurrentPlantActor != null && plot.CurrentPlantActor.MyPlant.GetType() != typeof(Clover))
             {
                 int distanceToTarget = Mathf.RoundToInt(Vector2.Distance(plot.transform.position, myLocation));
                 if (distanceToTarget < distanceToBest)
@@ -122,9 +122,9 @@ public class Clover : Plant
         {
             int targetPlotDistance = plots.Length;
 
-            foreach (Plot neighbor in Manager.MyPlot.Neighbors.Values)
+            foreach (Plot neighbor in Actor.MyPlot.Neighbors.Values)
             {
-                if(neighbor != null && (neighbor.CurrentPlantManager == null || neighbor.CurrentPlantManager.MyPlant.GetType() != typeof(Clover)))
+                if(neighbor != null && (neighbor.CurrentPlantActor == null || neighbor.CurrentPlantActor.MyPlant.GetType() != typeof(Clover)))
                 {
                     int distanceFromNeighbor = Mathf.RoundToInt(Vector2.Distance(neighbor.transform.position, closestOccupiedPlot.transform.position));
                     if (distanceFromNeighbor < targetPlotDistance)
