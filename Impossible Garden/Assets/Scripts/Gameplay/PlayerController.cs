@@ -1,51 +1,75 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Plant SelectedPlant { get; private set; }
-    public bool HasControl = false;
+    public LocalPlayer Owner { get; private set; }
+    public bool HasControl;
 
-    private void Awake()
-    {
-        SelectedPlant = new Shimmergrass();
-    }
+    private int _selectedSeed;
 
     void Update()
     {
-        if(HasControl)
+        if (HasControl)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                GameObject clickTarget = GetClickTarget();
-                if (clickTarget != null)
-                {
-                    Plot targetPlot = clickTarget.GetComponent<Plot>();
+            CheckForClick();
+            CheckForSelectionChange();
+        }
+    }
 
-                    if (targetPlot != null)
+    public void AssignOwner(LocalPlayer localPlayer)
+    {
+        Owner = localPlayer;
+    }
+
+    private void CheckForClick()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject clickTarget = GetClickTarget();
+            if (clickTarget != null)
+            {
+                Plot targetPlot = clickTarget.GetComponent<Plot>();
+                Type selectedPlant = Owner.Feeder.GetSeedType(_selectedSeed);
+
+                if (targetPlot != null)
+                {
+                    if (selectedPlant != null)
                     {
-                        targetPlot.Sow(SelectedPlant);
-                        SelectedPlant = new Shimmergrass();
+                        targetPlot.Sow(selectedPlant);
                         TurnManager.Instance.CompleteTurn();
                     }
                 }
-                else
-                {
-                    Log.Warning("Clicked nothing!");
-                }
             }
-        }       
+            else
+            {
+                Log.Warning("Clicked nothing!");
+            }
+        }
     }
-    
+
     private GameObject GetClickTarget()
     {
         GameObject target = null;
 
         RaycastHit hit;
-        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit ))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
         {
             target = hit.collider.gameObject;
         }
 
         return target;
     }
+
+    private void CheckForSelectionChange()
+    {
+        for (int number = 1; number < 10; number++)
+        {
+            if (Input.GetButtonDown("select" + number))
+            {
+                _selectedSeed = number;
+            }
+        }
+    }
+
 }

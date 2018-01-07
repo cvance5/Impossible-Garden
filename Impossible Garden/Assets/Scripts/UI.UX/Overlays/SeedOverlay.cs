@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SeedOverlay : UIOverlay
@@ -25,9 +24,9 @@ public class SeedOverlay : UIOverlay
     {
         List<Seed> currentSeeds = MyFeeder.CurrentSeeds;
 
-        for(int index = 0; index < _actors.Count; index++)
+        for (int index = 0; index < _actors.Count; index++)
         {
-            if(index == SeedFeeder.NUMBER_SEED_SLOTS - 1)
+            if (index == SeedFeeder.NUMBER_SEED_SLOTS - 1)
             {
                 _actors[index].MoveNext(_seedMovement, true);
                 _actors.RemoveAt(index);
@@ -35,7 +34,7 @@ public class SeedOverlay : UIOverlay
             else
             {
                 _actors[index].MoveNext(_seedMovement);
-            }            
+            }
         }
 
         AddNewActor();
@@ -53,11 +52,11 @@ public class SeedOverlay : UIOverlay
 
     private Vector3 GetSeedMovement(int numSeeds)
     {
-        if(SeedSpawn == null)
+        if (SeedSpawn == null)
         {
             throw new MissingReferenceException("Seed Spawn has not been assigned to the Seed Overlay.");
         }
-        else if(SeedDestroy == null)
+        else if (SeedDestroy == null)
         {
             throw new MissingReferenceException("Seed Destroy has not been assigned to the Seed Overlay.");
         }
@@ -67,6 +66,11 @@ public class SeedOverlay : UIOverlay
         float delta = 1f / numSeeds;
         movement = (SeedDestroy.position - SeedSpawn.position) * delta;
 
-        return movement;        
+        return movement;
+    }
+
+    private void OnDestroy()
+    {
+        MyFeeder.OnFeed -= UIUpdate;
     }
 }

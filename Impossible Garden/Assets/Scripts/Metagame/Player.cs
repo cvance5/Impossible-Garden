@@ -22,5 +22,5 @@ public class Player
         }
     }
 
-    public virtual void SetControl(bool hasControl) { }
+    public virtual void PrepareForTurn(bool hasControl) { }
 }

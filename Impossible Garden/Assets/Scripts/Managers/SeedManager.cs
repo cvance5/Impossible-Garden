@@ -23,7 +23,7 @@ public static class SeedManager
     {
         List<PlantTypes> seedTypes = ObjectiveManager.Instance.GetRequiredPlants();
 
-        if(PlayerManager.Instance.PlayerCount > Enum<PlantTypes>.Count)
+        if (PlayerManager.Instance.PlayerCount > Enum<PlantTypes>.Count)
         {
             throw new ArgumentOutOfRangeException("More players than plant types!");
         }
@@ -43,7 +43,7 @@ public static class SeedManager
             }
         }
 
-        foreach(PlantTypes seedType in seedTypes)
+        foreach (PlantTypes seedType in seedTypes)
         {
             _seedCatalog.Add(seedType, SeedFactory.Create(seedType));
         }
@@ -51,21 +51,21 @@ public static class SeedManager
         Dictionary<Player, List<Seed>> distributionMap = new Dictionary<Player, List<Seed>>();
         int seedsPerPlayer = Mathf.CeilToInt(seedTypes.Count * .75f);
 
-        foreach(Player player in PlayerManager.Instance.Players)
+        foreach (Player player in PlayerManager.Instance.Players)
         {
             distributionMap.Add(player, new List<Seed>());
 
-            if(player.GameObjective is PlantObjective)
+            if (player.GameObjective is PlantObjective)
             {
                 var requiredPlants = (player.GameObjective as PlantObjective).GetRequiredPlants();
 
-                foreach(PlantTypes plantType in requiredPlants)
+                foreach (PlantTypes plantType in requiredPlants)
                 {
                     distributionMap[player].Add(SeedFactory.Clone(_seedCatalog[plantType]));
                 }
             }
 
-            while(distributionMap[player].Count < seedsPerPlayer)
+            while (distributionMap[player].Count < seedsPerPlayer)
             {
                 Seed randomSeed = SeedFactory.Clone(_seedCatalog[seedTypes.RandomItem()]);
                 if (!distributionMap[player].Any(seed => randomSeed.SeedType == seed.SeedType))
@@ -75,7 +75,7 @@ public static class SeedManager
             }
         }
 
-        foreach(Player player in Feeders.Keys)
+        foreach (Player player in Feeders.Keys)
         {
             Feeders[player].Initialize(distributionMap[player]);
         }

@@ -17,7 +17,7 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         Players = new List<Player>();
 
-        for (int userNumber = 0; userNumber < users.Count; userNumber++) 
+        for (int userNumber = 0; userNumber < users.Count; userNumber++)
         {
             User user = users[userNumber];
 
@@ -29,7 +29,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
             player.transform.position = new Vector3(edge.x, 5, edge.y);
 
-            if(user.IsLocalUser)
+            if (user.IsLocalUser)
             {
                 PlayerController controller = player.AddComponent<PlayerController>();
                 Players.Add(new LocalPlayer(user, controller));
@@ -51,17 +51,17 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void SetControl(params Player[] activeControllers)
     {
-        foreach(Player player in Players)
+        foreach (Player player in Players)
         {
-            player.SetControl(activeControllers.Contains(player));     
+            player.PrepareForTurn(activeControllers.Contains(player));
         }
     }
 
     private readonly Vector2[] _playerLocations =
-    {        
+    {
         new Vector2(1, 0),
         new Vector2(1, -1),
-        new Vector2(0, -1),        
+        new Vector2(0, -1),
         new Vector2(-1, -1),
         new Vector2(-1, 0),
         new Vector2(-1, 1),

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SeedActor : UIActor
-{    
+{
     public Seed Seed { get; private set; }
 
     private Image _icon;
@@ -14,7 +14,7 @@ public class SeedActor : UIActor
 
     public override void SetData(object sourceData)
     {
-        if(sourceData is Seed)
+        if (sourceData is Seed)
         {
             Seed = sourceData as Seed;
             _icon = gameObject.AddComponent<Image>();
@@ -30,7 +30,7 @@ public class SeedActor : UIActor
     {
         ClearTween();
         _currentTween = transform.DOMove(transform.position + movement, 1f);
-        if(destroyOnComplete)
+        if (destroyOnComplete)
         {
             _currentTween.OnComplete(() => Destroy(gameObject));
         }
@@ -38,7 +38,7 @@ public class SeedActor : UIActor
 
     private void ClearTween()
     {
-        if(_currentTween != null)
+        if (_currentTween != null)
         {
             _currentTween.Complete();
             _currentTween = null;

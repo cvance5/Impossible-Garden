@@ -1,15 +1,14 @@
 ﻿using System;
 using UnityEngine;
 
-public class Seed : ScriptableObject {
-
+public class Seed : ScriptableObject
+{
     public PlantTypes SeedType;
     public Sprite Icon;
-    private Type _plant;
+    public Type PlantType { get; private set; }
 
     private void OnValidate()
     {
-        _plant = SeedType.ToType();
+        PlantType = SeedType.ToType();
     }
-    
 }

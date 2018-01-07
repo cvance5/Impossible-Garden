@@ -16,11 +16,11 @@ public class PlantActor : MonoBehaviour
         MyPlant.Actor = this;
         MyPlant.Initialize();
         _plantType = newPlant.GetType();
-        _plantVisualizer = Instantiate(LoadManager.Load<GameObject>(_plantType.ToString(), LoadManager.Path(Directories.Plants)),transform);
+        _plantVisualizer = Instantiate(LoadManager.Load<GameObject>(_plantType.ToString(), LoadManager.Path(Directories.Plants)), transform);
 
         foreach (Transform part in transform.GetAllChildren())
         {
-            if(MyPlant.PartsMap.ContainsKey(part.name))
+            if (MyPlant.PartsMap.ContainsKey(part.name))
             {
                 MyPlant.PartsMap[part.name] = part.gameObject;
             }
@@ -40,11 +40,11 @@ public class PlantActor : MonoBehaviour
 
     public void Propogate()
     {
-        foreach(Plot plot in GardenManager.Instance.ActiveGarden.Plots)
+        foreach (Plot plot in GardenManager.Instance.ActiveGarden.Plots)
         {
-            if(MyPlant.ShouldPropogate(plot))
+            if (MyPlant.ShouldPropogate(plot))
             {
-                plot.Sow(Activator.CreateInstance(_plantType) as Plant);
+                plot.Sow(_plantType);
             }
         }
     }
@@ -89,53 +89,53 @@ public class PlantActor : MonoBehaviour
 
     public void SmoothlyScalePlant(Vector3 newScale, GameObject target = null, float duration = 1f)
     {
-        if(target == null)
+        if (target == null)
         {
             target = _plantVisualizer;
         }
 
         CheckActive(target);
-        
-        if(duration == 0)
+
+        if (duration == 0)
         {
             target.transform.localScale = newScale;
         }
         else
         {
             target.transform.DOScale(newScale, duration);
-        }       
+        }
     }
 
     public void SmoothlyColorPlant(Color newColor, GameObject target = null, float duration = 1f)
     {
-        if(target == null)
+        if (target == null)
         {
             target = _plantVisualizer;
         }
 
         CheckActive(target);
 
-        Renderer renderer = target.GetComponent<MeshRenderer>();        
-        if(renderer == null)
+        Renderer renderer = target.GetComponent<MeshRenderer>();
+        if (renderer == null)
         {
             renderer = target.GetComponent<ParticleSystemRenderer>();
         }
 
         Material plantMaterial = renderer.material;
 
-        if(duration == 0)
+        if (duration == 0)
         {
             plantMaterial.color = newColor;
         }
         else
         {
             plantMaterial.DOColor(newColor, duration);
-        }        
+        }
     }
 
     public void SetPlantVisibility(bool isVisible, GameObject target = null)
     {
-        if(target == null)
+        if (target == null)
         {
             target = _plantVisualizer;
         }
@@ -145,7 +145,7 @@ public class PlantActor : MonoBehaviour
 
     private void CheckActive(GameObject target)
     {
-        if(!target.activeInHierarchy)
+        if (!target.activeInHierarchy)
         {
             target.SetActive(true);
         }

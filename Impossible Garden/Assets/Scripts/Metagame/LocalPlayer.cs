@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class LocalPlayer : Player {
-
+public class LocalPlayer : Player
+{
     public PlayerController Controller { get; private set; }
     public SeedFeeder Feeder { get; private set; }
     public SeedOverlay Overlay { get; private set; }
@@ -12,6 +10,7 @@ public class LocalPlayer : Player {
         : base(user)
     {
         Controller = controller;
+        Controller.AssignOwner(this);
         if (Feeder == null)
         {
             Feeder = new SeedFeeder();
@@ -22,11 +21,11 @@ public class LocalPlayer : Player {
         Overlay.Initialize(Feeder);
     }
 
-    public override void SetControl(bool hasControl)
+    public override void PrepareForTurn(bool hasControl)
     {
         Controller.HasControl = hasControl;
 
-        if(hasControl)
+        if (hasControl)
         {
             Camera.main.transform.position = Controller.transform.position;
             Camera.main.transform.LookAt(GardenManager.Instance.ActiveGarden.Centerpoint);

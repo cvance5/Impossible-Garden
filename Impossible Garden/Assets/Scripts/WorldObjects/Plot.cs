@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,15 +19,15 @@ public class Plot : MonoBehaviour
         };
     }
 
-    public void Sow(Plant newPlant)
+    public void Sow(Type plantType)
     {
-        if(CurrentPlantActor == null)
+        if (CurrentPlantActor == null)
         {
-            CurrentPlantActor = GardenManager.Instance.FillPlot(newPlant, this);
+            CurrentPlantActor = GardenManager.Instance.FillPlot(Activator.CreateInstance(plantType) as Plant, this);
         }
         else
         {
-            Log.Info("Plot " + this + " is already occupied by plant " + CurrentPlantActor + " and cannot accept plant " + newPlant);
+            Log.Info("Plot " + this + " is already occupied by plant " + CurrentPlantActor + " and cannot accept plant " + plantType);
         }
     }
 
@@ -35,7 +35,7 @@ public class Plot : MonoBehaviour
     {
         bool isNeighbor = false;
 
-        if(Neighbors.ContainsValue(plot))
+        if (Neighbors.ContainsValue(plot))
         {
             isNeighbor = true;
         }

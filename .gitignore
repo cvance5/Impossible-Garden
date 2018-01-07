@@ -23,3 +23,7 @@ Impossible Garden/Library/shadercompiler-
 ImpossibleGarden/Temp
 UnityShaderCompiler.exe0.log
 Impossible Garden/Temp/UnityLockfile
+*.ide
+*.ide-shm
+*.ide-shm
+*.ide-wal
