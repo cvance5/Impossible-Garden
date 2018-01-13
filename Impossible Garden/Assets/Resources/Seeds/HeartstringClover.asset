@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 679bf006c0e679c44919f5f871c53db6, type: 3}
-  m_Name: New Seed
+  m_Name: HeartstringClover
   m_EditorClassIdentifier: 
   SeedType: 1
   Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}

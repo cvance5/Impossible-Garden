@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Clover : Plant
+public class HeartstringClover : Plant
 {
     private Plot _growthDirection;
     private int _turnsTillPropogate;
 
-    private Clover source;
-    private List<Clover> derivatives;
+    private HeartstringClover source;
+    private List<HeartstringClover> derivatives;
 
     protected override bool CheckPropogation(Plot plot)
     {        
@@ -106,7 +104,7 @@ public class Clover : Plant
 
         foreach (Plot plot in plots)
         {
-            if (plot.CurrentPlantActor != null && plot.CurrentPlantActor.MyPlant.GetType() != typeof(Clover))
+            if (plot.CurrentPlantActor != null && plot.CurrentPlantActor.MyPlant.GetType() != typeof(HeartstringClover))
             {
                 int distanceToTarget = Mathf.RoundToInt(Vector2.Distance(plot.transform.position, myLocation));
                 if (distanceToTarget < distanceToBest)
@@ -124,7 +122,7 @@ public class Clover : Plant
 
             foreach (Plot neighbor in Actor.MyPlot.Neighbors.Values)
             {
-                if(neighbor != null && (neighbor.CurrentPlantActor == null || neighbor.CurrentPlantActor.MyPlant.GetType() != typeof(Clover)))
+                if(neighbor != null && (neighbor.CurrentPlantActor == null || neighbor.CurrentPlantActor.MyPlant.GetType() != typeof(HeartstringClover)))
                 {
                     int distanceFromNeighbor = Mathf.RoundToInt(Vector2.Distance(neighbor.transform.position, closestOccupiedPlot.transform.position));
                     if (distanceFromNeighbor < targetPlotDistance)
