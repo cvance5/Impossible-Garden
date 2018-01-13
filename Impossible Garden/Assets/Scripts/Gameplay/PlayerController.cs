@@ -6,14 +6,12 @@ public class PlayerController : MonoBehaviour
     public LocalPlayer Owner { get; private set; }
     public bool HasControl;
 
-    private int _selectedSeed;
-
     void Update()
     {
         if (HasControl)
         {
-            CheckForClick();
-            CheckForSelectionChange();
+            CheckForSeedSelection();
+            CheckForPlotSelection();
         }
     }
 
@@ -22,7 +20,7 @@ public class PlayerController : MonoBehaviour
         Owner = localPlayer;
     }
 
-    private void CheckForClick()
+    private void CheckForPlotSelection()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -30,7 +28,7 @@ public class PlayerController : MonoBehaviour
             if (clickTarget != null)
             {
                 Plot targetPlot = clickTarget.GetComponent<Plot>();
-                Type selectedPlant = Owner.Feeder.GetSeedType(_selectedSeed);
+                Type selectedPlant = Owner.Feeder.GetSelectedSeed();
 
                 if (targetPlot != null)
                 {
@@ -38,12 +36,10 @@ public class PlayerController : MonoBehaviour
                     {
                         targetPlot.Sow(selectedPlant);
                         TurnManager.Instance.CompleteTurn();
+
+                        Owner.Feeder.UseSelectedSeed();
                     }
                 }
-            }
-            else
-            {
-                Log.Warning("Clicked nothing!");
             }
         }
     }
@@ -61,15 +57,14 @@ public class PlayerController : MonoBehaviour
         return target;
     }
 
-    private void CheckForSelectionChange()
-    {
-        for (int number = 1; number < 10; number++)
+    private void CheckForSeedSelection()
+    {        
+        for (int number = 1; number <= 5; number++)
         {
-            if (Input.GetButtonDown("select" + number))
+            if (Input.GetButtonDown("Select" + number))
             {
-                _selectedSeed = number;
+                Owner.Feeder.SetSeedSelection(number - 1);
             }
-        }
+        }        
     }
-
 }

@@ -5,11 +5,14 @@ using UnityEngine;
 public class SeedFeeder
 {
     public SmartEvent OnFeed = new SmartEvent();
+    public SmartEvent<int> OnSeedRemoved = new SmartEvent<int>();
+    public SmartEvent<int> OnSelectionChanged = new SmartEvent<int>();
 
     public List<Seed> SeedPrototypes { get; private set; }
     public List<Seed> CurrentSeeds { get; private set; }
 
     public Seed NewestSeed { get; private set; }
+    private int _selectedSeed;
 
     public void Initialize(List<Seed> possibleSeeds)
     {
@@ -34,22 +37,32 @@ public class SeedFeeder
         }
     }
 
-    public Type GetSeedType(int selectedSeed)
+    public void SetSeedSelection(int selection)
+    {
+        if(selection >= 0 && selection < CurrentSeeds.Count)
+        {
+            _selectedSeed = selection;
+            OnSelectionChanged.Raise(_selectedSeed);
+        }
+    }
+
+    public void UseSelectedSeed()
+    {
+        CurrentSeeds[_selectedSeed] = null;
+        OnSeedRemoved.Raise(_selectedSeed);
+    }
+
+    public Type GetSelectedSeed()
     {
         Type type = null;
 
-        if (selectedSeed < 0 || selectedSeed >= CurrentSeeds.Count)
+        if (CurrentSeeds[_selectedSeed] != null)
         {
-            throw new IndexOutOfRangeException("Cannot find seed number " + selectedSeed + " in Current Seeds.");
-        }
-
-        if (CurrentSeeds[selectedSeed] != null)
-        {
-            type = CurrentSeeds[selectedSeed].PlantType;
+            type = CurrentSeeds[_selectedSeed].PlantType;
         }
 
         return type;
-    }
+    }    
 
     public const int NUMBER_SEED_SLOTS = 5;
 }

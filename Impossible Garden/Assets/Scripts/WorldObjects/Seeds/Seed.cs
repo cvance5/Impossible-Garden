@@ -5,10 +5,11 @@ public class Seed : ScriptableObject
 {
     public PlantTypes SeedType;
     public Sprite Icon;
-    public Type PlantType { get; private set; }
-
-    private void OnValidate()
+    public Type PlantType
     {
-        PlantType = SeedType.ToType();
+        get
+        {
+            return SeedType.ToType();
+        }
     }
 }

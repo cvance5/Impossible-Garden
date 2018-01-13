@@ -33,7 +33,7 @@ public class GameSettings : ScriptableObject
         DurationMap = new Dictionary<Type, List<int>>()
         {
             {typeof(Shimmergrass), ShimmerGrassStageDurations },
-            {typeof(Clover), CloverStageDurations }
+            {typeof(HeartstringClover), CloverStageDurations }
         };
     }
 }

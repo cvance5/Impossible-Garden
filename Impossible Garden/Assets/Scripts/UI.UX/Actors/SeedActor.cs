@@ -1,12 +1,13 @@
 ﻿using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SeedActor : UIActor
+public class SeedActor : UIActor, IPointerClickHandler
 {
+    public static SmartEvent<SeedActor> OnActorClicked = new SmartEvent<SeedActor>();
+
     public Seed Seed { get; private set; }
 
     private Image _icon;
@@ -43,5 +44,10 @@ public class SeedActor : UIActor
             _currentTween.Complete();
             _currentTween = null;
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        OnActorClicked.Raise(this);
     }
 }
