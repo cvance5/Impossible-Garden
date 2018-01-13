@@ -266,8 +266,9 @@
     <Compile Include="Assets\Scripts\Utilities\UnityExtensionMethods.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Garden.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\PlantActor.cs" />
-    <Compile Include="Assets\Scripts\WorldObjects\Plants\Clover.cs" />
+    <Compile Include="Assets\Scripts\WorldObjects\Plants\HeartstringClover.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\Plant.cs" />
+    <Compile Include="Assets\Scripts\WorldObjects\Plants\PlantColors.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\PlantTypes.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\ShimmerGrass.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plot.cs" />

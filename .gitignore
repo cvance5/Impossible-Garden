@@ -2,9 +2,9 @@ Impossible Garden/ProjectSettings/ProjectSettings.asset
 Impossible Garden/Library/
 Impossible Garden/Temp/
 Impossible Garden/.vs/
-*.ide
-*.ide-shm
-*.ide-shm
-*.ide-wal
-*.backup
-*.csproj
+**.ide
+**.ide-shm
+**.ide-shm
+**.ide-wal
+**.backup
+**.csproj
