@@ -13,7 +13,7 @@ public class WildGrowthObjective : PlantObjective
     public override PlantTypes[] GetRequiredPlants()
     {
         PlantTypes requiredPlant = PlantTypes.Shimmergrass;
-        requiredPlant = requiredPlant.ToEnum(PlantType);
+        requiredPlant.ToEnum(PlantType);
         return new PlantTypes[] { requiredPlant };
     }
 
