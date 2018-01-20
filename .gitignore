@@ -8,3 +8,4 @@ Impossible Garden/.vs/
 **.ide-wal
 **.backup
 **.csproj
+*.log
