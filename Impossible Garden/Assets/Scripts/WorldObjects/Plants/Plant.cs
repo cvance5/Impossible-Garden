@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Plant
 {
     public SmartEvent OnPlantDeath = new SmartEvent();
-
+    
     public delegate bool PropogationCondition(Plot target);
     public PropogationCondition ShouldPropogate;
 
@@ -18,6 +17,8 @@ public abstract class Plant
 
     public PlantActor Actor;
 
+    protected Player _sower;
+
     public void Initialize()
     {
         GrowthStage = 0;
@@ -26,6 +27,7 @@ public abstract class Plant
         InitializePlantPartsMap();
         InitializeStageDuration();
         InitializePropogationCondition();
+        InitializeData();
     }
 
     protected abstract void InitializePlantPartsMap();
@@ -39,11 +41,16 @@ public abstract class Plant
     }
 
     public virtual void PreparePlantAppearance() { }
+    public virtual void InitializeData() { }
     protected abstract bool CheckPropogation(Plot plot);
+    public void SetSower(Player sower)
+    {
+        _sower = sower;
+    }
 
     public void Grow()
     {        
-        GrowthTimer++;
+        GrowthTimer++;        
 
         if(GrowthTimer > StageDuration[GrowthStage])
         {
@@ -63,7 +70,8 @@ public abstract class Plant
         {
             ApplyGrowthEffects();
         }
-    }
+    }    
+
     public void Wilt()
     {
         if (GrowthStage < StageDuration.Count - 1)

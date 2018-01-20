@@ -13,6 +13,7 @@ public class PlantActor : MonoBehaviour
     public void Initialize(Plant newPlant, Plot plot)
     {
         MyPlant = newPlant;
+        MyPlot = plot;
         MyPlant.Actor = this;
         MyPlant.Initialize();
         _plantType = newPlant.GetType();
@@ -28,9 +29,7 @@ public class PlantActor : MonoBehaviour
 
         MyPlant.PreparePlantAppearance();
 
-        MyPlant.OnPlantDeath += OnPlantDied;
-
-        MyPlot = plot;
+        MyPlant.OnPlantDeath += OnPlantDied;        
     }
 
     public void GrowPlant()

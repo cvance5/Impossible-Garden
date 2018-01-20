@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
         {
             CheckForSeedSelection();
             CheckForPlotSelection();
+
+            if(Input.GetKeyDown(KeyCode.Space))
+                TurnManager.Instance.CompleteTurn();
         }
     }
 
@@ -28,13 +31,13 @@ public class PlayerController : MonoBehaviour
             if (clickTarget != null)
             {
                 Plot targetPlot = clickTarget.GetComponent<Plot>();
-                Type selectedPlant = Owner.Feeder.GetSelectedSeed();
-
-                if (targetPlot != null)
+                if(targetPlot.CurrentPlantActor == null)
                 {
-                    if (selectedPlant != null)
+                    Type selectedPlant = Owner.Feeder.GetSelectedSeed();
+
+                    if (targetPlot != null && selectedPlant != null)
                     {
-                        targetPlot.Sow(selectedPlant);
+                        targetPlot.Sow(selectedPlant, Owner);
                         TurnManager.Instance.CompleteTurn();
 
                         Owner.Feeder.UseSelectedSeed();
@@ -47,12 +50,10 @@ public class PlayerController : MonoBehaviour
     private GameObject GetClickTarget()
     {
         GameObject target = null;
-
         RaycastHit hit;
+
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
-        {
             target = hit.collider.gameObject;
-        }
 
         return target;
     }
@@ -62,9 +63,7 @@ public class PlayerController : MonoBehaviour
         for (int number = 1; number <= 5; number++)
         {
             if (Input.GetButtonDown("Select" + number))
-            {
                 Owner.Feeder.SetSeedSelection(number - 1);
-            }
         }        
     }
 }

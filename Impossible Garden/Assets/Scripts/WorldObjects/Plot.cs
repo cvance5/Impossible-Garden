@@ -19,11 +19,13 @@ public class Plot : MonoBehaviour
         };
     }
 
-    public void Sow(Type plantType)
+    public void Sow(Type plantType, Player sower = null)
     {
         if (CurrentPlantActor == null)
         {
-            CurrentPlantActor = GardenManager.Instance.FillPlot(Activator.CreateInstance(plantType) as Plant, this);
+            Plant newPlant = Activator.CreateInstance(plantType) as Plant;
+            newPlant.SetSower(sower);
+            CurrentPlantActor = GardenManager.Instance.FillPlot(newPlant, this);
         }
         else
         {
