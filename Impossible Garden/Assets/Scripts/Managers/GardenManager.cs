@@ -20,10 +20,6 @@ public class GardenManager : Singleton<GardenManager>
     {
         ResetGarden();
 
-        _activePlants = new List<PlantActor>();
-        _newPlants = new List<PlantActor>();
-        _removedPlants = new List<PlantActor>();
-
         GameObject newGarden = new GameObject("Garden");
         newGarden.transform.SetParent(transform);
         ActiveGarden = newGarden.AddComponent<Garden>();
@@ -106,5 +102,9 @@ public class GardenManager : Singleton<GardenManager>
             Destroy(ActiveGarden.gameObject);
             ActiveGarden = null;
         }
+
+        _activePlants = new List<PlantActor>();
+        _newPlants = new List<PlantActor>();
+        _removedPlants = new List<PlantActor>();
     }
 }

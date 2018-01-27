@@ -72,7 +72,7 @@ public class Shimmergrass : Plant
         switch(GrowthStage)
         {
             case 0:
-                Actor.SmoothlyScalePlant(Vector3.one, PartsMap["Cover"]);
+                Actor.SmoothlyScalePlant(Vector3.one * .1f, PartsMap["Cover"]);
                 break;
             case 1:
                 Actor.SmoothlyScalePlant(new Vector3(1, (GrowthTimer  * .5f), 1), PartsMap["Blades"]);
