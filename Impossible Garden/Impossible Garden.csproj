@@ -258,14 +258,15 @@
     <Compile Include="Assets\Scripts\Utilities\Debug\Log.cs" />
     <Compile Include="Assets\Scripts\Utilities\EnumExtensions.cs" />
     <Compile Include="Assets\Scripts\Utilities\EnumT.cs" />
+    <Compile Include="Assets\Scripts\Utilities\GameSettings.cs" />
     <Compile Include="Assets\Scripts\Utilities\ListExtensions.cs" />
     <Compile Include="Assets\Scripts\Utilities\ScritableObjectUtility.cs" />
-    <Compile Include="Assets\Scripts\Utilities\Settings.cs" />
     <Compile Include="Assets\Scripts\Utilities\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utilities\SmartEvent.cs" />
     <Compile Include="Assets\Scripts\Utilities\UnityExtensionMethods.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Garden.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\PlantActor.cs" />
+    <Compile Include="Assets\Scripts\WorldObjects\Plants\Fern.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\HeartstringClover.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\Plant.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\PlantColors.cs" />

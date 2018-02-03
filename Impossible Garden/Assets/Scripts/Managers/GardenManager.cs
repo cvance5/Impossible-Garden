@@ -68,10 +68,12 @@ public class GardenManager : Singleton<GardenManager>
                 if(plant.ShouldPropogate(plot)) // try all of the plants here
                 {
                     plot.Sow(plant.GetType());
-                    if (_propagations[plant] != null) _propagations[plant](); //if you found a match, call the callbreak and move to next plot
+                    if (_propagations[plant] != null) _propagations[plant](); //if you found a match, call the callback and move to the next plot
                     break;
                 }
             }
+
+            yield return new WaitForSeconds(.01f);
         }
     }
 
