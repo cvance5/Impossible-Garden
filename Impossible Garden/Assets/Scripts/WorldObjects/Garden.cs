@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Garden : MonoBehaviour
@@ -41,34 +42,37 @@ public class Garden : MonoBehaviour
         return edge;
     }
 
-    public Plant FindNearest(Type plantType, Plot source, out int nearestDistance)
+    public Plant FindNearest(Type plantType, Plot source, out int nearestDistance, bool ignoreSource = true)
     {
-        return FindNearest(plant => plant.GetType() == plantType, source, out nearestDistance);
+        return FindNearest(plant => plantType.IsAssignableFrom(plant.GetType()), source, out nearestDistance, ignoreSource);
     }
 
-    public Plant FindNearest(Func<Plant, bool> condition, Plot source, out int nearestDistance)
+    public Plant FindNearest(Func<Plant, bool> condition, Plot source, out int nearestDistance, bool ignoreSource = true)
     {
         Plant nearestPlant = null;
+        List<Plot> plotsToSearch = new List<Plot>();
+
+        if (!ignoreSource) plotsToSearch.Add(source);
+
+        foreach(Plot neighbor in source.Neighbors.Values)
+            if (neighbor != null) plotsToSearch.Add(neighbor);
+
         nearestDistance = int.MaxValue;
 
-        for (int column = 0; column < Plots.GetUpperBound(0); column++)
+        for(int currentIndex = 0; currentIndex < plotsToSearch.Count; currentIndex++)
         {
-            for (int row = 0; row < Plots.GetUpperBound(1); row++)
+            Plot nextPlot = plotsToSearch[currentIndex];
+
+            foreach (Plot neighbor in nextPlot.Neighbors.Values)
+                if (neighbor != null)
+                    if(!plotsToSearch.Contains(neighbor)) plotsToSearch.Add(neighbor);
+
+            if (!nextPlot.CurrentPlantActor) continue;
+            else if (condition(nextPlot.CurrentPlantActor.MyPlant))
             {
-                Plot testingPlot = Plots[column, row];
-
-                if (testingPlot == source) continue;
-                else if (testingPlot.CurrentPlantActor == null) continue;
-                else if (condition(testingPlot.CurrentPlantActor.MyPlant))
-                {
-                    int distance = Distance(source, testingPlot);
-
-                    if (distance < nearestDistance)
-                    {
-                        nearestDistance = distance;
-                        nearestPlant = testingPlot.CurrentPlantActor.MyPlant;
-                    }
-                }
+                nearestDistance = Distance(source, nextPlot);
+                nearestPlant = nextPlot.CurrentPlantActor.MyPlant;
+                break;
             }
         }
 
@@ -94,12 +98,8 @@ public class Garden : MonoBehaviour
         Plot selectedPlot = null;
 
         if(column < Plots.GetLength(0) && column >= 0)
-        {
             if(row < Plots.GetLength(1) && row >= 0)
-            {
                 selectedPlot = Plots[column, row];
-            }
-        }
 
         return selectedPlot;
     }

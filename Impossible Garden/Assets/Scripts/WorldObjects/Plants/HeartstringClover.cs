@@ -12,12 +12,10 @@ public class HeartstringClover : Plant
     protected override bool CheckPropogation(Plot plot)
     {        
         bool shouldPropogate = false;
-
         if(plot == _growthDirection)
         {
             shouldPropogate = true;
         }
-
         return shouldPropogate;
     }
 
@@ -108,9 +106,7 @@ public class HeartstringClover : Plant
             {
                 int distanceToTarget = Mathf.RoundToInt(Vector2.Distance(plot.transform.position, myLocation));
                 if (distanceToTarget < distanceToBest)
-                {
                     closestOccupiedPlot = plot;
-                }
             }
         }
 

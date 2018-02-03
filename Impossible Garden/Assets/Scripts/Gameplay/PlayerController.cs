@@ -52,9 +52,9 @@ public class PlayerController : MonoBehaviour
         GameObject target = null;
         RaycastHit hit;
 
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))        
             target = hit.collider.gameObject;
-
+        
         return target;
     }
 

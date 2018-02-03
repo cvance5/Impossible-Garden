@@ -10,8 +10,11 @@ public abstract class PlantObjective : Objective {
     public List<PlantTypes> HardPlants;
 
     protected Dictionary<DifficultySettings, List<Type>> plantsPerDifficulty;
-
-    void OnValidate()
+    private void Awake()
+    {
+        OnValidate();
+    }
+    private void OnValidate()
     {
         plantsPerDifficulty = new Dictionary<DifficultySettings, List<Type>>();
 

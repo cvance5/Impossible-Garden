@@ -12,9 +12,7 @@ public class Shimmergrass : Plant
     protected override bool CheckPropogation(Plot target)
     {
         bool shouldPropogate = false;
-
         if (target == _selectedPlot) shouldPropogate = true;
-
         return shouldPropogate;
     }
 
@@ -30,7 +28,7 @@ public class Shimmergrass : Plant
 
     public override void PreparePlantAppearance()
     {
-        Actor.SmoothyMovePlant(PartsMap["Cover"].GetComponent<Collider>().RandomPointWithinBounds(), PartsMap["Bell"], 0);
+        Actor.SmoothlyMovePlant(PartsMap["Cover"].GetComponent<Collider>().RandomPointWithinBounds(), PartsMap["Bell"], 0);
         Actor.SmoothlyScalePlant(Vector3.zero, PartsMap["Cover"], 0);
         Actor.SmoothlyScalePlant(new Vector3(1, 0, 1), PartsMap["Blades"], 0);
         Actor.SmoothlyScalePlant(Vector3.zero, PartsMap["Bell"], 0);
@@ -40,8 +38,6 @@ public class Shimmergrass : Plant
     public override void InitializeData()
     {
         IsHeart = true;
-
-
 
         if(_sower == null)
         {
@@ -78,33 +74,19 @@ public class Shimmergrass : Plant
                 Actor.SmoothlyScalePlant(new Vector3(1, (GrowthTimer  * .5f), 1), PartsMap["Blades"]);
                 break;
             case 2:
-                if(IsHeart)
-                {
-                    Actor.SmoothlyScalePlant(Vector3.one * ((GrowthTimer + 1) / (float)StageDuration[GrowthStage]), PartsMap["Bell"]);
-                }
-                else
-                {
-                    GrowthStage++;
-                }
+                if (IsHeart) Actor.SmoothlyScalePlant(Vector3.one * ((GrowthTimer + 1) / (float)StageDuration[GrowthStage]), PartsMap["Bell"]);
+                else GrowthStage++;
                 break;
             case 3:
-                if(IsHeart)
-                {
-                    SeekSpreadTarget();
-                }
+                if (IsHeart) SeekSpreadTarget();
                 else
                 {
-                    if (!CheckSafe(Actor.MyPlot))
-                        GrowthStage++;                    
-                    else
-                        GrowthTimer--;
+                    if (!CheckSafe(Actor.MyPlot)) GrowthStage++;
+                    else GrowthTimer--;
                 }
                 break;
             case 4:
-                if(IsHeart)
-                {
-                    Actor.SmoothlyColorPlant(Color.black, PartsMap["Bell"]);
-                }                
+                if (IsHeart) Actor.SmoothlyColorPlant(Color.black, PartsMap["Bell"]);
                 Actor.SmoothlyColorPlant(Color.black, PartsMap["Blades"]);
                 break;
             default:
