@@ -14,7 +14,7 @@ MonoBehaviour:
   Title: Wild Growth
   Description: The king wants a verdant, rolling blanket!
   EasyPlants: 00000000
-  MediumPlants: 01000000
+  MediumPlants: 0100000002000000
   HardPlants: 
-  NumberToWin: 21
+  NumberToWin: 15
   PerPlayerModifier: 1

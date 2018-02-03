@@ -28,6 +28,7 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
                 objective = ValidateObjective(availableObjectives[index]);
             } while (objective == null);
 
+            objective = Instantiate(objective);
             _assignedObjectives.Add(objective);
             player.SetObjective(objective);
 
@@ -45,9 +46,7 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
             {
                 var newRequiredPlants = (objective as PlantObjective).GetRequiredPlants();
                 foreach(PlantTypes newPlant in newRequiredPlants)
-                {
-                    requiredPlants.Add(newPlant);
-                }
+                    requiredPlants.Add(newPlant);                
             }
         }
 
@@ -80,8 +79,7 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
         }
 
         if(hasWon)
-        {
             GameManager.Instance.EndGame();
-        }
+        
     }
 }
