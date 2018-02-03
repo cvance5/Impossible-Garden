@@ -87,10 +87,7 @@ public class HeartstringClover : Plant
                 _growthDirection = null;
             }
             else
-            {
-                Actor.Propogate();
-                DelayPropogation();
-            }
+                GardenManager.Instance.PreparePropagation(this, DelayPropogation);
         }
     }
 

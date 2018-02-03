@@ -38,20 +38,17 @@ public class Fern : Plant
                 if (!_seedReady)
                 {
                     _seedGrowth++;
-                    if (_seedGrowth == 3)
-                    {
-                        _seedReady = true;
-                    }
+                    if (_seedGrowth == 3) _seedReady = true;
                 }
 
                 if (_seedReady)
                     if (_selectedPlot != null)
-                    {
-                        Actor.Propogate();
-                        _seedReady = false;
-                        _seedGrowth = 0;
-                        _selectedPlot = null;
-                    }
+                        GardenManager.Instance.PreparePropagation(this, () =>
+                        {
+                            _seedReady = false;
+                            _seedGrowth = 0;
+                            _selectedPlot = null;
+                        });
                     else
                         SelectPlot();
                 break;

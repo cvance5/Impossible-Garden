@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class GardenManager : Singleton<GardenManager>
     private List<PlantActor> _activePlants;
     private List<PlantActor> _newPlants;
     private List<PlantActor> _removedPlants;
+
+    private Dictionary<Plant, Action> _propagations;
 
     public void GenerateGarden(int plotsWide, int plotsDeep)
     {
@@ -41,6 +44,7 @@ public class GardenManager : Singleton<GardenManager>
     public IEnumerator GrowAllPlants()
     {
         UpdateActivePlants();
+        _propagations = new Dictionary<Plant, Action>();
 
         foreach (PlantActor activePlant in _activePlants)
         {
@@ -54,6 +58,26 @@ public class GardenManager : Singleton<GardenManager>
 
             yield return new WaitForSeconds(.01f);
         }
+
+        foreach(Plot plot in ActiveGarden.Plots)
+        {
+            if (plot.CurrentPlantActor) continue; // if occupied, move on
+
+            foreach(Plant plant in _propagations.Keys)
+            {
+                if(plant.ShouldPropogate(plot)) // try all of the plants here
+                {
+                    plot.Sow(plant.GetType());
+                    if (_propagations[plant] != null) _propagations[plant](); //if you found a match, call the callbreak and move to next plot
+                    break;
+                }
+            }
+        }
+    }
+
+    public void PreparePropagation(Plant plant, Action onPropogation = null)
+    {
+        _propagations.Add(plant, onPropogation);
     }
 
     public PlantActor FillPlot(Plant source, Plot caller)

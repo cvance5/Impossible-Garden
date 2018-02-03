@@ -37,17 +37,6 @@ public class PlantActor : MonoBehaviour
         MyPlant.Grow();
     }
 
-    public void Propogate()
-    {
-        foreach (Plot plot in GardenManager.Instance.ActiveGarden.Plots)
-        {
-            if (MyPlant.ShouldPropogate(plot))
-            {
-                plot.Sow(_plantType);
-            }
-        }
-    }
-
     public void SmoothlyMovePlant(Vector3 newLocation, GameObject target = null, float duration = 1f)
     {
         if (target == null)

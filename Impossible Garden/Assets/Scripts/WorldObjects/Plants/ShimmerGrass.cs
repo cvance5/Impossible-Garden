@@ -155,12 +155,13 @@ public class Shimmergrass : Plant
         if(_selectedPlot != null)
         {
             GrowthTimer--;
-            Actor.Propogate();
+            GardenManager.Instance.PreparePropagation(this, ()=>
+            {
+                PlantActor offshoot = _selectedPlot.CurrentPlantActor;
 
-            PlantActor offshoot = _selectedPlot.CurrentPlantActor;
-
-            if(!(offshoot.MyPlant as Shimmergrass).IsHeart)
-                FindReachablePlots(_selectedPlot, offshoot);
+                if (!(offshoot.MyPlant as Shimmergrass).IsHeart)
+                    FindReachablePlots(_selectedPlot, offshoot);
+            });
         }
     }
 
