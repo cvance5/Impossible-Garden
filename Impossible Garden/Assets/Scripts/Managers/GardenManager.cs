@@ -27,12 +27,13 @@ public class GardenManager : Singleton<GardenManager>
         Plot[,] plots = new Plot[plotsWide, plotsDeep];
 
         for(int row = 0; row < plotsDeep; row++)
-        {
             for(int column = 0; column < plotsWide; column++)
             {
-                plots[column, row] = Instantiate(_defaultPlotObject, new Vector3(column, 0, row), Quaternion.identity, newGarden.transform).GetComponent<Plot>();
+                GameObject plotObject = Instantiate(_defaultPlotObject, new Vector3(column, 0, row), Quaternion.identity, newGarden.transform);
+                plots[column, row] = plotObject.GetComponent<Plot>();
+                plotObject.name = "[" + column + "," + row + "]";
             }
-        }
+                
 
         ActiveGarden.Initialize(plots);
     }
@@ -44,9 +45,7 @@ public class GardenManager : Singleton<GardenManager>
         foreach (PlantActor activePlant in _activePlants)
         {
             if (activePlant != null)
-            {
-                activePlant.GrowPlant();
-            }
+                activePlant.GrowPlant();            
             else
             {
                 RemovePlant(activePlant);
@@ -71,26 +70,19 @@ public class GardenManager : Singleton<GardenManager>
     public void RemovePlant(PlantActor caller)
     {
         if(_activePlants.Contains(caller))
-        {
             _removedPlants.Add(caller);
-        }
         else if(_newPlants.Contains(caller))
-        {
             _newPlants.Remove(caller);
-        }
         else
-        {
             Log.Warning(caller + " has requested removal, but wasn't in any list.");
-        }
     }
 
     private void UpdateActivePlants()
     {
         _activePlants.AddRange(_newPlants);
         foreach(PlantActor plant in _removedPlants)
-        {
             _activePlants.Remove(plant);
-        }
+
         _removedPlants.Clear();
         _newPlants.Clear();
     }
