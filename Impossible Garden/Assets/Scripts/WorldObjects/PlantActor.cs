@@ -48,7 +48,7 @@ public class PlantActor : MonoBehaviour
         }
     }
 
-    public void SmoothyMovePlant(Vector3 newLocation, GameObject target = null, float duration = 1f)
+    public void SmoothlyMovePlant(Vector3 newLocation, GameObject target = null, float duration = 1f)
     {
         if (target == null)
         {
