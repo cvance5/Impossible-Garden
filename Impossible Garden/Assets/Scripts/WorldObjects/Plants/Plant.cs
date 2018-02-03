@@ -81,6 +81,7 @@ public abstract class Plant
             ApplyGrowthEffects();
         }
     }
+
     protected void Die()
     {
         OnPlantDeath.Raise();

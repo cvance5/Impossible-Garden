@@ -14,5 +14,5 @@ MonoBehaviour:
   NumberPlayers: 1
   ShimmerGrassStageDurations: 0100000002000000030000000200000001000000
   CloverStageDurations: 030000000c00000001000000
-  SeedsAvailable: []
-  Difficulty: 0
+  FernStageDurations: 030000000c00000001000000
+  Difficulty: 1

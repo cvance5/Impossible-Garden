@@ -11,8 +11,7 @@ public class GameSettings : ScriptableObject
     [Header("Plant Settings")]
     public List<int> ShimmerGrassStageDurations;
     public List<int> CloverStageDurations;
-
-    public List<Seed> SeedsAvailable;
+    public List<int> FernStageDurations;    
 
     [Header("Game Settings")]
     public DifficultySettings Difficulty;
@@ -33,7 +32,8 @@ public class GameSettings : ScriptableObject
         DurationMap = new Dictionary<Type, List<int>>()
         {
             {typeof(Shimmergrass), ShimmerGrassStageDurations },
-            {typeof(HeartstringClover), CloverStageDurations }
+            {typeof(HeartstringClover), CloverStageDurations },
+            {typeof(Fern), FernStageDurations }
         };
     }
 }

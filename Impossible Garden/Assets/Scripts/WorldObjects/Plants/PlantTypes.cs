@@ -1,5 +1,6 @@
 ﻿public enum PlantTypes
 {
     Shimmergrass,
-    HeartstringClover
+    HeartstringClover,
+    Fern
 }

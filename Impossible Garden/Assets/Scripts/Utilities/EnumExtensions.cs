@@ -14,6 +14,9 @@ public static class EnumExtensions
             case PlantTypes.HeartstringClover:
                 type = typeof(HeartstringClover);
                 break;
+            case PlantTypes.Fern:
+                type = typeof(Fern);
+                break;
             default:
                 throw new ArgumentOutOfRangeException("Unknown plant type! Type of " + plantType.ToString());
         }
@@ -21,23 +24,25 @@ public static class EnumExtensions
         return type;
     }
 
-    public static void ToEnum(this PlantTypes variable, Type type)
+    public static PlantTypes ToEnum(this PlantTypes variable, Type type)
     {
-        PlantTypes plantTypes;
-
         if (type == typeof(Shimmergrass))
         {
-            plantTypes = PlantTypes.Shimmergrass;
+            variable = PlantTypes.Shimmergrass;
         }
         else if (type == typeof(HeartstringClover))
         {
-            plantTypes = PlantTypes.HeartstringClover;
+            variable = PlantTypes.HeartstringClover;
+        }
+        else if (type == typeof(Fern))
+        {
+            variable = PlantTypes.Fern;
         }
         else
         {
             throw new ArgumentOutOfRangeException("Unknown plant type! Type of " + type.ToString());
         }
 
-        variable = plantTypes;
+        return variable;
     }
 }
