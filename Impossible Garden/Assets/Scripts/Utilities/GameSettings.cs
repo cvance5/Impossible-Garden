@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +6,7 @@ public class GameSettings : ScriptableObject
 {
     [Header("TesterSettings")]
     public int NumberPlayers = 1;
+    public int NumberTurns = 15;
 
     [Header("Plant Settings")]
     public List<int> ShimmerGrassStageDurations;

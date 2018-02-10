@@ -27,10 +27,10 @@ public class SeedActor : UIActor, IPointerClickHandler
         }
     }
 
-    public void MoveNext(Vector3 movement, bool destroyOnComplete = false)
+    public void MoveTo(Vector3 position, bool destroyOnComplete = false)
     {
         ClearTween();
-        _currentTween = transform.DOMove(transform.position + movement, 1f);
+        _currentTween = transform.DOMove(position, 1f);
         if (destroyOnComplete)
         {
             _currentTween.OnComplete(() => Destroy(gameObject));

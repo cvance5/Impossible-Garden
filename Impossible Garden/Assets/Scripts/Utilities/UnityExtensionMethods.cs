@@ -2,8 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class ExtensionMethods
+public static class UnityExtensionMethods
 { 
+    public static void Reset(this Transform transform)
+    {
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        transform.localScale = Vector3.one;
+    }
+
     public static List<Transform> GetAllChildren(this Transform parent)
     {
         List<Transform> children = new List<Transform>();

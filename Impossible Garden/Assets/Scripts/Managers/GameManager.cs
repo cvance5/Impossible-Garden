@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-public class GameManager : Singleton<GameManager> {
-
+public class GameManager : Singleton<GameManager>
+{
     public static SmartEvent OnGameLoaded = new SmartEvent();
 
     public GameSettings Settings;
@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager> {
         DontDestroyOnLoad(this);
         DontDestroyOnLoad(GardenManager.Instance);
 
-        if(Settings == null)
+        if (Settings == null)
         {
             Log.Error("No settings for game.");
         }
@@ -26,8 +26,9 @@ public class GameManager : Singleton<GameManager> {
         TurnManager.Instance.Initialize();
 
         ObjectiveManager.Instance.Initialize();
-        GardenManager.Instance.GenerateGarden(10,10);
+        GardenManager.Instance.GenerateGarden(10, 10);
         UIManager.Instance.Initialize();
+        UIManager.Instance.Get<GameplayScreen>();
 
         SeedManager.Initialize();
 
@@ -43,7 +44,7 @@ public class GameManager : Singleton<GameManager> {
             User newUser = new User("Player " + i, i);
             newUser.AssignLocal(true);
             users.Add(newUser);
-            
+
         }
         var players = PlayerManager.Instance.AssignPlayers(users);
 
@@ -63,7 +64,11 @@ public class GameManager : Singleton<GameManager> {
 
     private void OnTurnEnd(int turn)
     {
-        PlayerManager.Instance.SetControl();
+        bool hasWon = ObjectiveManager.Instance.CheckObjectiveCompletion();
+
+        if (hasWon || turn == Settings.NumberTurns)
+            EndGame(hasWon);
+        else PlayerManager.Instance.SetControl();
     }
 
     private void OnTurnBegin(int turn)
@@ -71,8 +76,11 @@ public class GameManager : Singleton<GameManager> {
         PlayerManager.Instance.SetTurnController(turn);
     }
 
-    public void EndGame()
+    public void EndGame(bool hasWon)
     {
-        Log.Info("Winners!");
+        if (hasWon)
+            Log.Info("Winners!");
+        else
+            Log.Info("Losers!");
     }
 }

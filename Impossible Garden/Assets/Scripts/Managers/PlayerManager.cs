@@ -52,9 +52,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public void SetControl(params Player[] activeControllers)
     {
         foreach (Player player in Players)
-        {
             player.PrepareForTurn(activeControllers.Contains(player));
-        }
     }
 
     private readonly Vector2[] _playerLocations =

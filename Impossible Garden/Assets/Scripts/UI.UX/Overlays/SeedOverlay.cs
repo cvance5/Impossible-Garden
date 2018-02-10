@@ -14,14 +14,19 @@ public class SeedOverlay : UIOverlay
 
     private List<SeedActor> _actors;
     private SeedActor _selectedActor;
-    private Vector3 _seedMovement;
+
+    private float _delta;
 
     public void Initialize(SeedFeeder myFeeder)
     {
         MyFeeder = myFeeder;
         MyFeeder.OnFeed += UIUpdate;
-        _actors = new List<SeedActor>(SeedFeeder.NUMBER_SEED_SLOTS);
-        _seedMovement = GenerateSeedMovement(SeedFeeder.NUMBER_SEED_SLOTS);
+
+        _actors = new List<SeedActor>(SeedFeeder.NUMBER_SEED_SLOTS)
+        {
+            null
+        };
+        PrepareSeedMovement(SeedFeeder.NUMBER_SEED_SLOTS);
 
         SeedActor.OnActorClicked += OnActorClicked;
         MyFeeder.OnSelectionChanged += OnSelectionChanged;
@@ -31,17 +36,13 @@ public class SeedOverlay : UIOverlay
     private void OnSelectionChanged(int selection)
     {
         _selectedActor = _actors[selection];
-        
-        if(_selectedActor != null)
+
+        if (_selectedActor != null)
         {
             SelectionHighlight.gameObject.SetActive(true);
-            SelectionHighlight.transform.position = _selectedActor.transform.position;
             SelectionHighlight.color = PlantColors.ColorByType(_selectedActor.Seed.SeedType);
         }
-        else
-        {
-            SelectionHighlight.gameObject.SetActive(false);
-        }
+        else SelectionHighlight.gameObject.SetActive(false);
     }
 
     private void OnSeedRemoved(int consumed)
@@ -59,31 +60,23 @@ public class SeedOverlay : UIOverlay
         bool isFull = _actors.Count == SeedFeeder.NUMBER_SEED_SLOTS;
 
         for (int index = 0; index < _actors.Count; index++)
-        {
-            if(_actors[index] != null)
-            {
+            if (_actors[index] != null)
                 if (index == 0 && isFull)
-                {
-                    _actors[index].MoveNext(_seedMovement, true);
-                }
+                    _actors[index].MoveTo(Vector3.Lerp(SeedDestroy.position, SeedSpawn.position, _delta * index), true);
                 else
-                {
-                    _actors[index].MoveNext(_seedMovement);
-                }
-            }
-        }
+                    _actors[index].MoveTo(Vector3.Lerp(SeedDestroy.position, SeedSpawn.position, _delta * index));
 
-        if(isFull)
-        {
+        if (isFull)
             _actors.RemoveAt(0);
-        }
-        
-        AddNewActor();
 
-        if(_selectedActor == null)
-        {
-            MyFeeder.SetSeedSelection(_actors.Count - 1);
-        }
+        AddNewActor();
+        MyFeeder.SetSeedSelection(0);
+    }
+
+    private void Update()
+    {
+        if (_selectedActor != null)
+            SelectionHighlight.transform.position = _selectedActor.transform.position;
     }
 
     private void AddNewActor()
@@ -96,30 +89,19 @@ public class SeedOverlay : UIOverlay
         _actors.Add(newActor);
     }
 
-    private Vector3 GenerateSeedMovement(int numSeeds)
+    private void PrepareSeedMovement(int numSeeds)
     {
         if (SeedSpawn == null)
-        {
             throw new MissingReferenceException("Seed Spawn has not been assigned to the Seed Overlay.");
-        }
         else if (SeedDestroy == null)
-        {
             throw new MissingReferenceException("Seed Destroy has not been assigned to the Seed Overlay.");
-        }
 
-        Vector3 movement;
-
-        float delta = 1f / numSeeds;
-        movement = (SeedDestroy.position - SeedSpawn.position) * delta;
-
-        return movement;
+        _delta = 1f / SeedFeeder.NUMBER_SEED_SLOTS;
     }
 
     private void OnDestroy()
     {
-        if(MyFeeder != null)
-        {
+        if (MyFeeder != null)
             MyFeeder.OnFeed -= UIUpdate;
-        }        
     }
 }

@@ -4,27 +4,37 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
-    public List<UIOverlay> Overlays;
+    public List<UIScreen> RegisteredScreens;
+    public UIScreen ActiveScreen { get; private set; }
+
+    public List<UIOverlay> RegisteredOverlays;
     public UIOverlay ActiveOverlay { get; private set; }
 
-    public Transform OverlayLayer; 
+    [Header("Layers")]
+    public Transform OverlayLayer;
+    public Transform ScreenLayer;
 
     public override void Initialize()
     {
         ActiveOverlay = null;
+        ActiveScreen = null;
     }
 
     public T Get<T>() where T : UIObject
     {
         T uiObject;
 
-        if(typeof(UIOverlay).IsAssignableFrom(typeof(T)))
+        if (typeof(UIOverlay).IsAssignableFrom(typeof(T)))
         {
-            uiObject = ShowOverlay(typeof(T)) as T;
+            uiObject = GetOverlay(typeof(T)) as T;
         }
         else if (typeof(UIActor).IsAssignableFrom(typeof(T)))
         {
-            uiObject = LoadActor(typeof(T)) as T;
+            uiObject = CreateActor(typeof(T)) as T;
+        }
+        else if (typeof(UIScreen).IsAssignableFrom(typeof(T)))
+        {
+            uiObject = GetScreen(typeof(T)) as T;
         }
         else
         {
@@ -36,7 +46,9 @@ public class UIManager : Singleton<UIManager>
 
     public void Show(UIObject objectToShow)
     {
-        if(typeof(UIOverlay).IsAssignableFrom(objectToShow.GetType()))
+        var type = objectToShow.GetType();
+
+        if (typeof(UIOverlay).IsAssignableFrom(type))
         {
             ShowOverlay(objectToShow as UIOverlay);
         }
@@ -48,11 +60,11 @@ public class UIManager : Singleton<UIManager>
 
         if (typeof(UIOverlay).IsAssignableFrom(typeof(T)))
         {
-            uiObject = LoadOverlay(typeof(T)) as T;
+            uiObject = CreateOverlay(typeof(T)) as T;
         }
         else
         {
-            throw new InvalidCastException("Type of " + typeof(T).ToString() + "  is not a UIObject!");
+            throw new InvalidCastException("Type of " + typeof(T).ToString() + "  is not a creatable UI object!");
         }
 
         uiObject.SetVisible(false);
@@ -62,7 +74,7 @@ public class UIManager : Singleton<UIManager>
 
     public void SetVisibility<T>(bool isVisible)
     {
-        if(typeof(UIOverlay).IsAssignableFrom(typeof(T)))
+        if (typeof(UIOverlay).IsAssignableFrom(typeof(T)))
         {
             SetOverlayVisibility(typeof(T), isVisible);
         }
@@ -84,35 +96,49 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    private UIOverlay ShowOverlay(Type type)
+    private UIOverlay GetOverlay(Type type)
     {
         UIOverlay selectedOverlay = null;
 
-        if(ActiveOverlay == null)
-        {
-            selectedOverlay = LoadOverlay(type);
-        }
-        else if(ActiveOverlay.GetType() != type)
+        if (ActiveOverlay == null)
+            selectedOverlay = CreateOverlay(type);
+        else if (ActiveOverlay.GetType() != type)
         {
             ActiveOverlay.SetVisible(false);
-            selectedOverlay = LoadOverlay(type);
+            selectedOverlay = CreateOverlay(type);
         }
         else
-        {
-            SetOverlayVisibility(type, true);            
-        }
+            SetOverlayVisibility(type, true);
 
-        if(selectedOverlay != null)
-        {
+        if (selectedOverlay != null)
             SetActiveOverlay(selectedOverlay);
-        }
 
         return selectedOverlay;
     }
 
+    private UIScreen GetScreen(Type type)
+    {
+        UIScreen selectedScreen = null;
+
+        if (ActiveScreen == null)
+            selectedScreen = CreateScreen(type);
+        else if (ActiveScreen.GetType() != type)
+        {
+            ActiveScreen.SetVisible(false);
+            selectedScreen = CreateScreen(type);
+        }
+        else
+            ActiveScreen.SetVisible(true);
+
+        if (selectedScreen != null)
+            SetActiveScreen(selectedScreen);
+
+        return selectedScreen;
+    }
+
     private void ShowOverlay(UIOverlay overlay)
     {
-        if(ActiveOverlay != overlay)
+        if (ActiveOverlay != overlay)
         {
             SetActiveOverlay(overlay);
         }
@@ -120,40 +146,69 @@ public class UIManager : Singleton<UIManager>
 
     private void SetActiveOverlay(UIOverlay overlay)
     {
-        if(ActiveOverlay != null)
+        if (ActiveOverlay != null)
         {
             ActiveOverlay.SetVisible(false);
             ActiveOverlay.transform.SetParent(null, false);
         }
 
-        ActiveOverlay = overlay;        
+        ActiveOverlay = overlay;
         ActiveOverlay.SetVisible(true);
         ActiveOverlay.transform.SetParent(OverlayLayer, false);
     }
 
-    private UIOverlay LoadOverlay(Type type)
+    private void SetActiveScreen(UIScreen screen)
+    {
+        if (ActiveScreen != null)
+        {
+            ActiveScreen.SetVisible(false);
+            ActiveScreen.transform.SetParent(null, false);
+        }
+
+        ActiveScreen = screen;
+        ActiveScreen.SetVisible(true);
+        ActiveScreen.transform.SetParent(ScreenLayer, false);
+        ActiveScreen.ActivateScreen();
+    }
+
+    private UIOverlay CreateOverlay(Type type)
     {
         UIOverlay selectedOverlay = null;
 
-        foreach(UIOverlay overlay in Overlays)
-        {
-            if(overlay.GetType() == type)
+        foreach (UIOverlay overlay in RegisteredOverlays)
+            if (overlay.GetType() == type)
             {
                 selectedOverlay = Instantiate(overlay.gameObject).GetComponent(type) as UIOverlay;
+                break;
             }
-        }
 
-        if(selectedOverlay == null)
-        {
+        if (selectedOverlay == null)
             throw new ArgumentOutOfRangeException("Could not find an overlay of type " + type.ToString() + " in the overlays listed!");
-        }
 
         return selectedOverlay;
     }
 
-    private UIActor LoadActor(Type type)
+    private UIScreen CreateScreen(Type type)
+    {
+        UIScreen selectedScreen = null;
+
+        foreach (UIScreen screen in RegisteredScreens)
+            if (screen.GetType() == type)
+            {
+                selectedScreen = Instantiate(screen.gameObject).GetComponent(type) as UIScreen;
+                break;
+            }
+
+        if (selectedScreen == null)
+            throw new ArgumentOutOfRangeException("Could not find an screen of type " + type.ToString() + " in the screens listed!");
+
+        return selectedScreen;
+    }
+
+    private UIActor CreateActor(Type type)
     {
         GameObject newObject = new GameObject();
+        newObject.transform.Reset();
         UIActor selectedActor = newObject.AddComponent(type) as UIActor;
 
         return selectedActor;

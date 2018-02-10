@@ -7,17 +7,12 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
 
     private List<Objective> _assignedObjectives;
 
-    public override void Initialize()
-    {
-        TurnManager.EndTurn += CheckObjectiveCompletion;
-    }
-
     public void PrepareObjectivesForPlayers(List<Player> players)
     {
         _assignedObjectives = new List<Objective>();
         Objective[] availableObjectives = Objectives.ToArray();
 
-        foreach(Player player in players)
+        foreach (Player player in players)
         {
             Objective objective = null;
             int index;
@@ -39,14 +34,14 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
     public List<PlantTypes> GetRequiredPlants()
     {
         List<PlantTypes> requiredPlants = new List<PlantTypes>();
-        
-        foreach(Objective objective in _assignedObjectives)
+
+        foreach (Objective objective in _assignedObjectives)
         {
-            if(objective is PlantObjective)
+            if (objective is PlantObjective)
             {
                 var newRequiredPlants = (objective as PlantObjective).GetRequiredPlants();
-                foreach(PlantTypes newPlant in newRequiredPlants)
-                    requiredPlants.Add(newPlant);                
+                foreach (PlantTypes newPlant in newRequiredPlants)
+                    requiredPlants.Add(newPlant);
             }
         }
 
@@ -55,7 +50,7 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
 
     private Objective ValidateObjective(Objective possibleObjective)
     {
-        if(possibleObjective != null)
+        if (possibleObjective != null)
         {
             if (!possibleObjective.HasDifficulty(GameManager.Instance.Settings.Difficulty))
             {
@@ -65,21 +60,19 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
         return possibleObjective;
     }
 
-    private void CheckObjectiveCompletion(int turnNumber)
+    public bool CheckObjectiveCompletion()
     {
         bool hasWon = true;
 
-        foreach(Objective objective in _assignedObjectives)
+        foreach (Objective objective in _assignedObjectives)
         {
             objective.CompletionUpdate();
-            if(!objective.IsComplete)
+            if (!objective.IsComplete)
             {
                 hasWon = false;
             }
         }
 
-        if(hasWon)
-            GameManager.Instance.EndGame();
-        
+        return hasWon;
     }
 }

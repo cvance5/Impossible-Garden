@@ -250,10 +250,12 @@
     <Compile Include="Assets\Scripts\Metagame\User.cs" />
     <Compile Include="Assets\Scripts\UI.UX\Actors\SeedActor.cs" />
     <Compile Include="Assets\Scripts\UI.UX\Overlays\SeedOverlay.cs" />
+    <Compile Include="Assets\Scripts\UI.UX\Screens\GameplayScreen.cs" />
     <Compile Include="Assets\Scripts\UI.UX\UIActor.cs" />
     <Compile Include="Assets\Scripts\UI.UX\UIObject.cs" />
     <Compile Include="Assets\Scripts\UI.UX\UIOverlay.cs" />
     <Compile Include="Assets\Scripts\UI.UX\UIPopup.cs" />
+    <Compile Include="Assets\Scripts\UI.UX\UIScreen.cs" />
     <Compile Include="Assets\Scripts\Utilities\Debug\FreeCamera.cs" />
     <Compile Include="Assets\Scripts\Utilities\Debug\Log.cs" />
     <Compile Include="Assets\Scripts\Utilities\EnumExtensions.cs" />
