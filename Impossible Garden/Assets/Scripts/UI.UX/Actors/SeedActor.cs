@@ -20,6 +20,7 @@ public class SeedActor : UIActor, IPointerClickHandler
             Seed = sourceData as Seed;
             _icon = gameObject.AddComponent<Image>();
             _icon.sprite = Seed.Icon;
+            _icon.transform.localScale = Vector3.one * .65f;
         }
         else
         {
