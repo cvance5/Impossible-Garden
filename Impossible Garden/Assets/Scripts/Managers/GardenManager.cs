@@ -29,14 +29,14 @@ public class GardenManager : Singleton<GardenManager>
 
         Plot[,] plots = new Plot[plotsWide, plotsDeep];
 
-        for(int row = 0; row < plotsDeep; row++)
-            for(int column = 0; column < plotsWide; column++)
+        for (int row = 0; row < plotsDeep; row++)
+            for (int column = 0; column < plotsWide; column++)
             {
                 GameObject plotObject = Instantiate(_defaultPlotObject, new Vector3(column, 0, row), Quaternion.identity, newGarden.transform);
                 plots[column, row] = plotObject.GetComponent<Plot>();
                 plotObject.name = "[" + column + "," + row + "]";
             }
-                
+
 
         ActiveGarden.Initialize(plots);
     }
@@ -49,7 +49,7 @@ public class GardenManager : Singleton<GardenManager>
         foreach (PlantActor activePlant in _activePlants)
         {
             if (activePlant != null)
-                activePlant.GrowPlant();            
+                activePlant.GrowPlant();
             else
             {
                 RemovePlant(activePlant);
@@ -59,19 +59,17 @@ public class GardenManager : Singleton<GardenManager>
             yield return new WaitForSeconds(.01f);
         }
 
-        foreach(Plot plot in ActiveGarden.Plots)
+        foreach (Plot plot in ActiveGarden.Plots)
         {
             if (plot.CurrentPlantActor) continue; // if occupied, move on
 
-            foreach(Plant plant in _propagations.Keys)
-            {
-                if(plant.ShouldPropogate(plot)) // try all of the plants here
+            foreach (Plant plant in _propagations.Keys)
+                if (plant.ShouldPropogate(plot)) // try all of the plants here
                 {
                     plot.Sow(plant.GetType());
                     if (_propagations[plant] != null) _propagations[plant](); //if you found a match, call the callback and move to the next plot
                     break;
                 }
-            }
 
             yield return new WaitForSeconds(.01f);
         }
@@ -95,18 +93,17 @@ public class GardenManager : Singleton<GardenManager>
 
     public void RemovePlant(PlantActor caller)
     {
-        if(_activePlants.Contains(caller))
+        if (_activePlants.Contains(caller))
             _removedPlants.Add(caller);
-        else if(_newPlants.Contains(caller))
+        else if (_newPlants.Contains(caller))
             _newPlants.Remove(caller);
-        else
-            Log.Warning(caller + " has requested removal, but wasn't in any list.");
+        else Log.Warning(caller + " has requested removal, but wasn't in any list.");
     }
 
     private void UpdateActivePlants()
     {
         _activePlants.AddRange(_newPlants);
-        foreach(PlantActor plant in _removedPlants)
+        foreach (PlantActor plant in _removedPlants)
             _activePlants.Remove(plant);
 
         _removedPlants.Clear();
@@ -115,7 +112,7 @@ public class GardenManager : Singleton<GardenManager>
 
     private void ResetGarden()
     {
-        if(ActiveGarden != null)
+        if (ActiveGarden != null)
         {
             Destroy(ActiveGarden.gameObject);
             ActiveGarden = null;

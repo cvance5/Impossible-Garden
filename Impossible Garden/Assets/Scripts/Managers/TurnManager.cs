@@ -21,24 +21,10 @@ public class TurnManager : Singleton<TurnManager>
     public IEnumerator AdvanceTurn()
     {
         EndTurn.Raise(TurnNumber);
-
-        if(DOTween.TotalPlayingTweens() > 0)
-        {
-            ClearTweenQueue();
-        }        
-
         yield return StartCoroutine(GardenManager.Instance.GrowAllPlants());
 
         TurnNumber++;
 
         BeginTurn.Raise(TurnNumber);
-    }
-    
-    private void ClearTweenQueue()
-    {
-        while(DOTween.TotalPlayingTweens() > 0)
-        {
-            DOTween.CompleteAll(true);
-        }
     }
 }

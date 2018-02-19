@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class Objective : ScriptableObject
 {
     public string Title;
     public string Description;
+    public Sprite Rune;
 
     public bool IsComplete { get; private set; }
 

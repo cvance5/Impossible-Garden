@@ -17,7 +17,7 @@ public static class LoadManager
         {
             Log.Error("Failed to load resource at " + path + resourceName + ".");
         }
-        if(!(resource is T))
+        if (!(resource is T))
         {
             Log.Error("Resource is not the expected type at " + path + resourceName + ". Result: " + resource.GetType().ToString() + ".");
         }
@@ -25,11 +25,16 @@ public static class LoadManager
         return resource as T;
     }
 
+    public static T Load<T>(string resourceName, Directories directory) where T : Object
+    {
+        return Load<T>(resourceName, Path(directory));
+    }
+
     public static string Path(Directories directory)
     {
         string path;
 
-        if(_directoryMap.ContainsKey(directory))
+        if (_directoryMap.ContainsKey(directory))
         {
             path = _directoryMap[directory];
         }

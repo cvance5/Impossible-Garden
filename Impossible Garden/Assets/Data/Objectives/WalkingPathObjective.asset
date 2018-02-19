@@ -13,5 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Title: Walking Path
   Description: Guarantee the king can walk through his finished garden!
+  Rune: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   SquaresPerDifficulty: 060000000800000009000000
   SquaresPerPlayer: -0.33

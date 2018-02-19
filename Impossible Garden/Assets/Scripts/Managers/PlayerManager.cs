@@ -21,23 +21,27 @@ public class PlayerManager : Singleton<PlayerManager>
         {
             User user = users[userNumber];
 
-            GameObject player = new GameObject(user.Username);
-            player.transform.SetParent(transform);
+            GameObject playerObject = new GameObject(user.Username);
+            playerObject.transform.SetParent(transform);
 
-            Vector2 startDirection = _playerLocations[Mathf.RoundToInt(((float)_playerLocations.Length / users.Count) * userNumber)];
+            int playerNumber = Mathf.RoundToInt(((float)_playerLocations.Length / users.Count) * userNumber);
+
+            Vector2 startDirection = _playerLocations[playerNumber];
             Vector2 edge = GardenManager.Instance.ActiveGarden.FindEdge(startDirection);
 
-            player.transform.position = new Vector3(edge.x, 5, edge.y);
+            playerObject.transform.position = new Vector3(edge.x, 5, edge.y);
+
+            Player player;
 
             if (user.IsLocalUser)
             {
-                PlayerController controller = player.AddComponent<PlayerController>();
-                Players.Add(new LocalPlayer(user, controller));
+                PlayerController controller = playerObject.AddComponent<PlayerController>();
+                player = new LocalPlayer(user, controller);
             }
-            else
-            {
-                Players.Add(new Player(user));
-            }
+            else player = new Player(user);
+
+            player.SetNumber(playerNumber);
+            Players.Add(player);
         }
 
         return Players;

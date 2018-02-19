@@ -21,10 +21,7 @@ public class SeedActor : UIActor, IPointerClickHandler
             _icon = gameObject.AddComponent<Image>();
             _icon.sprite = Seed.Icon;
         }
-        else
-        {
-            throw new ArgumentException("Source data must be a seed!");
-        }
+        else throw new ArgumentException("Source data must be a seed!");
     }
 
     public void MoveTo(Vector3 position, bool destroyOnComplete = false)
@@ -32,9 +29,7 @@ public class SeedActor : UIActor, IPointerClickHandler
         ClearTween();
         _currentTween = transform.DOMove(position, 1f);
         if (destroyOnComplete)
-        {
             _currentTween.OnComplete(() => Destroy(gameObject));
-        }
     }
 
     private void ClearTween()

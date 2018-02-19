@@ -55,9 +55,9 @@ public static class SeedManager
         {
             distributionMap.Add(player, new List<Seed>());
 
-            if (player.GameObjective is PlantObjective)
+            if (player.Objective is PlantObjective)
             {
-                var requiredPlants = (player.GameObjective as PlantObjective).GetRequiredPlants();
+                var requiredPlants = (player.Objective as PlantObjective).GetRequiredPlants();
 
                 foreach (PlantTypes plantType in requiredPlants)
                 {

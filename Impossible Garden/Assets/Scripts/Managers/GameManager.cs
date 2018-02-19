@@ -28,7 +28,6 @@ public class GameManager : Singleton<GameManager>
         ObjectiveManager.Instance.Initialize();
         GardenManager.Instance.GenerateGarden(10, 10);
         UIManager.Instance.Initialize();
-        UIManager.Instance.Get<GameplayScreen>();
 
         SeedManager.Initialize();
 
@@ -51,13 +50,14 @@ public class GameManager : Singleton<GameManager>
         ObjectiveManager.Instance.PrepareObjectivesForPlayers(players);
         foreach (Player player in PlayerManager.Instance.Players)
         {
-            Log.Info(player.UserData.Username + " has been assigned " + player.GameObjective.Title + ". \n" + player.GameObjective.Description);
-            player.GameObjective.Initialize(Settings.Difficulty, Settings.NumberPlayers);
+            Log.Info(player.UserData.Username + " has been assigned " + player.Objective.Title + ". \n" + player.Objective.Description);
+            player.Objective.Initialize(Settings.Difficulty, Settings.NumberPlayers);
         }
     }
 
     private void BeginGame()
     {
+        UIManager.Instance.Get<GameplayScreen>();
         SeedManager.DistributeSeeds();
         PlayerManager.Instance.SetTurnController(0);
     }

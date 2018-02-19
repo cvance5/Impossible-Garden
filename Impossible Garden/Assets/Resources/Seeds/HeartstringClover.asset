@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Name: HeartstringClover
   m_EditorClassIdentifier: 
   SeedType: 1
-  Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  Icon: {fileID: 21300000, guid: be0d005cda8e1c04998c0320ced646be, type: 3}
