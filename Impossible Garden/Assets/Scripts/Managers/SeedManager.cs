@@ -24,11 +24,8 @@ public static class SeedManager
         List<PlantTypes> seedTypes = ObjectiveManager.Instance.GetRequiredPlants();
 
         if (PlayerManager.Instance.PlayerCount > Enum<PlantTypes>.Count)
-        {
             throw new ArgumentOutOfRangeException("More players than plant types!");
-        }
         else
-        {
             while (seedTypes.Count < PlayerManager.Instance.PlayerCount)
             {
                 PlantTypes newSeed;
@@ -41,12 +38,9 @@ public static class SeedManager
 
                 seedTypes.Add(newSeed);
             }
-        }
 
         foreach (PlantTypes seedType in seedTypes)
-        {
             _seedCatalog.Add(seedType, SeedFactory.Create(seedType));
-        }
 
         Dictionary<Player, List<Seed>> distributionMap = new Dictionary<Player, List<Seed>>();
         int seedsPerPlayer = Mathf.CeilToInt(seedTypes.Count * .75f);
@@ -60,24 +54,18 @@ public static class SeedManager
                 var requiredPlants = (player.Objective as PlantObjective).GetRequiredPlants();
 
                 foreach (PlantTypes plantType in requiredPlants)
-                {
                     distributionMap[player].Add(SeedFactory.Clone(_seedCatalog[plantType]));
-                }
             }
 
             while (distributionMap[player].Count < seedsPerPlayer)
             {
                 Seed randomSeed = SeedFactory.Clone(_seedCatalog[seedTypes.RandomItem()]);
                 if (!distributionMap[player].Any(seed => randomSeed.SeedType == seed.SeedType))
-                {
                     distributionMap[player].Add(randomSeed);
-                }
             }
         }
 
         foreach (Player player in Feeders.Keys)
-        {
             Feeders[player].Initialize(distributionMap[player]);
-        }
     }
 }

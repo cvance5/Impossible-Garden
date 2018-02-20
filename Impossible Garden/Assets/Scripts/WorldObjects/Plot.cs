@@ -19,18 +19,23 @@ public class Plot : MonoBehaviour
         };
     }
 
-    public void Sow(Type plantType, Player sower = null)
+    public PlantActor Sow(Type plantType, Player sower = null)
     {
+        PlantActor sownPlant = null;
+
         if (CurrentPlantActor == null)
         {
             Plant newPlant = Activator.CreateInstance(plantType) as Plant;
             newPlant.SetSower(sower);
             CurrentPlantActor = GardenManager.Instance.FillPlot(newPlant, this);
+            sownPlant = CurrentPlantActor;
         }
         else
         {
             Log.Info("Plot " + this + " is already occupied by plant " + CurrentPlantActor + " and cannot accept plant " + plantType);
         }
+
+        return sownPlant;
     }
 
     public bool IsNeighbor(Plot plot)

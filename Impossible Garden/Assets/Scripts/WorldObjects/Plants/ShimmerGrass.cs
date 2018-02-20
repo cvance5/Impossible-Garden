@@ -7,7 +7,7 @@ public class Shimmergrass : Plant
     public bool IsHeart { get; private set; }
 
     private List<KeyValuePair<Plot, List<PlantActor>>> _reachablePlots;
-    private Plot _selectedPlot;    
+    private Plot _selectedPlot;
 
     protected override bool CheckPropogation(Plot target)
     {
@@ -39,7 +39,7 @@ public class Shimmergrass : Plant
     {
         IsHeart = true;
 
-        if(_sower == null)
+        if (_sower == null)
         {
             Func<Plant, bool> findHeart = delegate (Plant plant)
             {
@@ -65,19 +65,16 @@ public class Shimmergrass : Plant
 
     protected override void ApplyGrowthEffects()
     {
-        switch(GrowthStage)
+        switch (GrowthStage)
         {
             case 0:
-                Actor.SmoothlyScalePlant(Vector3.one * .1f, PartsMap["Cover"]);
+                Actor.SmoothlyScalePlant(new Vector3(1, (GrowthTimer * .5f), 1), PartsMap["Blades"]);
                 break;
             case 1:
-                Actor.SmoothlyScalePlant(new Vector3(1, (GrowthTimer  * .5f), 1), PartsMap["Blades"]);
-                break;
-            case 2:
                 if (IsHeart) Actor.SmoothlyScalePlant(Vector3.one * ((GrowthTimer + 1) / (float)StageDuration[GrowthStage]), PartsMap["Bell"]);
                 else GrowthStage++;
                 break;
-            case 3:
+            case 2:
                 if (IsHeart) SeekSpreadTarget();
                 else
                 {
@@ -85,7 +82,7 @@ public class Shimmergrass : Plant
                     else GrowthTimer--;
                 }
                 break;
-            case 4:
+            case 3:
                 if (IsHeart) Actor.SmoothlyColorPlant(Color.black, PartsMap["Bell"]);
                 Actor.SmoothlyColorPlant(Color.black, PartsMap["Blades"]);
                 break;
@@ -99,24 +96,24 @@ public class Shimmergrass : Plant
     {
         bool isSafe = true;
 
-        if(target.CurrentPlantActor != null)
-            if(target.CurrentPlantActor.MyPlant != this)
+        if (target.CurrentPlantActor != null)
+            if (target.CurrentPlantActor.MyPlant != this)
                 isSafe = false; // Occupied.        
-        else
-            foreach (Plot targetNeighbor in target.Neighbors.Values)
-            {
-                if (targetNeighbor == null) continue; // Safe to grow by edge of map
-                else if (targetNeighbor == Actor.MyPlot) continue; // Safe to grow by self
-                else if (targetNeighbor.CurrentPlantActor != null) // Check type before growing beside anything else...
+            else
+                foreach (Plot targetNeighbor in target.Neighbors.Values)
                 {
-                    if (targetNeighbor.CurrentPlantActor.MyPlant.GetType() == typeof(Shimmergrass)) continue; // ...and consider only shimmergrass a safe neighbor.
-                    else
+                    if (targetNeighbor == null) continue; // Safe to grow by edge of map
+                    else if (targetNeighbor == Actor.MyPlot) continue; // Safe to grow by self
+                    else if (targetNeighbor.CurrentPlantActor != null) // Check type before growing beside anything else...
                     {
-                        isSafe = false;
-                        break;
+                        if (targetNeighbor.CurrentPlantActor.MyPlant.GetType() == typeof(Shimmergrass)) continue; // ...and consider only shimmergrass a safe neighbor.
+                        else
+                        {
+                            isSafe = false;
+                            break;
+                        }
                     }
                 }
-            }
 
         return isSafe;
     }
@@ -125,20 +122,20 @@ public class Shimmergrass : Plant
     {
         _selectedPlot = null;
 
-        while(_reachablePlots.Count > 0 && _selectedPlot == null)
+        while (_reachablePlots.Count > 0 && _selectedPlot == null)
         {
             Plot testingPlot = _reachablePlots[0].Key;
 
             bool isStillConnected = true;
 
-            foreach(PlantActor offshoot in _reachablePlots[0].Value)
+            foreach (PlantActor offshoot in _reachablePlots[0].Value)
             {
-                if(offshoot == null)
+                if (offshoot == null)
                 {
                     isStillConnected = false;
                     break;
                 }
-                else if(offshoot.MyPlant.GrowthStage == 4)
+                else if (offshoot.MyPlant.GrowthStage == 3)
                 {
                     isStillConnected = false; // Shimmergrass is dying
                     break;
@@ -152,10 +149,10 @@ public class Shimmergrass : Plant
             _reachablePlots.RemoveAt(0);
         }
 
-        if(_selectedPlot != null)
+        if (_selectedPlot != null)
         {
             GrowthTimer--;
-            GardenManager.Instance.PreparePropagation(this, ()=>
+            GardenManager.Instance.PreparePropagation(this, () =>
             {
                 PlantActor offshoot = _selectedPlot.CurrentPlantActor;
 
@@ -174,31 +171,25 @@ public class Shimmergrass : Plant
             {
 
                 bool isFound = false;
-                foreach(KeyValuePair<Plot, List<PlantActor>> reachablePlot in _reachablePlots)
-                {
-                    if(reachablePlot.Key == sourcePlot)
+                foreach (KeyValuePair<Plot, List<PlantActor>> reachablePlot in _reachablePlots)
+                    if (reachablePlot.Key == sourcePlot)
                     {
                         reachablePlot.Value.Add(reachableBy);
                         isFound = true;
                         break;
                     }
-                }
 
-                if(!isFound)
-                {
+                if (!isFound)
                     _reachablePlots.Add(new KeyValuePair<Plot, List<PlantActor>>(possiblePlot, new List<PlantActor>() { reachableBy }));
-                }
             }
         }
     }
 
     protected override void ChangeGrowthStage()
     {
-        if(GrowthStage == 2)
-        {
-            if(IsHeart)
+        if (GrowthStage == 1)
+            if (IsHeart)
                 Actor.SmoothlyScalePlant(Vector3.one * ((GrowthTimer + 1) / (float)StageDuration[GrowthStage]), PartsMap["Bell"]);
-        }
     }
 
     private const int DISTANCE_TO_NEAREST_THRESHOLD = 3;

@@ -9,9 +9,10 @@ public class GameSettings : ScriptableObject
     public int NumberTurns = 15;
 
     [Header("Plant Settings")]
-    public List<int> ShimmerGrassStageDurations;
+    public List<int> GrassStageDurations;
     public List<int> CloverStageDurations;
-    public List<int> FernStageDurations;    
+    public List<int> FernStageDurations;
+    public List<int> MossStageDurations;
 
     [Header("Game Settings")]
     public DifficultySettings Difficulty;
@@ -31,7 +32,7 @@ public class GameSettings : ScriptableObject
     {
         DurationMap = new Dictionary<Type, List<int>>()
         {
-            {typeof(Shimmergrass), ShimmerGrassStageDurations },
+            {typeof(Shimmergrass), GrassStageDurations },
             {typeof(HeartstringClover), CloverStageDurations },
             {typeof(Fern), FernStageDurations }
         };

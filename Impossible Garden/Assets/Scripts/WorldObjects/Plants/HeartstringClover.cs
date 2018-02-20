@@ -10,9 +10,9 @@ public class HeartstringClover : Plant
     private List<HeartstringClover> derivatives;
 
     protected override bool CheckPropogation(Plot plot)
-    {        
+    {
         bool shouldPropogate = false;
-        if(plot == _growthDirection)
+        if (plot == _growthDirection)
         {
             shouldPropogate = true;
         }
@@ -29,29 +29,27 @@ public class HeartstringClover : Plant
 
     protected override void ApplyGrowthEffects()
     {
-        switch(GrowthStage)
+        switch (GrowthStage)
         {
             case 0:
                 Actor.SmoothlyScalePlant(new Vector3(GrowthTimer / (float)StageDuration[GrowthStage], .333f, GrowthTimer / (float)StageDuration[GrowthStage]));
                 break;
             case 1:
-                if(_growthDirection == null)
+                if (_growthDirection == null)
                 {
                     DetermineGrowthDirection();
 
-                    if(_growthDirection == null)
+                    if (_growthDirection == null)
                     {
                         GrowthTimer++;
                         DelayPropogation();
                     }
                 }
-                if(_turnsTillPropogate > 0)
+                if (_turnsTillPropogate > 0)
                 {
                     _turnsTillPropogate--;
-                    if(_turnsTillPropogate == 0)
-                    {
+                    if (_turnsTillPropogate == 0)
                         _growthDirection = null;
-                    }
                 }
                 break;
             case 2:
@@ -65,10 +63,8 @@ public class HeartstringClover : Plant
 
     protected override void ChangeGrowthStage()
     {
-        if(GrowthStage == 1)
-        {
+        if (GrowthStage == 1)
             DetermineGrowthDirection();
-        }
     }
 
     private void DelayPropogation()
@@ -79,15 +75,14 @@ public class HeartstringClover : Plant
     private void DetermineGrowthDirection()
     {
         _growthDirection = GardenManager.Instance.ActiveGarden.GetPlot(SeekNearestPlant);
-        if(_growthDirection != null)
+        if (_growthDirection != null)
         {
             if (_growthDirection.CurrentPlantActor != null)
             {
                 _growthDirection.CurrentPlantActor.MyPlant.Wilt();
                 _growthDirection = null;
             }
-            else
-                GardenManager.Instance.PreparePropagation(this, DelayPropogation);
+            else GardenManager.Instance.PreparePropagation(this, DelayPropogation);
         }
     }
 
@@ -115,7 +110,7 @@ public class HeartstringClover : Plant
 
             foreach (Plot neighbor in Actor.MyPlot.Neighbors.Values)
             {
-                if(neighbor != null && (neighbor.CurrentPlantActor == null || neighbor.CurrentPlantActor.MyPlant.GetType() != typeof(HeartstringClover)))
+                if (neighbor != null && (neighbor.CurrentPlantActor == null || neighbor.CurrentPlantActor.MyPlant.GetType() != typeof(HeartstringClover)))
                 {
                     int distanceFromNeighbor = Mathf.RoundToInt(Vector2.Distance(neighbor.transform.position, closestOccupiedPlot.transform.position));
                     if (distanceFromNeighbor < targetPlotDistance)
