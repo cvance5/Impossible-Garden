@@ -2,5 +2,6 @@
 {
     Shimmergrass,
     HeartstringClover,
-    Fern
+    Fern,
+    Moss
 }

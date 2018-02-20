@@ -13,7 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameSettings
   NumberPlayers: 2
   NumberTurns: 15
-  ShimmerGrassStageDurations: 0100000002000000030000000200000001000000
+  GrassStageDurations: 03000000030000000300000001000000
   CloverStageDurations: 030000000c00000001000000
   FernStageDurations: 030000000c00000001000000
+  MossStageDurations: 010000000d0000000d000000
   Difficulty: 1
