@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Plot : MonoBehaviour
+public class Plot : MonoBehaviour, IPointerClickHandler
 {
+    public static SmartEvent<Plot> OnPlotClicked = new SmartEvent<Plot>();
+
     public PlantActor CurrentPlantActor { get; private set; }
 
     public Dictionary<Vector3, Plot> Neighbors;
@@ -48,5 +51,10 @@ public class Plot : MonoBehaviour
         }
 
         return isNeighbor;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        OnPlotClicked.Raise(this);
     }
 }

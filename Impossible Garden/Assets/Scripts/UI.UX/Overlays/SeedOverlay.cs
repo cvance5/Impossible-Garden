@@ -102,6 +102,12 @@ public class SeedOverlay : UIOverlay
     private void OnDestroy()
     {
         if (MyFeeder != null)
+        {
             MyFeeder.OnFeed -= UIUpdate;
+            MyFeeder.OnSelectionChanged -= OnSelectionChanged;
+            MyFeeder.OnSeedRemoved -= OnSeedRemoved;
+        }
+
+        SeedActor.OnActorClicked -= OnActorClicked;
     }
 }
