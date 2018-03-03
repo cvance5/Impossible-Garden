@@ -44,12 +44,16 @@ public class GardenManager : Singleton<GardenManager>
     public IEnumerator GrowAllPlants()
     {
         UpdateActivePlants();
+
+        // this will be populated by each plant as it grows
         _propagations = new Dictionary<Plant, Action>();
 
         foreach (PlantActor activePlant in _activePlants)
         {
             if (activePlant != null)
+            {
                 activePlant.GrowPlant();
+            }                
             else
             {
                 RemovePlant(activePlant);
@@ -66,8 +70,9 @@ public class GardenManager : Singleton<GardenManager>
             foreach (Plant plant in _propagations.Keys)
                 if (plant.ShouldPropogate(plot)) // try all of the plants here
                 {
-                    plot.Sow(plant.GetType());
-                    if (_propagations[plant] != null) _propagations[plant](); //if you found a match, call the callback and move to the next plot
+                    PlantActor newPlant = plot.Sow(plant.GetType());
+                    newPlant.GrowPlant();
+                    _propagations[plant]?.Invoke(); //if you found a match, call the callback and move to the next plot
                     break;
                 }
 

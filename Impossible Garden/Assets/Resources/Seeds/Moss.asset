@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 679bf006c0e679c44919f5f871c53db6, type: 3}
   m_Name: Moss
   m_EditorClassIdentifier: 
-  SeedType: 0
-  Icon: {fileID: 21300000, guid: e52fecc6f4f5c8b4fa0cc0be216f09d4, type: 3}
+  SeedType: 3
+  Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}

@@ -34,7 +34,8 @@ public class GameSettings : ScriptableObject
         {
             {typeof(Shimmergrass), GrassStageDurations },
             {typeof(HeartstringClover), CloverStageDurations },
-            {typeof(Fern), FernStageDurations }
+            {typeof(Fern), FernStageDurations },
+            {typeof(Moss), MossStageDurations }
         };
     }
 }

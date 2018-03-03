@@ -14,7 +14,7 @@ MonoBehaviour:
   Title: Wild Growth
   Description: The king wants a verdant, rolling blanket!
   Rune: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  EasyPlants: 00000000
+  EasyPlants: 0000000003000000
   MediumPlants: 0100000002000000
   HardPlants: 
   NumberToWin: 15
