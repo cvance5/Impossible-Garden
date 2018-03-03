@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D137C491-A9E8-4347-B840-55CC60C724CA}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp.dll</AssemblyName>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
@@ -269,6 +269,7 @@
     <Compile Include="Assets\Scripts\UI.UX\Actors\SeedActor.cs" />
     <Compile Include="Assets\Scripts\UI.UX\Effects\ColorizerEffect.cs" />
     <Compile Include="Assets\Scripts\UI.UX\Overlays\SeedOverlay.cs" />
+    <Compile Include="Assets\Scripts\UI.UX\Popups\ReadyUpPopup.cs" />
     <Compile Include="Assets\Scripts\UI.UX\Screens\GameplayScreen.cs" />
     <Compile Include="Assets\Scripts\UI.UX\UIActor.cs" />
     <Compile Include="Assets\Scripts\UI.UX\UIEffect.cs" />
@@ -280,6 +281,7 @@
     <Compile Include="Assets\Scripts\Utilities\Debug\Log.cs" />
     <Compile Include="Assets\Scripts\Utilities\EnumExtensions.cs" />
     <Compile Include="Assets\Scripts\Utilities\EnumT.cs" />
+    <Compile Include="Assets\Scripts\Utilities\EventCollector.cs" />
     <Compile Include="Assets\Scripts\Utilities\GameSettings.cs" />
     <Compile Include="Assets\Scripts\Utilities\ListExtensions.cs" />
     <Compile Include="Assets\Scripts\Utilities\ScritableObjectUtility.cs" />

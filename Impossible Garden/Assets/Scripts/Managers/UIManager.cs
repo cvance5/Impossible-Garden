@@ -10,110 +10,99 @@ public class UIManager : Singleton<UIManager>
     public List<UIOverlay> RegisteredOverlays;
     public UIOverlay ActiveOverlay { get; private set; }
 
+    public List<UIPopup> RegisteredPopups;
+    public Stack<UIPopup> PopupStack { get; private set; }
+    public UIPopup ActivePopup => PopupStack.Peek();
+
     [Header("Layers")]
     public Transform OverlayLayer;
     public Transform ScreenLayer;
+    public Transform PopupLayer;
+
+    [Space]
+    public GameObject ScrimLayer;
 
     public override void Initialize()
     {
         ActiveOverlay = null;
         ActiveScreen = null;
+        PopupStack = new Stack<UIPopup>();
     }
 
     public T Get<T>() where T : UIObject
     {
         T uiObject;
+        Type typeOfT = typeof(T);
 
-        if (typeof(UIOverlay).IsAssignableFrom(typeof(T)))
-        {
-            uiObject = GetOverlay(typeof(T)) as T;
-        }
-        else if (typeof(UIActor).IsAssignableFrom(typeof(T)))
-        {
-            uiObject = CreateActor(typeof(T)) as T;
-        }
-        else if (typeof(UIScreen).IsAssignableFrom(typeof(T)))
-        {
-            uiObject = GetScreen(typeof(T)) as T;
-        }
+        if (typeof(UIScreen).IsAssignableFrom(typeOfT))
+            uiObject = GetScreen(typeOfT) as T;
+        else if (typeof(UIOverlay).IsAssignableFrom(typeOfT))
+            uiObject = GetOverlay(typeOfT) as T;
+        else if (typeof(UIPopup).IsAssignableFrom(typeOfT))
+            uiObject = GetPopup(typeOfT) as T;
+        else if (typeof(UIActor).IsAssignableFrom(typeOfT))
+            uiObject = CreateActor(typeOfT) as T;
         else
-        {
-            throw new InvalidCastException("Type of " + typeof(T).ToString() + "  is not a UIObject!");
-        }
+            throw new InvalidCastException("Type of " + typeOfT.ToString() + "  is not a UIObject!");
 
         return uiObject;
     }
 
     public void Show(UIObject objectToShow)
     {
-        var type = objectToShow.GetType();
+        Type type = objectToShow.GetType();
 
         if (typeof(UIOverlay).IsAssignableFrom(type))
-        {
             ShowOverlay(objectToShow as UIOverlay);
-        }
+        else if (typeof(UIPopup).IsAssignableFrom(type))
+            UpdatePopupStack(objectToShow as UIPopup);
+        else
+            throw new InvalidCastException("Type of " + type.ToString() + "  is not a showable UI object!");
     }
 
     public T Create<T>() where T : UIObject
     {
         T uiObject;
+        Type typeOfT = typeof(T);
 
-        if (typeof(UIOverlay).IsAssignableFrom(typeof(T)))
-        {
-            uiObject = CreateOverlay(typeof(T)) as T;
-        }
+        if (typeof(UIOverlay).IsAssignableFrom(typeOfT))
+            uiObject = CreateOverlay(typeOfT) as T;
+        else if (typeof(UIPopup).IsAssignableFrom(typeOfT))
+            uiObject = CreatePopup(typeOfT) as T;
         else
-        {
-            throw new InvalidCastException("Type of " + typeof(T).ToString() + "  is not a creatable UI object!");
-        }
+            throw new InvalidCastException("Type of " + typeOfT.ToString() + "  is not a creatable UI object!");
 
         uiObject.SetVisible(false);
 
         return uiObject;
     }
 
+    public void Clear<T>() where T : UIObject
+    {
+        Type typeOfT = typeof(T);
+
+        if (typeof(UIPopup).IsAssignableFrom(typeOfT))
+            UpdatePopupStack();
+        else
+            throw new InvalidCastException("Type of " + typeOfT.ToString() + "  is not a removable UI object!");
+    }
+
     public void SetVisibility<T>(bool isVisible)
     {
-        if (typeof(UIOverlay).IsAssignableFrom(typeof(T)))
-        {
-            SetOverlayVisibility(typeof(T), isVisible);
-        }
-        else if (typeof(UIActor).IsAssignableFrom(typeof(T)))
-        {
-            Log.Warning("Cannot toggle visibility on actors.  Access the actor directly.");
-        }
+        Type typeOfT = typeof(T);
+
+        if (typeof(UIOverlay).IsAssignableFrom(typeOfT))
+            SetOverlayVisibility(typeOfT, isVisible);
+        else
+            throw new InvalidCastException("Type of " + typeOfT.ToString() + "  cannot have its visibility set by the manager!  Access the object directly instead.");
     }
 
     private void SetOverlayVisibility(Type type, bool isVisible)
     {
         if (ActiveOverlay.GetType() == type)
-        {
             SetActiveOverlay(ActiveOverlay);
-        }
         else
-        {
             Log.Warning("Overlay of type " + type.ToString() + " is not active!");
-        }
-    }
-
-    private UIOverlay GetOverlay(Type type)
-    {
-        UIOverlay selectedOverlay = null;
-
-        if (ActiveOverlay == null)
-            selectedOverlay = CreateOverlay(type);
-        else if (ActiveOverlay.GetType() != type)
-        {
-            ActiveOverlay.SetVisible(false);
-            selectedOverlay = CreateOverlay(type);
-        }
-        else
-            SetOverlayVisibility(type, true);
-
-        if (selectedOverlay != null)
-            SetActiveOverlay(selectedOverlay);
-
-        return selectedOverlay;
     }
 
     private UIScreen GetScreen(Type type)
@@ -136,12 +125,54 @@ public class UIManager : Singleton<UIManager>
         return selectedScreen;
     }
 
+    private UIOverlay GetOverlay(Type type)
+    {
+        UIOverlay selectedOverlay = null;
+
+        if (ActiveOverlay == null)
+            selectedOverlay = CreateOverlay(type);
+        else if (ActiveOverlay.GetType() != type)
+        {
+            ActiveOverlay.SetVisible(false);
+            selectedOverlay = CreateOverlay(type);
+        }
+        else
+            SetOverlayVisibility(type, true);
+
+        if (selectedOverlay != null)
+            SetActiveOverlay(selectedOverlay);
+
+        return selectedOverlay;
+    }
+
+    private UIPopup GetPopup(Type type)
+    {
+        UIPopup selectedPopup = CreatePopup(type);
+        UpdatePopupStack(selectedPopup);
+
+        ScrimLayer.SetActive(selectedPopup.UseScrim);
+
+        return selectedPopup;
+    }
+
     private void ShowOverlay(UIOverlay overlay)
     {
         if (ActiveOverlay != overlay)
-        {
             SetActiveOverlay(overlay);
+    }
+
+    private void SetActiveScreen(UIScreen screen)
+    {
+        if (ActiveScreen != null)
+        {
+            ActiveScreen.SetVisible(false);
+            ActiveScreen.transform.SetParent(null, false);
         }
+
+        ActiveScreen = screen;
+        ActiveScreen.SetVisible(true);
+        ActiveScreen.transform.SetParent(ScreenLayer, false);
+        ActiveScreen.ActivateScreen();
     }
 
     private void SetActiveOverlay(UIOverlay overlay)
@@ -157,18 +188,40 @@ public class UIManager : Singleton<UIManager>
         ActiveOverlay.transform.SetParent(OverlayLayer, false);
     }
 
-    private void SetActiveScreen(UIScreen screen)
+    private void UpdatePopupStack(UIPopup newPopup = null)
     {
-        if (ActiveScreen != null)
+        if (newPopup != null)
         {
-            ActiveScreen.SetVisible(false);
-            ActiveScreen.transform.SetParent(null, false);
+            newPopup.transform.SetParent(PopupLayer, false);
+            PopupStack.Push(newPopup);
+        }
+        else
+        {
+            UIPopup oldPopup = PopupStack.Pop();
+            Destroy(oldPopup);
         }
 
-        ActiveScreen = screen;
-        ActiveScreen.SetVisible(true);
-        ActiveScreen.transform.SetParent(ScreenLayer, false);
-        ActiveScreen.ActivateScreen();
+        foreach (UIPopup popup in PopupStack)
+            popup.SetVisible(false);
+
+        ActivePopup?.SetVisible(true);
+    }
+
+    private UIScreen CreateScreen(Type type)
+    {
+        UIScreen selectedScreen = null;
+
+        foreach (UIScreen screen in RegisteredScreens)
+            if (screen.GetType() == type)
+            {
+                selectedScreen = Instantiate(screen.gameObject).GetComponent(type) as UIScreen;
+                break;
+            }
+
+        if (selectedScreen == null)
+            throw new ArgumentOutOfRangeException("Could not find a screen of type " + type.ToString() + " in the screens listed!");
+
+        return selectedScreen;
     }
 
     private UIOverlay CreateOverlay(Type type)
@@ -188,21 +241,22 @@ public class UIManager : Singleton<UIManager>
         return selectedOverlay;
     }
 
-    private UIScreen CreateScreen(Type type)
+    private UIPopup CreatePopup(Type type)
     {
-        UIScreen selectedScreen = null;
-
-        foreach (UIScreen screen in RegisteredScreens)
-            if (screen.GetType() == type)
+        UIPopup selectedPopup = null;
+        foreach (UIPopup popup in RegisteredPopups)
+        {
+            if (popup.GetType() == type)
             {
-                selectedScreen = Instantiate(screen.gameObject).GetComponent(type) as UIScreen;
+                selectedPopup = Instantiate(popup.gameObject).GetComponent(type) as UIPopup;
                 break;
             }
+        }
 
-        if (selectedScreen == null)
-            throw new ArgumentOutOfRangeException("Could not find an screen of type " + type.ToString() + " in the screens listed!");
+        if (selectedPopup == null)
+            throw new ArgumentOutOfRangeException("Could not find a popup of type " + type.ToString() + " in the popups listed!");
 
-        return selectedScreen;
+        return selectedPopup;
     }
 
     private UIActor CreateActor(Type type)

@@ -27,12 +27,10 @@ public class SmartEvent : UnityEvent
 
     public void Raise()
     {
-        if (TheEvent != null)
-        {
-            TheEvent();
-        }
+        TheEvent?.Invoke();
     }
 }
+
 public class SmartEvent<T> : UnityEvent
 {
     public delegate void TheDelegate(T arg);
@@ -59,9 +57,6 @@ public class SmartEvent<T> : UnityEvent
 
     public void Raise(T arg)
     {
-        if(TheEvent != null)
-        {
-            TheEvent(arg);
-        }
+        TheEvent?.Invoke(arg);
     }
 }

@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class UIPopup : UIObject {
+﻿public class UIPopup : UIObject
+{
+    public bool UseScrim;
 
     public override void SetVisible(bool isVisible)
     {
-        throw new System.NotImplementedException();
+        this.SetActive(isVisible);
     }
 }

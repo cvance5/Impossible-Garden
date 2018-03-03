@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Name: WildGrowthObjective
   m_EditorClassIdentifier: 
   Title: Wild Growth
-  Description: The king wants a verdant, rolling blanket!
+  Description: The king has fallen in love with this single exotic beauty and wants
+    to see a rolling, verdant blanket!
   Rune: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   EasyPlants: 0000000003000000
   MediumPlants: 0100000002000000

@@ -1,0 +1,13 @@
+Fonts:
+
+Fenwick Woodtype Font:
+	Dieter Steffman
+	Free (No License)
+	No Contact
+	https://www.1001freefonts.com/fenwick-woodtype.font
+
+Berner Basisscrift Font:
+	Peter Wiegel
+	Free (No License)
+	http://www.peter-wiegel.de
+	https://www.1001freefonts.com/berner-basisschrift.font

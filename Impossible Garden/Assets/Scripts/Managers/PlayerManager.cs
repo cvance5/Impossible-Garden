@@ -5,13 +5,8 @@ using UnityEngine;
 public class PlayerManager : Singleton<PlayerManager>
 {
     public List<Player> Players { get; private set; }
-    public int PlayerCount
-    {
-        get
-        {
-            return Players.Count;
-        }
-    }
+    public List<Player> LocalPlayers => Players.FindAll(player => player is LocalPlayer);
+    public int PlayerCount => Players.Count;
 
     public List<Player> AssignPlayers(List<User> users)
     {

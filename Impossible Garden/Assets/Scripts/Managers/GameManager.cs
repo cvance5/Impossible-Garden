@@ -3,6 +3,7 @@
 public class GameManager : Singleton<GameManager>
 {
     public static SmartEvent OnGameLoaded = new SmartEvent();
+    public static SmartEvent OnGameBegin = new SmartEvent();
 
     public GameSettings Settings;
 
@@ -32,7 +33,7 @@ public class GameManager : Singleton<GameManager>
         SeedManager.Initialize();
 
         InitializePlayers();
-        BeginGame();
+        InitializeUI();
     }
 
     private void InitializePlayers()
@@ -55,11 +56,25 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void BeginGame()
+    private void InitializeUI()
     {
         UIManager.Instance.Get<GameplayScreen>();
+
+        EventCollector<Player> readyUpCollector = new EventCollector<Player>(PlayerManager.Instance.PlayerCount, BeginGame);
+
+        foreach(Player player in PlayerManager.Instance.LocalPlayers)
+        {
+            var popup = UIManager.Instance.Get<ReadyUpPopup>();
+            popup.Initialize(player);
+            readyUpCollector.AddEvent(popup.OnReady);
+        }
+    }
+
+    private void BeginGame()
+    {
         SeedManager.DistributeSeeds();
         PlayerManager.Instance.SetTurnController(0);
+        OnGameBegin.Raise();
     }
 
     private void OnTurnEnd(int turn)
@@ -78,9 +93,7 @@ public class GameManager : Singleton<GameManager>
 
     public void EndGame(bool hasWon)
     {
-        if (hasWon)
-            Log.Info("Winners!");
-        else
-            Log.Info("Losers!");
+        if (hasWon) Log.Info("Winners!");
+        else Log.Info("Losers!");
     }
 }
