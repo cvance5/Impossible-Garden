@@ -37,7 +37,7 @@ public abstract class Plant
     }
     protected void InitializeStageDuration()
     {
-        StageDuration = GameManager.Instance.Settings.DurationMap[GetType()];
+        StageDuration = new List<int>(GameManager.Instance.Settings.DurationMap[GetType()]);
     }
 
     public virtual void PreparePlantAppearance() { }
