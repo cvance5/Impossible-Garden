@@ -6,6 +6,8 @@ public abstract class Objective : ScriptableObject
     public string Description;
     public Sprite Rune;
 
+    public abstract string Criteria { get; }
+    
     public bool IsComplete { get; private set; }
 
     public abstract bool HasDifficulty(DifficultySettings difficulty);

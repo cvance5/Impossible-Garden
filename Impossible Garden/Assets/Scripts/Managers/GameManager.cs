@@ -62,7 +62,7 @@ public class GameManager : Singleton<GameManager>
 
         EventCollector<Player> readyUpCollector = new EventCollector<Player>(PlayerManager.Instance.PlayerCount, BeginGame);
 
-        foreach(Player player in PlayerManager.Instance.LocalPlayers)
+        foreach (Player player in PlayerManager.Instance.LocalPlayers)
         {
             var popup = UIManager.Instance.Get<ReadyUpPopup>();
             popup.Initialize(player);

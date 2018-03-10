@@ -1,14 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WildGrowthObjective : PlantObjective
 {
     public Type PlantType;
+    public override string Criteria => $"Grow {_numberToWin} {PlantType}";
 
-    public int NumberToWin;
+    [Header("Number Needed")]
+    public int BaseNumber;
     public int PerPlayerModifier;
+
+    private int _numberToWin;
 
     public override PlantTypes[] GetRequiredPlants()
     {
@@ -23,7 +26,7 @@ public class WildGrowthObjective : PlantObjective
         int selectedIndex = UnityEngine.Random.Range(0, possiblePlantTypes.Count);
         PlantType = possiblePlantTypes[selectedIndex];
 
-        NumberToWin += (PerPlayerModifier * numberPlayers);
+        _numberToWin = BaseNumber + (PerPlayerModifier * numberPlayers);
     }
 
     protected override bool Evaluate()
@@ -43,7 +46,7 @@ public class WildGrowthObjective : PlantObjective
                     {
                         amountOfType++;
 
-                        if(amountOfType >= NumberToWin)
+                        if(amountOfType >= _numberToWin)
                         {
                             isComplete = true;
                             break;

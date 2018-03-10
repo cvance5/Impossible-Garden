@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class WalkingPathObjective : Objective
 {
+    [Header("Number Needed")]
     public int[] SquaresPerDifficulty;
     public float SquaresPerPlayer;
 
     private int _squaresRequired;
 
-    public override bool HasDifficulty(DifficultySettings difficulty)
-    {
-        return true;
-    }
+    public override string Criteria => $"Make a clear path of {_squaresRequired} plots.";
+
+    public override bool HasDifficulty(DifficultySettings difficulty) => true;
 
     private void OnValidate()
     {

@@ -89,6 +89,8 @@ GameObject:
   - component: {fileID: 224812498575924152}
   - component: {fileID: 222200982821646504}
   - component: {fileID: 114049324735338278}
+  - component: {fileID: 114179021804176396}
+  - component: {fileID: 225193503440008544}
   m_Layer: 5
   m_Name: ReadyUpPopup
   m_TagString: Untagged
@@ -315,6 +317,23 @@ GameObject:
   - component: {fileID: 222969180117485318}
   - component: {fileID: 114632006791790420}
   m_Layer: 5
+  m_Name: Objective Criteria
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1842248787046762
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224601514112795450}
+  - component: {fileID: 222659453994422720}
+  - component: {fileID: 114032118282410146}
+  m_Layer: 5
   m_Name: Objective Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,6 +390,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114032118282410146
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842248787046762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.16896552, g: 0.16896552, b: 0.16896552, a: 1}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 5bc5b261e4fd131489da43f5049cd1fe, type: 3}
+    m_FontSize: 25
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 220
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: The king has fallen in love with this single exotic beauty and wants to
+    see a rolling, verdant blanket!
 --- !u!114 &114049324735338278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -382,9 +435,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ed853302a78584fb9fd3d2ed4fecc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseScrim: 1
+  Fader: {fileID: 114179021804176396}
   UserNameLabel: {fileID: 114058341302745624}
   ObjectiveTitle: {fileID: 114926796267702420}
-  ObjectiveDescription: {fileID: 114632006791790420}
+  ObjectiveDescription: {fileID: 114032118282410146}
+  ObjectiveCriteria: {fileID: 114632006791790420}
   NumberOfTurns: {fileID: 114896374776009116}
   Difficulty: {fileID: 114262785849340036}
   NumberOfObjectives: {fileID: 114517702630907996}
@@ -436,6 +492,20 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.834}
   m_EffectDistance: {x: 4, y: -4}
   m_UseGraphicAlpha: 1
+--- !u!114 &114179021804176396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1145651421190136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37304fe68a0b9a74c8320464d7d29a92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Alpha: 0
+  Duration: 0
+  _target: {fileID: 225193503440008544}
 --- !u!114 &114179350168241394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -623,7 +693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.09411766, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -632,19 +702,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 5bc5b261e4fd131489da43f5049cd1fe, type: 3}
-    m_FontSize: 25
+    m_FontSize: 35
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 220
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The king has fallen in love with this single exotic beauty and wants to
-    see a rolling, verdant blanket!
+  m_Text: Grow 15 Shimmergrass
 --- !u!114 &114639909462712252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -906,7 +975,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Objectives To Win:'
+  m_Text: 'Number of Objectives:'
 --- !u!114 &114857406705954574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1038,7 +1107,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Wild Growth of Shimmergrass
+  m_Text: Wild Growth
 --- !u!114 &114990696159642920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1172,6 +1241,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111099677942694}
+--- !u!222 &222659453994422720
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842248787046762}
 --- !u!222 &222721825985960552
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1385,12 +1460,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224552376307878514}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -90}
-  m_SizeDelta: {x: -100, y: 75}
+  m_AnchoredPosition: {x: 0, y: -138}
+  m_SizeDelta: {x: -100, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224494309681088996
 RectTransform:
@@ -1459,6 +1534,7 @@ RectTransform:
   m_Children:
   - {fileID: 224494309681088996}
   - {fileID: 224876229515890848}
+  - {fileID: 224601514112795450}
   - {fileID: 224372386497089410}
   m_Father: {fileID: 224812498575924152}
   m_RootOrder: 1
@@ -1468,6 +1544,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -20}
   m_SizeDelta: {x: 750, y: 60}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!224 &224601514112795450
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842248787046762}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224552376307878514}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -90}
+  m_SizeDelta: {x: -100, y: 75}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224701617999345508
 RectTransform:
   m_ObjectHideFlags: 1
@@ -1526,7 +1620,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 75}
-  m_SizeDelta: {x: 750, y: 250}
+  m_SizeDelta: {x: 750, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224876229515890848
 RectTransform:
@@ -1600,3 +1694,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!225 &225193503440008544
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1145651421190136}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

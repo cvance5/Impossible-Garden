@@ -1,6 +1,6 @@
 ﻿public abstract class UIEffect : UIObject
 {
-    public static SmartEvent OnComplete = new SmartEvent();
+    public SmartEvent OnComplete = new SmartEvent();
 
     public override void SetVisible(bool isVisible)
     {

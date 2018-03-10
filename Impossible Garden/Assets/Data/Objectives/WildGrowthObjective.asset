@@ -18,5 +18,5 @@ MonoBehaviour:
   EasyPlants: 0000000003000000
   MediumPlants: 0100000002000000
   HardPlants: 
-  NumberToWin: 15
+  BaseNumber: 6
   PerPlayerModifier: 1

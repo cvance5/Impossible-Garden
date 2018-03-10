@@ -12,7 +12,7 @@ public class UIManager : Singleton<UIManager>
 
     public List<UIPopup> RegisteredPopups;
     public Stack<UIPopup> PopupStack { get; private set; }
-    public UIPopup ActivePopup => PopupStack.Peek();
+    public UIPopup ActivePopup => PopupStack.Count > 0 ? PopupStack.Peek() : null;
 
     [Header("Layers")]
     public Transform OverlayLayer;
@@ -77,14 +77,14 @@ public class UIManager : Singleton<UIManager>
         return uiObject;
     }
 
-    public void Clear<T>() where T : UIObject
+    public void Clear(UIObject objectToClear)
     {
-        Type typeOfT = typeof(T);
+        Type type = objectToClear.GetType();
 
-        if (typeof(UIPopup).IsAssignableFrom(typeOfT))
-            UpdatePopupStack();
+        if (typeof(UIPopup).IsAssignableFrom(type))
+            ClearPopup(type);
         else
-            throw new InvalidCastException("Type of " + typeOfT.ToString() + "  is not a removable UI object!");
+            throw new InvalidCastException("Type of " + type.ToString() + "  is not a removable UI object!");
     }
 
     public void SetVisibility<T>(bool isVisible)
@@ -198,13 +198,22 @@ public class UIManager : Singleton<UIManager>
         else
         {
             UIPopup oldPopup = PopupStack.Pop();
-            Destroy(oldPopup);
+            Destroy(oldPopup.gameObject);
         }
 
         foreach (UIPopup popup in PopupStack)
             popup.SetVisible(false);
 
-        ActivePopup?.SetVisible(true);
+        if(ActivePopup != null)
+        {
+            ActivePopup.SetVisible(true);
+            ActivePopup.Activate();
+            ScrimLayer.SetActive(ActivePopup.UseScrim);
+        }
+        else
+        {
+            ScrimLayer.SetActive(false);
+        }
     }
 
     private UIScreen CreateScreen(Type type)
@@ -266,5 +275,13 @@ public class UIManager : Singleton<UIManager>
         UIActor selectedActor = newObject.AddComponent(type) as UIActor;
 
         return selectedActor;
+    }
+
+    private void ClearPopup(Type type)
+    {
+        if (type == typeof(UIPopup) || type == ActivePopup.GetType())
+            UpdatePopupStack();
+        else
+            throw new ArgumentException("Can't clear a popup of type " + type + " because it is not displayed.");
     }
 }

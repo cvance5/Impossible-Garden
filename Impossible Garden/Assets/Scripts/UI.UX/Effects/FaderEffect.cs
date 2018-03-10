@@ -1,32 +1,31 @@
 ﻿using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class ColorizerEffect : UIEffect
+public class FaderEffect : UIEffect
 {
-    public Color Color;
+    public float Alpha;
     public float Duration;
 
     [SerializeField]
-    private Image _target;
+    private CanvasGroup _target;
     private Tween _tween;
 
     public override void ApplyEffect()
     {
-        _tween = _target.DOColor(Color, Duration).OnComplete(CompleteEffect);
+        _tween = _target.DOFade(Alpha, Duration).OnComplete(CompleteEffect);
     }
 
-    public void ColorizeTo(Color color, float duration)
+    public void FadeTo(float alpha, float duration)
     {
         if (_tween != null) CompleteEffect();
-        Color = color;
+        Alpha = alpha;
         Duration = duration;
         ApplyEffect();
     }
 
     public override void CompleteEffect()
     {
-        _target.color = Color;
+        _target.alpha = Alpha;
         ClearTween();
         OnComplete.Raise();
     }

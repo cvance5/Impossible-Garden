@@ -1,14 +1,18 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ReadyUpPopup : UIPopup
 {
     public SmartEvent<Player> OnReady = new SmartEvent<Player>();
 
+    public FaderEffect Fader;
+
     public Text UserNameLabel;
 
     public Text ObjectiveTitle;
     public Text ObjectiveDescription;
+    public Text ObjectiveCriteria;
 
     public Text NumberOfTurns;
     public Text Difficulty;
@@ -17,6 +21,12 @@ public class ReadyUpPopup : UIPopup
     public Button ReadyUpButton;
 
     private Player _player;
+
+    public override void Activate()
+    {
+        Fader.FadeTo(0, 0);
+        Fader.FadeTo(1, 1.5f);
+    }
 
     public void Initialize(Player player)
     {
@@ -36,6 +46,7 @@ public class ReadyUpPopup : UIPopup
     {
         ObjectiveTitle.text = data.Title;
         ObjectiveDescription.text = data.Description;
+        ObjectiveCriteria.text = data.Criteria;
     }
 
     private void ShowConditions()
@@ -51,13 +62,13 @@ public class ReadyUpPopup : UIPopup
         ReadyUpButton.interactable = false;
         ReadyUpButton.GetComponentInChildren<Text>().text = "Ready!";
 
-        GameManager.OnGameBegin += OnForceCleanup;
+        Fader.FadeTo(0, 1.5f);
+        Fader.OnComplete += Deactivate;
     }
 
-    private void OnForceCleanup()
+    public override void Deactivate()
     {
-
+        Fader.OnComplete -= Deactivate;
+        Close();
     }
-
-
 }
