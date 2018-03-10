@@ -47,7 +47,6 @@ public static class UnityExtensions
     }
     public static Vector3 RandomPointWithinBounds(this Collider collider)
     {
-
         Bounds bounds = collider.bounds;
 
         float minX = collider.transform.localScale.x * bounds.size.x * 0.5f;
