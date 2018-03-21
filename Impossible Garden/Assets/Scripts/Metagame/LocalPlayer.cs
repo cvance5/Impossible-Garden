@@ -28,7 +28,8 @@ public class LocalPlayer : Player
         if (hasControl)
         {
             Camera.main.transform.position = Controller.transform.position;
-            Camera.main.transform.LookAt(GardenManager.Instance.ActiveGarden.Centerpoint);
+            Controller.CameraController = Camera.main.GetComponent<CameraController>();
+            Controller.CameraController.OrientTowards(GardenManager.Instance.ActiveGarden.Centerpoint);
             UIManager.Instance.Show(Overlay);
             Feeder.Feed();
         }

@@ -17,6 +17,9 @@ public class GameSettings : ScriptableObject
     [Header("Game Settings")]
     public DifficultySettings Difficulty;
 
+    [Header("Unity Settings")]
+    public Texture2D CurserTexture;
+
     public Dictionary<Type, List<int>> DurationMap;
 
     public void OnValidate()

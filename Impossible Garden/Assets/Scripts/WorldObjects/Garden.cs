@@ -9,13 +9,7 @@ public class Garden : MonoBehaviour
     private int _columns;
     private int _rows;
 
-    public Vector3 Centerpoint
-    {
-        get
-        {
-            return Plots[_columns / 2, _rows / 2].transform.position;
-        }
-    }
+    public Vector3 Centerpoint => Plots[_columns / 2, _rows / 2].transform.position;
 
     public void Initialize(Plot[,] plots)
     {
@@ -24,7 +18,7 @@ public class Garden : MonoBehaviour
         _columns = plots.GetLength(0);
         _rows = plots.GetLength(1);
 
-        foreach(Plot plot in plots)
+        foreach (Plot plot in plots)
         {
             plot.Initialize();
         }
@@ -54,18 +48,18 @@ public class Garden : MonoBehaviour
 
         if (!ignoreSource) plotsToSearch.Add(source);
 
-        foreach(Plot neighbor in source.Neighbors.Values)
+        foreach (Plot neighbor in source.Neighbors.Values)
             if (neighbor != null) plotsToSearch.Add(neighbor);
 
         nearestDistance = int.MaxValue;
 
-        for(int currentIndex = 0; currentIndex < plotsToSearch.Count; currentIndex++)
+        for (int currentIndex = 0; currentIndex < plotsToSearch.Count; currentIndex++)
         {
             Plot nextPlot = plotsToSearch[currentIndex];
 
             foreach (Plot neighbor in nextPlot.Neighbors.Values)
                 if (neighbor != null)
-                    if(!plotsToSearch.Contains(neighbor)) plotsToSearch.Add(neighbor);
+                    if (!plotsToSearch.Contains(neighbor)) plotsToSearch.Add(neighbor);
 
             if (!nextPlot.CurrentPlantActor) continue;
             else if (condition(nextPlot.CurrentPlantActor.MyPlant))
@@ -97,8 +91,8 @@ public class Garden : MonoBehaviour
     {
         Plot selectedPlot = null;
 
-        if(column < Plots.GetLength(0) && column >= 0)
-            if(row < Plots.GetLength(1) && row >= 0)
+        if (column < Plots.GetLength(0) && column >= 0)
+            if (row < Plots.GetLength(1) && row >= 0)
                 selectedPlot = Plots[column, row];
 
         return selectedPlot;

@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Settings
   m_EditorClassIdentifier: Assembly-CSharp::GameSettings
-  NumberPlayers: 2
+  NumberPlayers: 1
   NumberTurns: 15
   GrassStageDurations: 03000000030000000300000001000000
   CloverStageDurations: 030000000c00000001000000

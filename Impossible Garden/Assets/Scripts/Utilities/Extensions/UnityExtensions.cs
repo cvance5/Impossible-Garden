@@ -2,12 +2,27 @@
 using UnityEngine;
 
 public static class UnityExtensions
-{ 
+{
     public static void Reset(this Transform transform)
     {
         transform.position = Vector3.zero;
         transform.rotation = Quaternion.identity;
         transform.localScale = Vector3.one;
+    }
+
+    public static Vector3 SetAxis(this Vector3 source, Axis axis, float value)
+    {
+        switch (axis)
+        {
+            case Axis.X:
+                return new Vector3(value, source.y, source.z);
+            case Axis.Y:
+                return new Vector3(source.x, value, source.z);
+            case Axis.Z:
+                return new Vector3(source.x, source.y, value);
+            default:
+                throw new System.ArgumentOutOfRangeException("Value is not an access.");
+        }
     }
 
     public static void SetActive(this Component component, bool isActive)
@@ -19,7 +34,7 @@ public static class UnityExtensions
     {
         List<Transform> children = new List<Transform>();
 
-        for(int i = 0; i < parent.childCount; i++)
+        for (int i = 0; i < parent.childCount; i++)
         {
             Transform child = parent.GetChild(i);
             children.Add(child);
@@ -60,5 +75,12 @@ public static class UnityExtensions
             );
 
         return randomPoint;
+    }
+
+    public enum Axis
+    {
+        X,
+        Y,
+        Z
     }
 }

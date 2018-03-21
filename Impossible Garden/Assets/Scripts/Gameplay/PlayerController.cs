@@ -4,6 +4,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public LocalPlayer Owner { get; private set; }
+
+    public CameraController CameraController;
     public bool HasControl;
 
     private void Awake()
@@ -17,8 +19,12 @@ public class PlayerController : MonoBehaviour
         {
             CheckForSeedSelection();
 
-            if (Input.GetKeyDown(KeyCode.Space))
-                TurnManager.Instance.CompleteTurn();
+            if (Input.GetKeyDown(KeyCode.Space)) TurnManager.Instance.CompleteTurn();
+        }
+
+        if(CameraController != null)
+        {
+            CameraController.LookUpdate();
         }
     }
 

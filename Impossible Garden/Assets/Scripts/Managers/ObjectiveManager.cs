@@ -12,6 +12,8 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
         _assignedObjectives = new List<Objective>();
         Objective[] availableObjectives = Objectives.ToArray();
 
+        if (availableObjectives.Length < players.Count) throw new System.NotSupportedException("Not enough objectives, will loop infinitely.");
+
         foreach (Player player in players)
         {
             Objective objective = null;

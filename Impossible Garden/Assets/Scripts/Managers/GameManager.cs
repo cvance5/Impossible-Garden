@@ -9,6 +9,8 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
+        UnityEngine.Cursor.lockState = UnityEngine.CursorLockMode.Confined;
+
         DontDestroyOnLoad(this);
         DontDestroyOnLoad(GardenManager.Instance);
 
