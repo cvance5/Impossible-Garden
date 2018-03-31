@@ -149,3 +149,35 @@ InputManager:
     type: 0
     axis: 0
     joyNum: 0
+  - serializedVersion: 3
+    m_Name: Mouse Y
+    descriptiveName: Move Mouse Up
+    descriptiveNegativeName: Move Mouse Down
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 4
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 1
+    axis: 1
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: Mouse X
+    descriptiveName: Move Mouse Right
+    descriptiveNegativeName: Move Mouse Left
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 4
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 1
+    axis: 0
+    joyNum: 0
