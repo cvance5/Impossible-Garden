@@ -22,14 +22,13 @@ public class Shimmergrass : Plant
         {
             {"Bell", null },
             {"Blades", null },
-            {"Cover", null }
+            {"ParticleSpawn", null }
         };
     }
 
     public override void PreparePlantAppearance()
     {
-        Actor.SmoothlyMovePlant(PartsMap["Cover"].GetComponent<Collider>().RandomPointWithinBounds(), PartsMap["Bell"], 0);
-        Actor.SmoothlyScalePlant(Vector3.zero, PartsMap["Cover"], 0);
+        Actor.SmoothlyMovePlant(PartsMap["ParticleSpawn"].GetComponent<Collider>().RandomPointWithinBounds(), PartsMap["Bell"], 0);
         Actor.SmoothlyScalePlant(new Vector3(1, 0, 1), PartsMap["Blades"], 0);
         Actor.SmoothlyScalePlant(Vector3.zero, PartsMap["Bell"], 0);
         Actor.SmoothlyRotatePlant(Vector3.up * UnityEngine.Random.Range(0, 360), PartsMap["Bell"], 0);
@@ -84,7 +83,7 @@ public class Shimmergrass : Plant
                 break;
             case 3:
                 if (IsHeart) Actor.SmoothlyColorPlant(Color.black, PartsMap["Bell"]);
-                Actor.SmoothlyColorPlant(Color.black, PartsMap["Blades"]);
+                //Actor.SmoothlyColorPlant(Color.black, PartsMap["Blades"]);
                 break;
             default:
                 Log.Error(this + " does not have growth stage " + GrowthStage + " but is trying to grow in that stage.");
