@@ -18,3 +18,4 @@ MonoBehaviour:
   FernStageDurations: 030000000c00000001000000
   MossStageDurations: 010000000100000001000000
   Difficulty: 0
+  CurserTexture: {fileID: 2800000, guid: 8fc825743b460244a8c26104bb77005a, type: 3}
