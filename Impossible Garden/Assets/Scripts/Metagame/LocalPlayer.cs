@@ -23,15 +23,19 @@ public class LocalPlayer : Player
 
     public override void PrepareForTurn(bool hasControl)
     {
-        Controller.HasControl = hasControl;
-
         if (hasControl)
         {
-            Camera.main.transform.position = Controller.transform.position;
-            Controller.CameraController = Camera.main.GetComponent<CameraController>();
-            Controller.CameraController.OrientTowards(GardenManager.Instance.ActiveGarden.Centerpoint);
-            UIManager.Instance.Show(Overlay);
+            Controller.GainControl();
+            TakeCamera();
             Feeder.Feed();
         }
+    }
+
+    public void TakeCamera()
+    {
+        Camera.main.transform.position = Controller.transform.position;
+        Controller.CameraController = Camera.main.GetComponent<CameraController>();
+        Controller.CameraController.OrientTowards(GardenManager.Instance.ActiveGarden.Centerpoint);
+        UIManager.Instance.Show(Overlay);
     }
 }

@@ -6,7 +6,8 @@ public static class LoadManager
     private static Dictionary<Directories, string> _directoryMap = new Dictionary<Directories, string>()
     {
         {Directories.Plants, "PlantPrefabs/" },
-        {Directories.Seeds, "Seeds/" }
+        {Directories.Seeds, "Seeds/" },
+        {Directories.Player, "Player/" }
     };
 
     public static T Load<T>(string resourceName, string path = "") where T : Object
@@ -27,10 +28,10 @@ public static class LoadManager
 
     public static T Load<T>(string resourceName, Directories directory) where T : Object
     {
-        return Load<T>(resourceName, Path(directory));
+        return Load<T>(resourceName, PathTo(directory));
     }
 
-    public static string Path(Directories directory)
+    public static string PathTo(Directories directory)
     {
         string path;
 
@@ -51,5 +52,6 @@ public static class LoadManager
 public enum Directories
 {
     Plants,
-    Seeds
+    Seeds,
+    Player
 }

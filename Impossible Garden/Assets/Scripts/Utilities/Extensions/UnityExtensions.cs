@@ -10,6 +10,20 @@ public static class UnityExtensions
         transform.localScale = Vector3.one;
     }
 
+    public static void LocalReset(this Transform transform)
+    {
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        transform.localScale = Vector3.one;
+    }
+
+    public static void Mirror(this Transform source, Transform target)
+    {
+        source.position = target.position;
+        source.rotation = target.rotation;
+        source.localScale = target.localScale;
+    }
+
     public static Vector3 SetAxis(this Vector3 source, Axis axis, float value)
     {
         switch (axis)

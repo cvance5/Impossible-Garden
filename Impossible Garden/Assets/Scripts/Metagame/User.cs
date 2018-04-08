@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class User
 {
     public string Username;
     public uint UserID;
+
+    public Color Color => Random.ColorHSV();
 
     public bool IsLocalUser;
 

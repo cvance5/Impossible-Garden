@@ -54,6 +54,30 @@ public class PlayerManager : Singleton<PlayerManager>
             player.PrepareForTurn(activeControllers.Contains(player));
     }
 
+    public void OnPlayerCommit()
+    {
+        bool allPlayersCommitted = true;
+
+        foreach (LocalPlayer player in LocalPlayers)
+        {
+            if (!player.Controller.IsCommitted)
+            {
+                allPlayersCommitted = false;
+                break;
+            }
+        }
+
+        if (allPlayersCommitted)
+        {
+            foreach (LocalPlayer player in LocalPlayers)
+            {
+                player.Controller.CompleteTurn();
+            }
+
+            TurnManager.Instance.CompleteTurn();
+        }
+    }
+
     private readonly Vector2[] _playerLocations =
     {
         new Vector2(1, 0),
