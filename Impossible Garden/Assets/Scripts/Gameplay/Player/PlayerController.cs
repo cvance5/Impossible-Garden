@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         _turnProgress = TurnProgress.Started;
     }
 
-    public void CompleteTurn()
+    public void CommitTurn()
     {
         if (_selectedPlant != null && _selectedPlot != null) Plant();
         Clear();

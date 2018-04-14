@@ -8,6 +8,11 @@ public class PlayerManager : Singleton<PlayerManager>
     public List<Player> LocalPlayers => Players.FindAll(player => player is LocalPlayer);
     public int PlayerCount => Players.Count;
 
+    public override void Initialize()
+    {
+        TurnManager.BeginTurn += OnTurnBegin;
+    }
+
     public List<Player> AssignPlayers(List<User> users)
     {
         Players = new List<Player>();
@@ -42,8 +47,10 @@ public class PlayerManager : Singleton<PlayerManager>
         return Players;
     }
 
-    public void SetTurnController(int turn)
+    private void OnTurnBegin(int turn)
     {
+        TurnManager.TurnTimeOut += CommitPlayerTurns;
+
         Player turnPlayer = Players[turn % PlayerCount];
         SetControl(turnPlayer);
     }
@@ -69,13 +76,20 @@ public class PlayerManager : Singleton<PlayerManager>
 
         if (allPlayersCommitted)
         {
-            foreach (LocalPlayer player in LocalPlayers)
-            {
-                player.Controller.CompleteTurn();
-            }
-
-            TurnManager.Instance.CompleteTurn();
+            CommitPlayerTurns();
         }
+    }
+
+    private void CommitPlayerTurns()
+    {
+        foreach (LocalPlayer player in LocalPlayers)
+        {
+            player.Controller.CommitTurn();
+        }
+
+        TurnManager.TurnTimeOut -= CommitPlayerTurns;
+        SetControl();
+        TurnManager.Instance.CompleteTurn();
     }
 
     private readonly Vector2[] _playerLocations =

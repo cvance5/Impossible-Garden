@@ -7,6 +7,7 @@ public class GameSettings : ScriptableObject
     [Header("TesterSettings")]
     public int NumberPlayers = 1;
     public int NumberTurns = 15;
+    public float TurnTimeLimit = 30;
 
     [Header("Plant Settings")]
     public List<int> GrassStageDurations;
@@ -16,9 +17,6 @@ public class GameSettings : ScriptableObject
 
     [Header("Game Settings")]
     public DifficultySettings Difficulty;
-
-    [Header("Unity Settings")]
-    public Texture2D CurserTexture;
 
     public Dictionary<Type, List<int>> DurationMap;
 

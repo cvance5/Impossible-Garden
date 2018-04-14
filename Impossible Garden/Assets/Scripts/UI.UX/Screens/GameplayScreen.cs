@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,9 @@ public class GameplayScreen : UIScreen
 
     public Sprite TurnMarkerSprite;
 
+    [Header("Turn Timer")]
+    public Text Clock;
+
     [Header("Objective Counter")]
     public Transform ObjectiveCore;
     public List<Image> Petals;
@@ -24,6 +28,7 @@ public class GameplayScreen : UIScreen
     private void Awake()
     {
         TurnManager.BeginTurn += AdvanceTurn;
+        TurnManager.OnTick += DisplayTimeRemaining;
         _turnMarkers = new List<Transform>();
         _pairedRunes = new Dictionary<Objective, ColorizerEffect>();
     }
@@ -91,6 +96,12 @@ public class GameplayScreen : UIScreen
         UpdateObjectives();
     }
 
+    private void DisplayTimeRemaining(float timeRemaining)
+    {
+        TimeSpan formattedTimeRemaining = TimeSpan.FromSeconds(timeRemaining);
+        Clock.text = formattedTimeRemaining.ToString(@"mm\:ss");
+    }
+
     private void UpdateObjectives()
     {
         foreach (Objective objective in _pairedRunes.Keys)
@@ -103,5 +114,6 @@ public class GameplayScreen : UIScreen
     private void OnDestroy()
     {
         TurnManager.BeginTurn -= AdvanceTurn;
+        TurnManager.OnTick -= DisplayTimeRemaining;
     }
 }

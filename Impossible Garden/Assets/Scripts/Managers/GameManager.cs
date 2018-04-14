@@ -20,16 +20,14 @@ public class GameManager : Singleton<GameManager>
         }
 
         TurnManager.EndTurn += OnTurnEnd;
-        TurnManager.BeginTurn += OnTurnBegin;
 
         OnGameLoaded.Raise();
     }
     private void Start()
     {
-        TurnManager.Instance.Initialize();
-
         ObjectiveManager.Instance.Initialize();
         GardenManager.Instance.GenerateGarden(10, 10);
+        PlayerManager.Instance.Initialize();
         UIManager.Instance.Initialize();
 
         SeedManager.Initialize();
@@ -75,22 +73,14 @@ public class GameManager : Singleton<GameManager>
     private void BeginGame()
     {
         SeedManager.DistributeSeeds();
-        PlayerManager.Instance.SetTurnController(0);
+        TurnManager.Instance.Initialize(Settings.TurnTimeLimit);
         OnGameBegin.Raise();
     }
 
     private void OnTurnEnd(int turn)
     {
         bool hasWon = ObjectiveManager.Instance.CheckObjectiveCompletion();
-
-        if (hasWon || turn == Settings.NumberTurns)
-            EndGame(hasWon);
-        else PlayerManager.Instance.SetControl();
-    }
-
-    private void OnTurnBegin(int turn)
-    {
-        PlayerManager.Instance.SetTurnController(turn);
+        if (hasWon || turn == Settings.NumberTurns) EndGame(hasWon);
     }
 
     public void EndGame(bool hasWon)
