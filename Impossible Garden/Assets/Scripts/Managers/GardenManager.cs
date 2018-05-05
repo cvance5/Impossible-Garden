@@ -6,6 +6,7 @@ using UnityEngine;
 public class GardenManager : Singleton<GardenManager>
 {
     public Garden ActiveGarden { get; private set; }
+    public GardenDataBlock GardenState { get; private set; }
 
     [Header("Prefabs")]
     [SerializeField]
@@ -34,14 +35,13 @@ public class GardenManager : Singleton<GardenManager>
             {
                 GameObject plotObject = Instantiate(_defaultPlotObject, new Vector3(column, 0, row), Quaternion.identity, newGarden.transform);
                 plots[column, row] = plotObject.GetComponent<Plot>();
-                plotObject.name = "[" + column + "," + row + "]";
+                plotObject.name = $"[{column},{row}]";
             }
-
 
         ActiveGarden.Initialize(plots);
     }
 
-    public IEnumerator GrowAllPlants()
+    public IEnumerator AdvanceTurn()
     {
         UpdateActivePlants();
 
@@ -53,7 +53,7 @@ public class GardenManager : Singleton<GardenManager>
             if (activePlant != null)
             {
                 activePlant.GrowPlant();
-            }                
+            }
             else
             {
                 RemovePlant(activePlant);
@@ -77,6 +77,8 @@ public class GardenManager : Singleton<GardenManager>
                 }
 
             yield return new WaitForSeconds(.01f);
+
+            GardenState = new GardenDataBlock(ActiveGarden);
         }
     }
 
