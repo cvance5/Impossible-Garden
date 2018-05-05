@@ -3,6 +3,7 @@
 public class TurnManager : Singleton<TurnManager>
 {
     public static SmartEvent<int> BeginTurn = new SmartEvent<int>();
+    public static SmartEvent<int> CommitTurn = new SmartEvent<int>();
     public static SmartEvent<int> EndTurn = new SmartEvent<int>();
 
     public static SmartEvent<float> OnTick = new SmartEvent<float>();
@@ -28,13 +29,13 @@ public class TurnManager : Singleton<TurnManager>
 
     public IEnumerator AdvanceTurn()
     {
-        EndTurn.Raise(TurnNumber);
-        yield return StartCoroutine(GardenManager.Instance.GrowAllPlants());
+        CommitTurn.Raise(TurnNumber);
+        yield return StartCoroutine(GardenManager.Instance.AdvanceTurn());
 
+        EndTurn.Raise(TurnNumber);
         TurnNumber++;
 
         BeginTurn.Raise(TurnNumber);
-
         InitializeTimer();
     }
 

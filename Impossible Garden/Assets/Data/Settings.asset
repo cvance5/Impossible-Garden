@@ -13,9 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameSettings
   NumberPlayers: 1
   NumberTurns: 15
+  TurnTimeLimit: 30
   GrassStageDurations: 03000000030000000300000001000000
   CloverStageDurations: 030000000c00000001000000
   FernStageDurations: 030000000c00000001000000
   MossStageDurations: 010000000100000001000000
   Difficulty: 0
-  CurserTexture: {fileID: 2800000, guid: 8fc825743b460244a8c26104bb77005a, type: 3}
