@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HeartstringClover : Plant
@@ -19,7 +20,12 @@ public class HeartstringClover : Plant
         return shouldPropogate;
     }
 
-    protected override void InitializePlantPartsMap()
+    protected override void InitializeTraitsMap()
+    {
+        AddTrait<PredatoryTrait>();
+    }
+
+    protected override void InitializePartsMap()
     {
         PartsMap = new Dictionary<string, GameObject>()
         {
@@ -79,7 +85,7 @@ public class HeartstringClover : Plant
         {
             if (_growthDirection.CurrentPlantActor != null)
             {
-                _growthDirection.CurrentPlantActor.MyPlant.Wilt();
+                _growthDirection.CurrentPlant.Wilt();
                 _growthDirection = null;
             }
             else GardenManager.Instance.PreparePropagation(this, DelayPropogation);
@@ -94,7 +100,7 @@ public class HeartstringClover : Plant
 
         foreach (Plot plot in plots)
         {
-            if (plot.CurrentPlantActor != null && plot.CurrentPlantActor.MyPlant.GetType() != typeof(HeartstringClover))
+            if (plot.CurrentPlant?.GetType() != typeof(HeartstringClover))
             {
                 int distanceToTarget = Mathf.RoundToInt(Vector2.Distance(plot.transform.position, myLocation));
                 if (distanceToTarget < distanceToBest)
@@ -110,7 +116,7 @@ public class HeartstringClover : Plant
 
             foreach (Plot neighbor in Actor.MyPlot.Neighbors.Values)
             {
-                if (neighbor != null && (neighbor.CurrentPlantActor == null || neighbor.CurrentPlantActor.MyPlant.GetType() != typeof(HeartstringClover)))
+                if (neighbor != null && (neighbor.CurrentPlant?.GetType() != typeof(HeartstringClover)))
                 {
                     int distanceFromNeighbor = Mathf.RoundToInt(Vector2.Distance(neighbor.transform.position, closestOccupiedPlot.transform.position));
                     if (distanceFromNeighbor < targetPlotDistance)

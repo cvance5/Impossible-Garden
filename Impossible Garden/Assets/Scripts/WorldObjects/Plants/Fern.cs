@@ -14,7 +14,9 @@ public class Fern : Plant
         return plot == _selectedPlot;
     }
 
-    protected override void InitializePlantPartsMap()
+    protected override void InitializeTraitsMap() { }
+
+    protected override void InitializePartsMap()
     {
         PartsMap = new Dictionary<string, GameObject>()
         {
@@ -29,7 +31,7 @@ public class Fern : Plant
 
     protected override void ApplyGrowthEffects()
     {
-        switch(GrowthStage)
+        switch (GrowthStage)
         {
             case 0:
                 Actor.SmoothlyScalePlant(Vector3.one * ((GrowthTimer + 1) * .33f));
@@ -60,7 +62,7 @@ public class Fern : Plant
 
     protected override void ChangeGrowthStage()
     {
-        switch(GrowthStage)
+        switch (GrowthStage)
         {
             case 1:
                 _seedGrowth = 0;

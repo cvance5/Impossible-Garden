@@ -16,7 +16,9 @@ public class Shimmergrass : Plant
         return shouldPropogate;
     }
 
-    protected override void InitializePlantPartsMap()
+    protected override void InitializeTraitsMap() { }
+
+    protected override void InitializePartsMap()
     {
         PartsMap = new Dictionary<string, GameObject>()
         {
@@ -105,7 +107,7 @@ public class Shimmergrass : Plant
                     else if (targetNeighbor == Actor.MyPlot) continue; // Safe to grow by self
                     else if (targetNeighbor.CurrentPlantActor != null) // Check type before growing beside anything else...
                     {
-                        if (targetNeighbor.CurrentPlantActor.MyPlant.GetType() == typeof(Shimmergrass)) continue; // ...and consider only shimmergrass a safe neighbor.
+                        if (targetNeighbor.CurrentPlant?.GetType() == typeof(Shimmergrass)) continue; // ...and consider only shimmergrass a safe neighbor.
                         else
                         {
                             isSafe = false;

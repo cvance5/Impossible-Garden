@@ -21,7 +21,12 @@ public class Moss : Plant
         return shouldPropogate;
     }
 
-    protected override void InitializePlantPartsMap()
+    protected override void InitializeTraitsMap()
+    {
+        AddTrait<PredatoryTrait>();
+    }
+
+    protected override void InitializePartsMap()
     {
         PartsMap = new Dictionary<string, GameObject>
         {
@@ -41,7 +46,7 @@ public class Moss : Plant
         {
             foreach (Plot plot in _targetPlots)
             {
-                var newMoss = plot.CurrentPlantActor.MyPlant as Moss;
+                var newMoss = plot.CurrentPlant as Moss;
 
                 if (newMoss != null)
                 {
@@ -75,7 +80,7 @@ public class Moss : Plant
                         if (_state == State.Killing)
                         {
                             foreach (var target in _targetPlots)
-                                target.CurrentPlantActor?.MyPlant?.Wilt();
+                                target.CurrentPlant?.Wilt();
 
                             _state = State.Replacing;
                         }
@@ -139,7 +144,7 @@ public class Moss : Plant
                     {
                         _targetPlots.Add(neighbor); // grow to empty neighbors
                     }
-                    else if (!(neighbor.CurrentPlantActor?.MyPlant is Moss)) // if anything other than moss is found, switch to killing
+                    else if (!(neighbor.CurrentPlant is Moss)) // if anything other than moss is found, switch to killing
                     {
                         _state = State.Killing;
                         _targetPlots.Clear();

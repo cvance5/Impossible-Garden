@@ -5,11 +5,12 @@ using UnityEngine;
 public abstract class Plant
 {
     public SmartEvent OnPlantDeath = new SmartEvent();
-    
+
     public delegate bool PropogationCondition(Plot target);
     public PropogationCondition ShouldPropogate;
 
     public Dictionary<string, GameObject> PartsMap;
+    public Dictionary<Type, Trait> TraitsMap = new Dictionary<Type, Trait>();
 
     public int GrowthStage;
     public int GrowthTimer;
@@ -24,40 +25,66 @@ public abstract class Plant
         GrowthStage = 0;
         GrowthTimer = 0;
 
-        InitializePlantPartsMap();
+        InitializeTraitsMap();
+        InitializePartsMap();
         InitializeStageDuration();
         InitializePropogationCondition();
         InitializeData();
     }
 
-    protected abstract void InitializePlantPartsMap();
+    protected abstract void InitializeTraitsMap();
+    protected abstract void InitializePartsMap();
+
     protected void InitializePropogationCondition()
     {
         ShouldPropogate = CheckPropogation;
     }
+
     protected void InitializeStageDuration()
     {
         StageDuration = new List<int>(GameManager.Instance.Settings.DurationMap[GetType()]);
     }
 
     public virtual void PreparePlantAppearance() { }
+
     public virtual void InitializeData() { }
+
     protected abstract bool CheckPropogation(Plot plot);
+
     public void SetSower(Player sower)
     {
         _sower = sower;
     }
 
-    public void Grow()
-    {        
-        GrowthTimer++;        
+    protected void AddTrait<T>() where T : Trait => AddTrait(typeof(T));
+    protected void AddTrait(Type type)
+    {
+        if (TraitsMap.ContainsKey(type))
+        {
+            throw new ArgumentOutOfRangeException($"Trait of {type} already exists on {this}.");
+        }
+        else
+        {
+            TraitsMap.Add(type, Activator.CreateInstance(type) as Trait);
+        }
+    }
 
-        if(GrowthTimer > StageDuration[GrowthStage])
+    public bool HasTrait<T>() where T : Trait => HasTrait(typeof(T));
+    public bool HasTrait(Type type) => TraitsMap.ContainsKey(type);
+
+    public T GetTrait<T>() where T : Trait => GetTrait(typeof(T)) as T;
+    public Trait GetTrait(Type type) => TraitsMap[type];
+
+    public void Grow()
+    {
+        GrowthTimer++;
+
+        if (GrowthTimer > StageDuration[GrowthStage])
         {
             GrowthStage++;
             GrowthTimer = 0;
 
-            if(GrowthStage >= StageDuration.Count)
+            if (GrowthStage >= StageDuration.Count)
             {
                 Die();
             }
@@ -70,7 +97,7 @@ public abstract class Plant
         {
             ApplyGrowthEffects();
         }
-    }    
+    }
 
     public void Wilt()
     {
