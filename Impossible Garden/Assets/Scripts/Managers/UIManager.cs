@@ -180,12 +180,10 @@ public class UIManager : Singleton<UIManager>
         if (ActiveOverlay != null)
         {
             ActiveOverlay.SetVisible(false);
-            ActiveOverlay.transform.SetParent(null, false);
         }
 
         ActiveOverlay = overlay;
         ActiveOverlay.SetVisible(true);
-        ActiveOverlay.transform.SetParent(OverlayLayer, false);
     }
 
     private void UpdatePopupStack(UIPopup newPopup = null)
@@ -204,7 +202,7 @@ public class UIManager : Singleton<UIManager>
         foreach (UIPopup popup in PopupStack)
             popup.SetVisible(false);
 
-        if(ActivePopup != null)
+        if (ActivePopup != null)
         {
             ActivePopup.SetVisible(true);
             ActivePopup.Activate();
@@ -241,6 +239,7 @@ public class UIManager : Singleton<UIManager>
             if (overlay.GetType() == type)
             {
                 selectedOverlay = Instantiate(overlay.gameObject).GetComponent(type) as UIOverlay;
+                selectedOverlay.transform.SetParent(OverlayLayer, false);
                 break;
             }
 

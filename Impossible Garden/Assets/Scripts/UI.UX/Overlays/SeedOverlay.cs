@@ -6,9 +6,9 @@ public class SeedOverlay : UIOverlay
 {
     public SeedFeeder MyFeeder { get; private set; }
 
-    public Transform SeedSpawn;
-    public Transform SeedDestroy;
-    public Transform SeedHolder;
+    public RectTransform SeedSpawn;
+    public RectTransform SeedDestroy;
+    public RectTransform SeedHolder;
 
     public Image SelectionHighlight;
 

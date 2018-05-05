@@ -308,6 +308,7 @@ MonoBehaviour:
   Objectives:
   - {fileID: 11400000, guid: 58105f33c1a08924998629500d832ae2, type: 2}
   - {fileID: 11400000, guid: 7c389552508925146a608778119a56b6, type: 2}
+  - {fileID: 11400000, guid: a72e513d72afe8647b8c4237d4dfad4f, type: 2}
 --- !u!4 &1072591465
 Transform:
   m_ObjectHideFlags: 0
@@ -507,6 +508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e54c1e26b84a268489045d9a7fdf6357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  YawLimit: 75
+  YawLimit: 85
   PitchLimit: 50
   RotationDeadening: 3
