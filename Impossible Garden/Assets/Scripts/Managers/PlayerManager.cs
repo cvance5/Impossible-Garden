@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerManager : Singleton<PlayerManager>
 {
     public List<Player> Players { get; private set; }
-    public List<Player> LocalPlayers => Players.FindAll(player => player is LocalPlayer);
+    public Player[] LocalPlayers => Players.FindAll(player => player is LocalPlayer).ToArray();
     public int PlayerCount => Players.Count;
 
     public override void Initialize()
@@ -50,15 +50,20 @@ public class PlayerManager : Singleton<PlayerManager>
     private void OnTurnBegin(int turn)
     {
         TurnManager.TurnTimeOut += CommitPlayerTurns;
-
-        Player turnPlayer = Players[turn % PlayerCount];
-        SetControl(turnPlayer);
+        SetControl(LocalPlayers);
     }
 
     public void SetControl(params Player[] activeControllers)
     {
         foreach (Player player in Players)
+        {
             player.PrepareForTurn(activeControllers.Contains(player));
+        }
+
+        if (activeControllers.Length > 0)
+        {
+            (activeControllers[0] as LocalPlayer).SetHotseat();
+        }
     }
 
     public void OnPlayerCommit()

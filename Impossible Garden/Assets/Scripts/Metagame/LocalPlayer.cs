@@ -26,9 +26,13 @@ public class LocalPlayer : Player
         if (hasControl)
         {
             Controller.GainControl();
-            TakeCamera();
             Feeder.Feed();
         }
+    }
+
+    public void SetHotseat()
+    {
+        TakeCamera();
     }
 
     public void TakeCamera()

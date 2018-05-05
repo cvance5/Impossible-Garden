@@ -7,13 +7,13 @@ public class PlayerController : MonoBehaviour
     public PlotSelector Selector { get; private set; }
 
     public CameraController CameraController;
-
-    public bool IsCommitted => _turnProgress == TurnProgress.Committed;
+    private bool _isHotseatPlayer => CameraController != null;
 
     private Plot _selectedPlot;
     private Type _selectedPlant;
 
     private TurnProgress _turnProgress;
+    public bool IsCommitted => _turnProgress == TurnProgress.Committed;
     private bool _hasControl => _turnProgress != TurnProgress.Completed;
 
     private void Awake()
@@ -24,27 +24,28 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (_isHotseatPlayer)
         {
-            Clear();
-            TurnManager.Instance.CompleteTurn();
-        }
+
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                Clear();
+                TurnManager.Instance.CompleteTurn();
+            }
 #endif
 
-        if (_turnProgress < TurnProgress.Committed)
-        {
-            CheckForSeedSelection();
-        }
+            if (_turnProgress < TurnProgress.Committed)
+            {
+                CheckForSeedSelection();
+            }
 
-        if (Input.GetButtonDown("Confirm"))
-        {
-            if (_turnProgress == TurnProgress.Selected) CommitSelection();
-            else if (_turnProgress == TurnProgress.Committed) UncommitSelection();
-        }
+            if (Input.GetButtonDown("Confirm"))
+            {
+                if (_turnProgress == TurnProgress.Selected) CommitSelection();
+                else if (_turnProgress == TurnProgress.Committed) UncommitSelection();
+            }
 
-        if (CameraController != null) // May change at a different rate than control and turn progress
-        {
             CameraController.LookUpdate();
         }
     }
@@ -77,6 +78,7 @@ public class PlayerController : MonoBehaviour
     private void OnSelectPlot(Plot clickTarget)
     {
         if (_turnProgress > TurnProgress.Selected) return;
+        if (!_isHotseatPlayer) return;
 
         Plot targetPlot = clickTarget;
         if (targetPlot?.CurrentPlantActor == null)
