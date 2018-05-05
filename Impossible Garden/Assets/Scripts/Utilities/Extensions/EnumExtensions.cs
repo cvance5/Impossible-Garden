@@ -17,8 +17,8 @@ public static class EnumExtensions
             case PlantTypes.Fern:
                 type = typeof(Fern);
                 break;
-            case PlantTypes.Moss:
-                type = typeof(Moss);
+            case PlantTypes.ShinigaMishk:
+                type = typeof(ShinigaMishk);
                 break;
             default:
                 throw new ArgumentOutOfRangeException("Unknown plant type! Type of " + plantType.ToString());
@@ -41,9 +41,9 @@ public static class EnumExtensions
         {
             variable = PlantTypes.Fern;
         }
-        else if (type == typeof(Moss))
+        else if (type == typeof(ShinigaMishk))
         {
-            variable = PlantTypes.Moss;
+            variable = PlantTypes.ShinigaMishk;
         }
         else
         {

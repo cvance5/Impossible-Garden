@@ -2,13 +2,13 @@
 using System.Linq;
 using UnityEngine;
 
-public class Moss : Plant
+public class ShinigaMishk : Plant
 {
     public bool IsHeart { get; private set; }
 
     private State _state;
 
-    private List<Moss> _offspring;
+    private List<ShinigaMishk> _offspring;
     private List<Plot> _targetPlots;
 
     protected override bool CheckPropogation(Plot plot)
@@ -46,7 +46,7 @@ public class Moss : Plant
         {
             foreach (Plot plot in _targetPlots)
             {
-                var newMoss = plot.CurrentPlant as Moss;
+                var newMoss = plot.CurrentPlant as ShinigaMishk;
 
                 if (newMoss != null)
                 {
@@ -103,7 +103,7 @@ public class Moss : Plant
                 Actor.SmoothlyColorPlant(Color.black);
 
                 if (IsHeart)
-                    foreach (Moss offspring in _offspring)
+                    foreach (ShinigaMishk offspring in _offspring)
                         offspring.Wilt();
                 break;
             default:
@@ -117,7 +117,7 @@ public class Moss : Plant
         switch (GrowthStage)
         {
             case 1:
-                _offspring = new List<Moss>
+                _offspring = new List<ShinigaMishk>
                 {
                     this
                 };
@@ -130,7 +130,7 @@ public class Moss : Plant
 
     private void SelectTargetPlots()
     {
-        foreach (Moss offspring in _offspring)
+        foreach (ShinigaMishk offspring in _offspring)
         {
             var neighbors = offspring.Actor.MyPlot.Neighbors.Values.ToList();
 
@@ -144,7 +144,7 @@ public class Moss : Plant
                     {
                         _targetPlots.Add(neighbor); // grow to empty neighbors
                     }
-                    else if (!(neighbor.CurrentPlant is Moss)) // if anything other than moss is found, switch to killing
+                    else if (!(neighbor.CurrentPlant is ShinigaMishk)) // if anything other than moss is found, switch to killing
                     {
                         _state = State.Killing;
                         _targetPlots.Clear();
@@ -154,7 +154,7 @@ public class Moss : Plant
                 else // if not expanding
                 {
                     if (neighbor.CurrentPlantActor != null)
-                        if (!(neighbor.CurrentPlantActor.MyPlant is Moss)) // if anything other than moss, kill it too
+                        if (!(neighbor.CurrentPlantActor.MyPlant is ShinigaMishk)) // if anything other than moss, kill it too
                         {
                             _targetPlots.Add(neighbor);
                         }
