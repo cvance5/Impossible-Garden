@@ -54,6 +54,7 @@ public class PlotSelector : MonoBehaviour
 
     public void Deselect()
     {
+        ToggleCommit(false);
         gameObject.SetActive(false);
     }
 

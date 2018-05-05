@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class LocalPlayer : Player
 {
@@ -30,12 +31,18 @@ public class LocalPlayer : Player
         }
     }
 
-    public void SetHotseat()
+    public IEnumerator SetHotseat()
     {
+        yield return new WaitForEndOfFrame();
         TakeCamera();
     }
 
-    public void TakeCamera()
+    public void ReleaseHotseat()
+    {
+        Controller.CameraController = null;
+    }
+
+    private void TakeCamera()
     {
         Camera.main.transform.position = Controller.transform.position;
         Controller.CameraController = Camera.main.GetComponent<CameraController>();

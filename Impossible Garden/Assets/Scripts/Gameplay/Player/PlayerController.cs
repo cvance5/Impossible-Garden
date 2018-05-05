@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
             }
 #endif
 
+            CameraController.LookUpdate();
+            
             if (_turnProgress < TurnProgress.Committed)
             {
                 CheckForSeedSelection();
@@ -46,7 +48,14 @@ public class PlayerController : MonoBehaviour
                 else if (_turnProgress == TurnProgress.Committed) UncommitSelection();
             }
 
-            CameraController.LookUpdate();
+            if (Input.GetButtonDown("Move Next"))
+            {
+                PlayerManager.Instance.PassHotseat(Directions.Forward);
+            }
+            else if (Input.GetButtonDown("Move Previous"))
+            {
+                PlayerManager.Instance.PassHotseat(Directions.Backward);
+            }
         }
     }
 

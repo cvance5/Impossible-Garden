@@ -5,8 +5,28 @@ using UnityEngine;
 public class PlayerManager : Singleton<PlayerManager>
 {
     public List<Player> Players { get; private set; }
-    public Player[] LocalPlayers => Players.FindAll(player => player is LocalPlayer).ToArray();
+    private LocalPlayer[] _localPlayers = null;
+    public LocalPlayer[] LocalPlayers
+    {
+        get
+        {
+            if (_localPlayers == null)
+            {
+                var localPlayers = Players.FindAll(player => player is LocalPlayer);
+                _localPlayers = new LocalPlayer[localPlayers.Count];
+
+                for (int index = 0; index < localPlayers.Count; index++)
+                {
+                    _localPlayers[index] = localPlayers[index] as LocalPlayer;
+                }
+            }
+
+            return _localPlayers;
+        }
+    }
     public int PlayerCount => Players.Count;
+
+    private int _hotseatIndex;
 
     public override void Initialize()
     {
@@ -62,8 +82,31 @@ public class PlayerManager : Singleton<PlayerManager>
 
         if (activeControllers.Length > 0)
         {
-            (activeControllers[0] as LocalPlayer).SetHotseat();
+            _hotseatIndex = 0;
+            GiveHotseat(_localPlayers[_hotseatIndex]);
         }
+    }
+
+    public void PassHotseat(Directions direction)
+    {
+        if (direction == Directions.Forward)
+        {
+            GiveHotseat(_localPlayers.LoopedNext(ref _hotseatIndex));
+        }
+        else
+        {
+            GiveHotseat(_localPlayers.LoopedPrevious(ref _hotseatIndex));
+        }
+    }
+
+    private void GiveHotseat(LocalPlayer hotseatPlayer)
+    {
+        foreach (LocalPlayer player in _localPlayers)
+        {
+            player.ReleaseHotseat();
+        }
+
+        StartCoroutine(hotseatPlayer.SetHotseat());
     }
 
     public void OnPlayerCommit()
