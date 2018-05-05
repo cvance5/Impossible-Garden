@@ -4,12 +4,14 @@ using UnityEngine;
 public class ObjectiveManager : Singleton<ObjectiveManager>
 {
     public List<Objective> Objectives;
+    public List<Objective> ActiveObjectives { get; private set; }
 
-    private List<Objective> _assignedObjectives;
+    public T GetActiveObjective<T>() where T : Objective => ActiveObjectives.Find(obj => obj.GetType().IsAssignableFrom(typeof(T))) as T;
+    public bool IsUsingObjective<T>() where T : Objective => GetActiveObjective<T>() != null;
 
     public void PrepareObjectivesForPlayers(List<Player> players)
     {
-        _assignedObjectives = new List<Objective>();
+        ActiveObjectives = new List<Objective>();
         Objective[] availableObjectives = Objectives.ToArray();
 
         if (availableObjectives.Length < players.Count) throw new System.NotSupportedException("Not enough objectives, will loop infinitely.");
@@ -26,7 +28,7 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
             } while (objective == null);
 
             objective = Instantiate(objective);
-            _assignedObjectives.Add(objective);
+            ActiveObjectives.Add(objective);
             player.SetObjective(objective);
 
             availableObjectives[index] = null;
@@ -37,13 +39,18 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
     {
         List<PlantTypes> requiredPlants = new List<PlantTypes>();
 
-        foreach (Objective objective in _assignedObjectives)
+        foreach (Objective objective in ActiveObjectives)
         {
             if (objective is PlantObjective)
             {
                 var newRequiredPlants = (objective as PlantObjective).GetRequiredPlants();
                 foreach (PlantTypes newPlant in newRequiredPlants)
-                    requiredPlants.Add(newPlant);
+                {
+                    if (!requiredPlants.Contains(newPlant))
+                    {
+                        requiredPlants.Add(newPlant);
+                    }
+                }
             }
         }
 
@@ -66,7 +73,7 @@ public class ObjectiveManager : Singleton<ObjectiveManager>
     {
         bool hasWon = true;
 
-        foreach (Objective objective in _assignedObjectives)
+        foreach (Objective objective in ActiveObjectives)
         {
             objective.CompletionUpdate();
             if (!objective.IsComplete)

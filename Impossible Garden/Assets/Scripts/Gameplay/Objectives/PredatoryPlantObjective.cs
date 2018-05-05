@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WildGrowthObjective : PlantObjective
+public class PredatoryPlantObjective : PlantObjective
 {
     public Type PlantType;
-    public override string Criteria => $"Grow {_numberToWin} {PlantType}!";
+    public override string Criteria => $"Use {PlantType} to consume {_numberToWin} other plants.";
 
     [Header("Number Needed")]
     public int BaseNumber;
     public int PerPlayerModifier;
 
     private int _numberToWin;
+    private int _currentTally;
 
     public override PlantTypes[] GetRequiredPlants()
     {
@@ -27,7 +28,15 @@ public class WildGrowthObjective : PlantObjective
         PlantType = possiblePlantTypes[selectedIndex];
 
         _numberToWin = BaseNumber + (PerPlayerModifier * numberPlayers);
+
+        PredatoryTrait.OnKill += OnAnyKill;
     }
 
-    protected override bool Evaluate() => GardenManager.Instance.GardenState.GetNumberOfPlants(PlantType) >= _numberToWin;
+    private void OnAnyKill(Plant killer, Plant victim)
+    {
+        if (killer.GetType() == PlantType)
+            _currentTally++;
+    }
+
+    protected override bool Evaluate() => _currentTally >= _numberToWin;
 }
