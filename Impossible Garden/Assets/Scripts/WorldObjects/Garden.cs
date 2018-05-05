@@ -62,10 +62,10 @@ public class Garden : MonoBehaviour
                     if (!plotsToSearch.Contains(neighbor)) plotsToSearch.Add(neighbor);
 
             if (!nextPlot.CurrentPlantActor) continue;
-            else if (condition(nextPlot.CurrentPlantActor.MyPlant))
+            else if (condition(nextPlot.CurrentPlant))
             {
                 nearestDistance = Distance(source, nextPlot);
-                nearestPlant = nextPlot.CurrentPlantActor.MyPlant;
+                nearestPlant = nextPlot.CurrentPlant;
                 break;
             }
         }
@@ -87,6 +87,7 @@ public class Garden : MonoBehaviour
     {
         return GetPlot((int)column, (int)row);
     }
+
     public Plot GetPlot(int column, int row)
     {
         Plot selectedPlot = null;

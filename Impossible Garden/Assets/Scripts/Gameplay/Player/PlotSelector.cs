@@ -9,8 +9,6 @@ public class PlotSelector : MonoBehaviour
     private Material _material;
     private HSVColor _sourceColor;
 
-    private Transform _lookAtTarget;
-
     private Tween _emissionTween;
 
     public void Initialize(Color rbgColor)

@@ -8,6 +8,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
     public static SmartEvent<Plot> OnPlotClicked = new SmartEvent<Plot>();
 
     public PlantActor CurrentPlantActor { get; private set; }
+    public Plant CurrentPlant => CurrentPlantActor?.MyPlant;
 
     public Dictionary<Vector3, Plot> Neighbors;
 

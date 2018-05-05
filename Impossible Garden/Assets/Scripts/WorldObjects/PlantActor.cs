@@ -29,7 +29,7 @@ public class PlantActor : MonoBehaviour
 
         MyPlant.PreparePlantAppearance();
 
-        MyPlant.OnPlantDeath += OnPlantDied;        
+        MyPlant.OnPlantDeath += OnPlantDied;
     }
 
     public void GrowPlant()
@@ -141,13 +141,8 @@ public class PlantActor : MonoBehaviour
 
     private void OnPlantDied()
     {
-        Action onPlantRemoved = delegate
-        {
-            Destroy(this);
-        };
-
         GardenManager.Instance.RemovePlant(this);
-        _plantVisualizer.transform.DOScale(Vector3.zero, 1f).OnComplete(() => onPlantRemoved());
+        _plantVisualizer.transform.DOScale(Vector3.zero, 1f).OnComplete(() => Destroy(this));
     }
 
     private void OnDestroy()

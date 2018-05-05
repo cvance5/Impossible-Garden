@@ -24,4 +24,9 @@ public class CustomMenu
     {
         ScriptableObjectUtility.CreateAsset<WalkingPathObjective>();
     }
+    [MenuItem("Assets/Create/Objectives/Predatory Plant Objective")]
+    public static void CreatePredatoryPlantObjective()
+    {
+        ScriptableObjectUtility.CreateAsset<PredatoryPlantObjective>();
+    }
 }
