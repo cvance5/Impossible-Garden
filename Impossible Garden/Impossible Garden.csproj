@@ -262,13 +262,20 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>C:/Program Files (x86)/Unity/Unity 2017.4.1f1/Editor/Data/PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>C:/Program Files (x86)/Unity/Unity 2017.4.1f1/Editor/Data/PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Gameplay\DifficultySettings.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Objective.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Objectives\PlantObjective.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Objectives\PredatoryPlantObjective.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Objectives\WalkingPathObjective.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Objectives\WildGrowthObjective.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\PlantObjective.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Player\CameraController.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Player\PlotSelector.cs" />
@@ -297,6 +304,7 @@
     <Compile Include="Assets\Scripts\UI.UX\UIScreen.cs" />
     <Compile Include="Assets\Scripts\Utilities\Debug\FreeCamera.cs" />
     <Compile Include="Assets\Scripts\Utilities\Debug\Log.cs" />
+    <Compile Include="Assets\Scripts\Utilities\Directions.cs" />
     <Compile Include="Assets\Scripts\Utilities\EnumT.cs" />
     <Compile Include="Assets\Scripts\Utilities\EventCollector.cs" />
     <Compile Include="Assets\Scripts\Utilities\Extensions\ColorExtensions.cs" />
@@ -311,14 +319,17 @@
     <Compile Include="Assets\Scripts\Utilities\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utilities\SmartEvent.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Garden.cs" />
+    <Compile Include="Assets\Scripts\WorldObjects\GardenDataBlock.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\PlantActor.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\Fern.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\HeartstringClover.cs" />
-    <Compile Include="Assets\Scripts\WorldObjects\Plants\Moss.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\Plant.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\PlantColors.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\PlantTypes.cs" />
+    <Compile Include="Assets\Scripts\WorldObjects\Plants\PredatoryTrait.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plants\ShimmerGrass.cs" />
+    <Compile Include="Assets\Scripts\WorldObjects\Plants\ShinigaMishk.cs" />
+    <Compile Include="Assets\Scripts\WorldObjects\Plants\Trait.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Plot.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Seeds\Seed.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Seeds\SeedFactory.cs" />
