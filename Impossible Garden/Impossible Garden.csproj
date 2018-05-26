@@ -276,6 +276,7 @@
     <Compile Include="Assets\Scripts\Gameplay\Objectives\PredatoryPlantObjective.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Objectives\WalkingPathObjective.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Objectives\WildGrowthObjective.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Objectives\ZenBalanceObjective.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Player\CameraController.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Player\PlotSelector.cs" />

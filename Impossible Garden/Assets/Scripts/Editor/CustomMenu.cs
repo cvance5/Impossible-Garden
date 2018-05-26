@@ -29,4 +29,9 @@ public class CustomMenu
     {
         ScriptableObjectUtility.CreateAsset<PredatoryPlantObjective>();
     }
+    [MenuItem("Assets/Create/Objectives/Zen Balance Objective")]
+    public static void CreateZenBalanceObjective()
+    {
+        ScriptableObjectUtility.CreateAsset<ZenBalanceObjective>();
+    }
 }
