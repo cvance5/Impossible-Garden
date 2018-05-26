@@ -271,7 +271,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Gameplay\DifficultySettings.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\Objective.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Objectives\Objective.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Objectives\PlantObjective.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Objectives\PredatoryPlantObjective.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Objectives\WalkingPathObjective.cs" />
