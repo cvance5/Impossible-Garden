@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114211195732610204}
   - component: {fileID: 114856889210752442}
   - component: {fileID: 114036167676661938}
+  - component: {fileID: 222356417866034380}
   m_Layer: 5
   m_Name: UIRoot
   m_TagString: Untagged
@@ -239,6 +240,12 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!222 &222356417866034380
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1144067768768196}
 --- !u!222 &222811139452009216
 CanvasRenderer:
   m_ObjectHideFlags: 1

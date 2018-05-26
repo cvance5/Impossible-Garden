@@ -80,7 +80,10 @@ public class ShinigaMishk : Plant
                         if (_state == State.Killing)
                         {
                             foreach (var target in _targetPlots)
+                            {
+                                PredatoryTrait.OnKill.Raise(this, target.CurrentPlant);
                                 target.CurrentPlant?.Wilt();
+                            }
 
                             _state = State.Replacing;
                         }

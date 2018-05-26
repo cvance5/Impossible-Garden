@@ -85,6 +85,7 @@ public class HeartstringClover : Plant
         {
             if (_growthDirection.CurrentPlantActor != null)
             {
+                PredatoryTrait.OnKill.Raise(this, _growthDirection.CurrentPlant);
                 _growthDirection.CurrentPlant.Wilt();
                 _growthDirection = null;
             }
